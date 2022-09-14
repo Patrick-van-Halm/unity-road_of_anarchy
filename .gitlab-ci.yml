@@ -1,0 +1,24 @@
+variables:
+  UNITY_USERNAME: $UNITY_USERNAME
+  UNITY_PASSWORD: $UNITY_PASSWORD
+
+stages:
+  - test
+  
+test:
+  stage: test
+  only:
+    - main
+    - develop
+    - merge_requests
+  tags:
+    - cli
+  script:
+    - |
+      $process = Start-Process -NoNewWindow -PassThru -Wait -FilePath "C:\Program Files\Unity\Hub\Editor\2021.3.8f1\Editor\Unity.exe" -ArgumentList "-runTests", "-batchmode", "-projectPath .", "-logfile ./test/latest.log", "-testResults ./test/results.xml", "-testPlatform PlayMode", "-username $UNITY_USERNAME", "-password $UNITY_PASSWORD"
+      Exit $process.ExitCode
+  artifacts:
+    when: always
+    paths:
+      - ./test/latest.log
+      - ./test/results.xml
