@@ -1,1 +1,54 @@
-{}
+{
+    "name": "DefaultControls",
+    "maps": [
+        {
+            "name": "Driver",
+            "id": "76e9e64e-eb34-44ac-9c86-3394fd598545",
+            "actions": [
+                {
+                    "name": "Accelerating",
+                    "type": "Value",
+                    "id": "144a16de-7a4a-4144-8e67-52bc16abd4b9",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Decelerating",
+                    "type": "Value",
+                    "id": "3322b5a2-cbe1-408e-96a6-cdbdf681260b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3e1c87e9-3a71-4975-b11d-9db2f777b418",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accelerating",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2deaf475-dae3-4c8a-b1ca-e12bde448a72",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Decelerating",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
