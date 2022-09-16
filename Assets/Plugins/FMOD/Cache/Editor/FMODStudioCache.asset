@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5966814686137033090
+--- !u!114 &-2264126009919168791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.strings.bank
   m_EditorClassIdentifier: 
-  Path: C:/Users/Beheerder/OneDrive - Office 365 Fontys/Semester 7/Galaxo Games/CarSpeedSFX/Build/Desktop/Master.strings.bank
+  Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637988363681387398
+  lastModified: 637989346059905265
   FileSizes:
   - Name: Desktop
     Value: 792
@@ -33,18 +33,18 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -5966814686137033090}
-  - {fileID: 4060417370052620044}
+  - {fileID: -2264126009919168791}
+  - {fileID: 1861519111977468055}
   EditorEvents:
   - {fileID: 8121539669996519945}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 4060417370052620044}
+  - {fileID: 1861519111977468055}
   StringsBanks:
-  - {fileID: -5966814686137033090}
-  cacheTime: 637988363681387398
+  - {fileID: -2264126009919168791}
+  cacheTime: 637989346059905265
   cacheVersion: 131592
---- !u!114 &4060417370052620044
+--- !u!114 &1861519111977468055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,10 +56,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.bank
   m_EditorClassIdentifier: 
-  Path: C:/Users/Beheerder/OneDrive - Office 365 Fontys/Semester 7/Galaxo Games/CarSpeedSFX/Build/Desktop/Master.bank
+  Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637988363681347422
+  lastModified: 637989346059645034
   FileSizes:
   - Name: Desktop
     Value: 138656
@@ -107,7 +107,7 @@ MonoBehaviour:
     Data3: -1981339769
     Data4: 392012951
   Banks:
-  - {fileID: 4060417370052620044}
+  - {fileID: 1861519111977468055}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
