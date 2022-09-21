@@ -11,6 +11,7 @@ public class LobbyUI : MonoBehaviour
     public GameObject LobbyPlayerListContent;
     public GameObject LobbyPlayerListRowPrefab;
     public Button StartLobbyButton;
+    public Button LeaveLobbyButton;
     public Lobby Lobby;
 
     private void Start()
@@ -18,6 +19,7 @@ public class LobbyUI : MonoBehaviour
         // Listen to lobby events
         Lobby.OnPlayerJoined.AddListener(ReloadLobbyPlayerRows);
         Lobby.OnPlayerLeft.AddListener(ReloadLobbyPlayerRows);
+        Lobby.OnLobbyStarted.AddListener(MakeLeaveLobbyButtonNotInteractable);
 
         // Check if host if not hide the start button
         if (!Lobby.IsLobbyHost) StartLobbyButton.gameObject.SetActive(false);
@@ -61,5 +63,18 @@ public class LobbyUI : MonoBehaviour
 
         // Disable interaction so the player can't keep spamming it
         StartLobbyButton.interactable = false;
+    }
+
+    private void MakeLeaveLobbyButtonNotInteractable()
+    {
+        LeaveLobbyButton.interactable = false;
+    }
+
+    public void LeaveLobby()
+    {
+        // Check if lobby is already started
+        if (Lobby.IsLobbyStarted) return;
+
+        Lobby.Disconnect();
     }
 }
