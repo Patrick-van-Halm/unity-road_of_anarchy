@@ -8,52 +8,90 @@ using UnityEngine.TestTools;
 
 public class AccelerateTests
 {
-    private GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Car.prefab");
-    // A Test behaves as an ordinary method
-    [Test]
-    public void TestIfAccerlationIncreases()
+    private GameObject _prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Car.prefab");
+
+    private GameObject _gameObject;
+    private Car _car;
+    private CarInput _carInput;
+    private WheelCollider _wheel;
+
+    // Gets called before all tests get excecuted
+    [SetUp]
+    public void Setup()
     {
-        // Arrange
-        Car car = prefab.GetComponent<Car>();
-        CarInput carInput = prefab.GetComponent<CarInput>();
-
-        // Act
-        carInput.Accelerating = true;
-        car.Accelerate();
-
-        // Assert
-        Assert.IsTrue(car.Acceleration > 0);
+        _gameObject = Object.Instantiate(_prefab);
+        _car = _gameObject.GetComponent<Car>();
+        _carInput = _gameObject.GetComponent<CarInput>();
+        _wheel = _gameObject.GetComponentInChildren<WheelCollider>();
     }
 
-    [Test]
-    public void TestIfAccerlationDecreases()
+    // Gets called after all tests have been excecuted
+    [TearDown]
+    public void AfterTest()
     {
-        // Arrange
-        Car car = prefab.GetComponent<Car>();
-        CarInput carInput = prefab.GetComponent<CarInput>();
-
-        // Act
-        carInput.Accelerating = false;
-        car.Accelerate();
-
-        // Assert
-        Assert.IsTrue(car.Acceleration !> 0);
+        Object.Destroy(_gameObject);
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    //[UnityTest]
-    //public IEnumerator TestIfAccerlationIncreases()
-    //{
-    //    // Arrange
-    //    Car car = prefab.GetComponent<Car>();
-    //    CarInput carInput = prefab.GetComponent<CarInput>();
+    // Tests if the wheel on the car has a brakeTorque = 0 and motorTorque > 0 when accelerating
+    [Test]
+    public void TestIfCarAccelerates()
+    {
+        // Arrange
 
-    //    // Act
-    //    carInput.Accelerating = true;
-    //    car.Accelerate();
 
-    //    // Assert
-    //    Assert.IsTrue(car.Acceleration > 0);
-    //}
+        // Act
+        _carInput.Accelerating = true;
+        _car.Accelerate();
+
+        // Assert
+        Assert.AreEqual(_wheel.brakeTorque, 0f);
+        Assert.IsTrue(_wheel.motorTorque > 0);
+    }
+
+    // Tests if the wheel on the car has a motorTorque = 0 and brakeTorque > 0 when decelerating
+    [Test]
+    public void TestIfCarDecelerates()
+    {
+        // Arrange
+
+        // Act
+        _carInput.Accelerating = false;
+        _car.Decelerate();
+
+        // Assert
+        Assert.AreEqual(_wheel.motorTorque, 0f);
+        Assert.IsTrue(_wheel.brakeTorque > 0);
+    }
+
+    // Tests if the wheel on the car has a motorTorque = 0 and brakeTorque > 0 when braking
+    [Test]
+    public void TestIfCarBrakes()
+    {
+        // Arrange
+        _car.CurrentSpeed = 3f;
+
+        //Act
+        _carInput.Braking = true;
+        _car.Brake();
+
+        // Assert
+        Assert.AreEqual(_wheel.motorTorque, 0f);
+        Assert.IsTrue(_wheel.brakeTorque > 0);
+    }
+
+    // Tests if the wheel on the car has a motorTorque < 0 and brakeTorque = 0 when reversing
+    [Test]
+    public void TestIfCarReverses()
+    {
+        // Arrange
+        _car.CurrentSpeed = 1f;
+
+        //Act
+        _carInput.Braking = true;
+        _car.Brake();
+
+        // Assert
+        Assert.AreEqual(_wheel.brakeTorque, 0f);
+        Assert.IsTrue(_wheel.motorTorque < 0);
+    }
 }

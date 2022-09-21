@@ -15,10 +15,10 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Decelerating",
+                    "name": "Braking",
                     "type": "Value",
-                    "id": "3322b5a2-cbe1-408e-96a6-cdbdf681260b",
-                    "expectedControlType": "Button",
+                    "id": "6beb267b-c0a0-448a-b55d-8fd0cf621104",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -38,12 +38,12 @@
                 },
                 {
                     "name": "",
-                    "id": "2deaf475-dae3-4c8a-b1ca-e12bde448a72",
-                    "path": "<Keyboard>/w",
+                    "id": "a1b50322-6aa5-4f85-a800-a0d9830a2c88",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Decelerating",
+                    "action": "Braking",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

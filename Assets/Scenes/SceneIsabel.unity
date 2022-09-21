@@ -1153,16 +1153,6 @@ Transform:
   m_Father: {fileID: 257078616}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!146 &670372849 stripped
-WheelCollider:
-  m_CorrespondingSourceObject: {fileID: 2040123631759478482, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
-  m_PrefabInstance: {fileID: 2040123630782818497}
-  m_PrefabAsset: {fileID: 0}
---- !u!146 &673607981 stripped
-WheelCollider:
-  m_CorrespondingSourceObject: {fileID: 2040123630652146657, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
-  m_PrefabInstance: {fileID: 2040123630782818497}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &813342129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,11 +1638,6 @@ Transform:
   m_Father: {fileID: 257078616}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!146 &1208543078 stripped
-WheelCollider:
-  m_CorrespondingSourceObject: {fileID: 2040123632276461509, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
-  m_PrefabInstance: {fileID: 2040123630782818497}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1228325976
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,11 +2702,6 @@ Transform:
   m_Father: {fileID: 257078616}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!146 &1766025793 stripped
-WheelCollider:
-  m_CorrespondingSourceObject: {fileID: 2040123630798329144, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
-  m_PrefabInstance: {fileID: 2040123630782818497}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1942760152
 GameObject:
   m_ObjectHideFlags: 0
@@ -3165,25 +3145,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2040123631504675453, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
-      propertyPath: _wheelColliders.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2040123631504675453, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
-      propertyPath: _wheelColliders.Array.data[0]
-      value: 
-      objectReference: {fileID: 670372849}
-    - target: {fileID: 2040123631504675453, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
-      propertyPath: _wheelColliders.Array.data[1]
-      value: 
-      objectReference: {fileID: 1766025793}
-    - target: {fileID: 2040123631504675453, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
-      propertyPath: _wheelColliders.Array.data[2]
-      value: 
-      objectReference: {fileID: 673607981}
-    - target: {fileID: 2040123631504675453, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
-      propertyPath: _wheelColliders.Array.data[3]
-      value: 
-      objectReference: {fileID: 1208543078}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
