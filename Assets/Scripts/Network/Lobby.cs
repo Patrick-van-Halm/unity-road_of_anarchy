@@ -26,6 +26,9 @@ public class Lobby : NetworkBehaviour
 
     public UnityEvent OnPlayerJoined = new UnityEvent();
     public UnityEvent OnPlayerLeft = new UnityEvent();
+    public UnityEvent OnLobbyStarted = new UnityEvent();
+
+    [SyncVar(hook = nameof(OnIsLobbyStartedChanged))] public bool IsLobbyStarted;
 
     private void Awake()
     {
@@ -76,9 +79,16 @@ public class Lobby : NetworkBehaviour
         // Stop the passive countdown and reset it to null
         StopCoroutine(_passiveLobbyStartCountdown);
         _passiveLobbyStartCountdown = null;
-        
+
+        IsLobbyStarted = true;
+
         // Return true cause lobby is started
         return true;
+    }
+
+    private void OnIsLobbyStartedChanged(bool oldValue, bool newValue)
+    {
+        OnLobbyStarted?.Invoke();
     }
 
     private IEnumerator CoroStartLobby()
@@ -166,5 +176,11 @@ public class Lobby : NetworkBehaviour
         // Wait for the specified amount of time and then start the lobby
         yield return new WaitForSeconds(_passiveCountdownSeconds);
         StartLobby(true);
+    }
+
+    public void Disconnect()
+    {
+        if (isServer) GameNetworkManager.Instance.StopHost();
+        else GameNetworkManager.Instance.StopClient();
     }
 }
