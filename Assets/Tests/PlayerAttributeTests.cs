@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Reflection;
 using UnityEngine.TestTools;
 
 public class PlayerAttributeTests
@@ -23,7 +24,12 @@ public class PlayerAttributeTests
         float expectedHealth = 90f;
 
         PlayerAttributeComponent attributeComponent = GameObject.GetComponent<PlayerAttributeComponent>();
-        attributeComponent.ApplyDamage(damage);
+
+        // Write to current health which is a syncvar and is only able to be written to as server
+        attributeComponent.CurrentHealth = 100;
+
+        // Simulate server methods
+        attributeComponent.GetType().GetMethod("ApplyDamage", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(attributeComponent, new object[] { damage });
 
         Assert.AreEqual(expectedHealth, attributeComponent.CurrentHealth);
     }
@@ -35,7 +41,12 @@ public class PlayerAttributeTests
         float expectedHealth = 0f;
         
         PlayerAttributeComponent attributeComponent = GameObject.GetComponent<PlayerAttributeComponent>();
-        attributeComponent.ApplyDamage(damage);
+
+        // Write to current health which is a syncvar and is only able to be written to as server
+        attributeComponent.CurrentHealth = 100;
+
+        // Simulate server methods
+        attributeComponent.GetType().GetMethod("ApplyDamage", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(attributeComponent, new object[] { damage });
 
         Assert.AreEqual(expectedHealth, attributeComponent.CurrentHealth);
     }
@@ -48,9 +59,14 @@ public class PlayerAttributeTests
         float invokedValue = 0f;
 
         PlayerAttributeComponent attributeComponent = GameObject.GetComponent<PlayerAttributeComponent>();
+        // Write to current health which is a syncvar and is only able to be written to as server
+        attributeComponent.CurrentHealth = 100;
         attributeComponent.OnHealthChanged = new UnityEvent<float>();
         attributeComponent.OnHealthChanged.AddListener((float currentHealth) => invokedValue = currentHealth);
-        attributeComponent.ApplyDamage(damage);
+
+        // Simulate server methods
+        attributeComponent.GetType().GetMethod("ApplyDamage", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(attributeComponent, new object[] { damage });
+        attributeComponent.GetType().GetMethod("OnCurrentHealthChanged", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(attributeComponent, new object[] { 100, 90 });
 
         Assert.AreEqual(expectedHealth, attributeComponent.CurrentHealth);
     }

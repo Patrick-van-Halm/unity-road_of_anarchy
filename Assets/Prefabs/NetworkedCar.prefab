@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4239432712579632005}
   - component: {fileID: 4239432712579632004}
   - component: {fileID: 4145706721423884571}
+  - component: {fileID: 3020979612073954319}
+  - component: {fileID: 7470999814309971889}
   m_Layer: 0
   m_Name: NetworkedCar
   m_TagString: Untagged
@@ -110,6 +112,49 @@ MonoBehaviour:
   - {fileID: 2781681085053936070}
   - {fileID: 2781681084478366544}
   - {fileID: 2781681084478366545}
+--- !u!114 &3020979612073954319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4239432712579632001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d25905d06d6f1c4eb236a9e64e32ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  CurrentHealth: 0
+  MaxHealth: 100
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayerHUDComponent, Scripts
+        m_MethodName: OnHealthChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7470999814309971889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4239432712579632001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb17ee691ce8a442b49e973ecca47a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4239432712126394668
 PrefabInstance:
   m_ObjectHideFlags: 0

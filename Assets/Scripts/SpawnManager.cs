@@ -9,6 +9,7 @@ public class SpawnManager : NetworkBehaviour
     [SerializeField] private GameObject _carObject;
     [SerializeField] private GameObject _gunObject;
     [SerializeField] private List<Transform> _spawns = new List<Transform>();
+    [SerializeField] private PlayerHUDComponent _hudComponent;
     private GameObject _lastCarObject;
     private GameObject _lastGunObject;
 
@@ -48,5 +49,12 @@ public class SpawnManager : NetworkBehaviour
             _lastGunObject = newPlayerObj;
         }
         Destroy(currentPlayerObj, .1f);
+        RpcLinkToCar(conn, _lastCarObject);
+    }
+
+    [TargetRpc]
+    private void RpcLinkToCar(NetworkConnection conn, GameObject car)
+    {
+        car.GetComponent<PlayerAttributeComponent>().OnHealthChanged.AddListener(_hudComponent.OnHealthChanged);
     }
 }
