@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooting : MonoBehaviour
+public class Shooting : NetworkBehaviour
 {
     public Transform weaponEndPointPosition;
     public Transform weapon;
@@ -18,19 +19,20 @@ public class Shooting : MonoBehaviour
     [Header("Bullet Settings")]
     public int bulletSpeed;
 
-    private Vector3 bulletDirection; 
+    [SyncVar] private Vector3 bulletDirection; 
     private RaycastHit hit;
     private bool hasHit;
 
 
     void Update()
     {
-        RotateWeapon();
+        if (!isLocalPlayer) return;
 
         // When firing weapon
         if (Input.GetMouseButtonDown(0))
         {
-            InstantiateBullet();
+            CheckHit();
+            CmdInstatiateBullet();
             PlayAudio();
 
             // Hit enemy vehicle
@@ -41,7 +43,7 @@ public class Shooting : MonoBehaviour
         }
     }
 
-    private void RotateWeapon()
+    private void CheckHit()
     {
         // Raycast in the middle of the camera
         Ray ray = gunnerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -72,9 +74,25 @@ public class Shooting : MonoBehaviour
 
         // Calculate the direction in which the weapon needs to fire
         bulletDirection = targetPoint - weaponEndPointPosition.transform.position;
+        CmdSetBulletDirection(bulletDirection);
+    }
 
-        // Rotate weapon to shoot direction
-        weapon.transform.forward = bulletDirection.normalized;
+    [Command(requiresAuthority = true)]
+    private void CmdSetBulletDirection(Vector3 bulletDirection)
+    {
+        this.bulletDirection = bulletDirection;
+    }
+
+    [Command(requiresAuthority = true)]
+    private void CmdInstatiateBullet()
+    {
+        RpcInstantiateBullet();
+    }
+
+    [ClientRpc]
+    private void RpcInstantiateBullet()
+    {
+        InstantiateBullet();
     }
 
     private void InstantiateBullet()
