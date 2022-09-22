@@ -408,7 +408,7 @@ MonoBehaviour:
   OnLobbyListingRefreshed:
     m_PersistentCalls:
       m_Calls: []
-  _discoveryServerAddress: localhost:3000
+  _discoveryServerAddress: 84.26.114.127:5555
   _lobbies: []
 --- !u!4 &687124907
 Transform:

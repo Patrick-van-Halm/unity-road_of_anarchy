@@ -29,7 +29,7 @@ public class GameNetworkManager : NetworkManager
     public bool AcceptNewConnections;
 
     [HideInInspector] public LobbyDetails CurrentLobbyDetails;
-    public string DiscoveryServerAddress => "localhost:3000";
+    public string DiscoveryServerAddress => "84.26.114.127:5555";
 
 
     public static GameNetworkManager Instance { get; private set; }
