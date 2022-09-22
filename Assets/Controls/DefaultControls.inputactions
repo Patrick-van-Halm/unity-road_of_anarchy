@@ -1,0 +1,54 @@
+{
+    "name": "DefaultControls",
+    "maps": [
+        {
+            "name": "Driver",
+            "id": "76e9e64e-eb34-44ac-9c86-3394fd598545",
+            "actions": [
+                {
+                    "name": "Accelerating",
+                    "type": "Value",
+                    "id": "144a16de-7a4a-4144-8e67-52bc16abd4b9",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Braking",
+                    "type": "Value",
+                    "id": "6beb267b-c0a0-448a-b55d-8fd0cf621104",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3e1c87e9-3a71-4975-b11d-9db2f777b418",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accelerating",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1b50322-6aa5-4f85-a800-a0d9830a2c88",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Braking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
