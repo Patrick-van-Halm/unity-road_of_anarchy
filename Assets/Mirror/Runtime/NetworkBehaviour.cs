@@ -30,25 +30,25 @@ namespace Mirror
         /// <summary>True if this object is on the server and has been spawned.</summary>
         // This is different from NetworkServer.active, which is true if the
         // server itself is active rather than this object being active.
-        public bool isServer => netIdentity.isServer;
+        public bool isServer => netIdentity ? netIdentity.isServer : false;
 
         /// <summary>True if this object is on the client and has been spawned by the server.</summary>
-        public bool isClient => netIdentity.isClient;
+        public bool isClient => netIdentity ? netIdentity.isClient : false;
 
         /// <summary>True if this object is the the client's own local player.</summary>
-        public bool isLocalPlayer => netIdentity.isLocalPlayer;
+        public bool isLocalPlayer => netIdentity ? netIdentity.isLocalPlayer : false;
 
         /// <summary>True if this object is on the server-only, not host.</summary>
-        public bool isServerOnly => netIdentity.isServerOnly;
+        public bool isServerOnly => netIdentity ? netIdentity.isServerOnly : false;
 
         /// <summary>True if this object is on the client-only, not host.</summary>
-        public bool isClientOnly => netIdentity.isClientOnly;
+        public bool isClientOnly => netIdentity ? netIdentity.isClientOnly : false;
 
         /// <summary>True on client if that component has been assigned to the client. E.g. player, pets, henchmen.</summary>
-        public bool hasAuthority => netIdentity.hasAuthority;
+        public bool hasAuthority => netIdentity ? netIdentity.hasAuthority : false;
 
         /// <summary>The unique network Id of this object (unique at runtime).</summary>
-        public uint netId => netIdentity.netId;
+        public uint netId => netIdentity ? netIdentity.netId : 0;
 
         /// <summary>Client's network connection to the server. This is only valid for player objects on the client.</summary>
         // TODO change to NetworkConnectionToServer, but might cause some breaking
