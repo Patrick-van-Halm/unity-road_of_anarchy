@@ -20,7 +20,7 @@ public class SoundFX : MonoBehaviour
         if (!_isBraking)
         {
             _isBraking = true;
-            instance.setParameterByName("IsBraking", 0);
+            instance.setParameterByName("IsBraking", 1);
 
             instance.start();
         }

@@ -5,14 +5,18 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
     private float _currentSpeed = 0f;
+    private float _speedMod = 1000f;
+    private float _maxSpeed = 50f;
     private float _acceleration = 300f;
     private float _deceleration = 30f;
     private float _braking = 300f;
     private float _reverse = 50f;
 
-    public float CurrentSpeed { get { return _currentSpeed; } set { _currentSpeed = value; } }
+    private float _highSpeedSteerHandle = 100f;
+    public float HighSpeedSteerHandle { get { return _highSpeedSteerHandle; } }
+    private float _lowSpeedSteerHandle = 35f;
 
-    private float _speedMod = 1000f;
+    public float CurrentSpeed { get { return _currentSpeed; } set { _currentSpeed = value; } }
 
     [SerializeField] private ParameterSetter ParameterSetter;
     [SerializeField] private SoundFX SoundFX;
@@ -20,16 +24,24 @@ public class Car : MonoBehaviour
     [SerializeField] private Rigidbody _car;
 
     [Header("Wheels")]
-    [SerializeField] private List<WheelCollider> _wheelColliders;
+    [SerializeField] private List<WheelCollider> _allWheels;
+    [SerializeField] private List<WheelCollider> _steerableWheels;
+    [SerializeField] public List<WheelCollider> SteerableWheels { get { return _steerableWheels; } }
+
+    private void Start()
+    {
+        _car.centerOfMass = new Vector3(0, -1f, 0);
+    }
 
     private void Update()
     {
         Accelerate();
         Decelerate();
         Brake();
+        Steer();
 
         // Calculating speed of car
-        var forwardSpeed = _car.velocity.z;
+        var forwardSpeed = _car.velocity.magnitude;
         _currentSpeed = forwardSpeed * 3.6f;
 
         // Apply speed soundFX
@@ -38,6 +50,7 @@ public class Car : MonoBehaviour
         // Stop brake sound
         if (_currentSpeed < 5f) SoundFX.StopBrakeSfx();
     }
+
 
     /// <summary>
     /// Accelerates car. Checks if car isn't already braking and applies acceleration to car. 
@@ -50,9 +63,9 @@ public class Car : MonoBehaviour
             SoundFX.StopBrakeSfx();
 
             // Applying acceleration to all wheels
-            foreach (WheelCollider wheel in _wheelColliders)
+            foreach (WheelCollider wheel in _allWheels)
             {
-                wheel.motorTorque = (_acceleration - _currentSpeed * 4f) * _speedMod * Time.deltaTime;
+                wheel.motorTorque = (_acceleration - _currentSpeed * 8f) * _speedMod * Time.deltaTime;
                 wheel.brakeTorque = 0f;
             }
         }
@@ -68,7 +81,7 @@ public class Car : MonoBehaviour
             SoundFX.StopBrakeSfx();
 
             // Applying deceleration to all wheels
-            foreach (WheelCollider wheel in _wheelColliders)
+            foreach (WheelCollider wheel in _allWheels)
             {
                 wheel.brakeTorque = _deceleration * _speedMod * Time.deltaTime;
                 wheel.motorTorque = 0f;
@@ -87,7 +100,7 @@ public class Car : MonoBehaviour
             if (_currentSpeed > 10f) SoundFX.PlayBrakeSfx();
 
             // Applying braking to all wheels
-            foreach (WheelCollider wheel in _wheelColliders)
+            foreach (WheelCollider wheel in _allWheels)
             {
                 if (_currentSpeed <= 2f)
                 {
@@ -102,4 +115,14 @@ public class Car : MonoBehaviour
             }
         }
     }
+
+    public void Steer()
+    {
+        foreach (WheelCollider wheel in _steerableWheels)
+        {
+            float steeringAngle = _input.SteerInput * _highSpeedSteerHandle;
+            wheel.steerAngle = steeringAngle;
+        }
+    }
+
 }
