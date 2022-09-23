@@ -30,6 +30,7 @@ public class GameNetworkManager : NetworkManager
 
     [HideInInspector] public LobbyDetails CurrentLobbyDetails;
     public string DiscoveryServerAddress => "http://84.26.114.127:5555";
+    public string OverwriteIP = "";
 
 
     public static GameNetworkManager Instance { get; private set; }
@@ -125,7 +126,7 @@ public class GameNetworkManager : NetworkManager
     {
         if (UseLan)
         {
-            RegisterLobby(new LobbyDetails() { Ip = GetLocalIPAddress(), Port = Port });
+            RegisterLobby(new LobbyDetails() { Ip = OverwriteIP == "" ? GetLocalIPAddress() : OverwriteIP, Port = Port });
             return;
         }
 

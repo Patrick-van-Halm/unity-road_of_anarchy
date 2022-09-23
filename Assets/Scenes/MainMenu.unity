@@ -528,6 +528,7 @@ MonoBehaviour:
   CurrentLobbyDetails:
     Ip: 
     Port: 0
+  OverwriteIP: 192.168.137.1
 --- !u!4 &1480906298
 Transform:
   m_ObjectHideFlags: 0
