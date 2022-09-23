@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.01.00">
+<objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{899f732e-517d-4299-8727-e78997a45d17}">
 		<property name="note">
 			<value>Placeholder created via Unity</value>
@@ -82,9 +82,9 @@
 			<destination>{57aa79ec-5a55-452b-8900-e5f569ae6c93}</destination>
 		</relationship>
 		<relationship name="modules">
-			<destination>{c7206377-1dbb-4924-bec0-3af075838825}</destination>
 			<destination>{e2bd1c53-4499-447a-946f-86fb1d218039}</destination>
 			<destination>{7c1ac06f-d9d4-4e8a-b215-a8d5e8b0a767}</destination>
+			<destination>{c7206377-1dbb-4924-bec0-3af075838825}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{496c877b-c285-4263-ba51-78c142855ba3}</destination>
@@ -92,10 +92,10 @@
 	</object>
 	<object class="Timeline" id="{aec919f4-9163-4c40-9e4e-7ef36ca56ac9}">
 		<relationship name="modules">
-			<destination>{91953e4b-80b2-4b47-b4b4-3ed88f98ade6}</destination>
-			<destination>{c7206377-1dbb-4924-bec0-3af075838825}</destination>
 			<destination>{e2bd1c53-4499-447a-946f-86fb1d218039}</destination>
+			<destination>{91953e4b-80b2-4b47-b4b4-3ed88f98ade6}</destination>
 			<destination>{7c1ac06f-d9d4-4e8a-b215-a8d5e8b0a767}</destination>
+			<destination>{c7206377-1dbb-4924-bec0-3af075838825}</destination>
 		</relationship>
 		<relationship name="markers">
 			<destination>{cc6c4530-7b7a-4ae9-96cc-317c72c15747}</destination>
@@ -158,14 +158,6 @@
 			<destination>{c73c60b5-b2e2-486e-ad69-9b4edae508d9}</destination>
 		</relationship>
 	</object>
-	<object class="SingleSound" id="{c7206377-1dbb-4924-bec0-3af075838825}">
-		<property name="length">
-			<value>2.7515646258503401</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{e24fd1ab-4b48-4419-87af-3dccb614456f}</destination>
-		</relationship>
-	</object>
 	<object class="SingleSound" id="{e2bd1c53-4499-447a-946f-86fb1d218039}">
 		<property name="start">
 			<value>2.7515646258503401</value>
@@ -181,6 +173,14 @@
 		<property name="start">
 			<value>5.5031292517006802</value>
 		</property>
+		<property name="length">
+			<value>2.7515646258503401</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{e24fd1ab-4b48-4419-87af-3dccb614456f}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{c7206377-1dbb-4924-bec0-3af075838825}">
 		<property name="length">
 			<value>2.7515646258503401</value>
 		</property>
