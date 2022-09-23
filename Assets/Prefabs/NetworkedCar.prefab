@@ -155,6 +155,156 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb17ee691ce8a442b49e973ecca47a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6462831716607350679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7423380886543316467}
+  - component: {fileID: 4288156005323854114}
+  - component: {fileID: 13208310023239736}
+  m_Layer: 0
+  m_Name: CrashSFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7423380886543316467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462831716607350679}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -48, y: 46.9, z: 2.0833335}
+  m_LocalScale: {x: 1, y: 1, z: 0.33333334}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2781681084478366550}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4288156005323854114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462831716607350679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1383424593
+      Data2: 1232056185
+      Data3: -892513353
+      Data4: 1483071307
+    Path: event:/CrashSfx
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &13208310023239736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462831716607350679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874013b3c1c82484580615ce6e0aec29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8975760598664237124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1110949132024504052}
+  - component: {fileID: 523071340409713728}
+  - component: {fileID: 391458687672352061}
+  m_Layer: 0
+  m_Name: FallingSFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1110949132024504052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975760598664237124}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -48, y: 46.9, z: 2.0833335}
+  m_LocalScale: {x: 1, y: 1, z: 0.33333334}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2781681084478366550}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &523071340409713728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975760598664237124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 875317023
+      Data2: 1128810283
+      Data3: 1883814591
+      Data4: 2049884565
+    Path: event:/FallingSfx
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &391458687672352061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975760598664237124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c566b498ad97f5b4dabd9f3f5084a13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4239432712126394668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -273,7 +423,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2040123631504675452, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
   m_PrefabInstance: {fileID: 4239432712126394668}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2781681084478366554}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
@@ -284,10 +434,21 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2040123631504675453, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
   m_PrefabInstance: {fileID: 4239432712126394668}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2781681084478366554}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1a1762e22da5e049bfd91a44ff7631f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2781681084478366546 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2040123631504675454, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
+  m_PrefabInstance: {fileID: 4239432712126394668}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2781681084478366554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd03dbc25d716d459f3cbd8bfd41869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2781681084478366550 stripped
@@ -295,6 +456,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2040123631504675450, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
   m_PrefabInstance: {fileID: 4239432712126394668}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2781681084478366554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2040123631504675446, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
+  m_PrefabInstance: {fileID: 4239432712126394668}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4046183942202723261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2781681084478366554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12fc2bf5b84df74fbaa41cafaa0bb74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerRB: {fileID: 4239432712579632002}
+  _playerInput: {fileID: 2781681084478366546}
+  _environmentLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _tiltMultiplier: 30
+  _carCrashSfx: {fileID: 13208310023239736}
+  _carFallingSfx: {fileID: 391458687672352061}
 --- !u!146 &2781681085048760041 stripped
 WheelCollider:
   m_CorrespondingSourceObject: {fileID: 2040123632276461509, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
