@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class AccelerateTests
+public class CarTests
 {
     private GameObject _prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Car.prefab");
 
@@ -37,10 +37,9 @@ public class AccelerateTests
     public void TestIfCarAccelerates()
     {
         // Arrange
-
+        _carInput.Accelerating = true;
 
         // Act
-        _carInput.Accelerating = true;
         _car.Accelerate();
 
         // Assert
@@ -53,9 +52,9 @@ public class AccelerateTests
     public void TestIfCarDecelerates()
     {
         // Arrange
+        _carInput.Accelerating = false;
 
         // Act
-        _carInput.Accelerating = false;
         _car.Decelerate();
 
         // Assert
@@ -69,9 +68,9 @@ public class AccelerateTests
     {
         // Arrange
         _car.CurrentSpeed = 3f;
+        _carInput.Braking = true;
 
         //Act
-        _carInput.Braking = true;
         _car.Brake();
 
         // Assert
@@ -85,13 +84,28 @@ public class AccelerateTests
     {
         // Arrange
         _car.CurrentSpeed = 1f;
+        _carInput.Braking = true;
 
         //Act
-        _carInput.Braking = true;
         _car.Brake();
 
         // Assert
         Assert.AreEqual(_wheel.brakeTorque, 0f);
         Assert.IsTrue(_wheel.motorTorque < 0);
+    }
+
+    [Test]
+    public void TestIfCarCanSteer()
+    {
+        // Arrange
+        _carInput.SteerInput = 1;
+
+        //Act
+        float steeringAngle = _carInput.SteerInput * _car.HighSpeedSteerHandle;
+        _car.Steer();
+
+        // Assert
+        Assert.IsTrue(Mathf.Abs(steeringAngle - _wheel.steerAngle) < 0.00001);
+        Assert.IsTrue(steeringAngle > 0);
     }
 }
