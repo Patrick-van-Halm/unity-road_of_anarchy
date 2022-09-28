@@ -27,8 +27,10 @@ public class Lobby : NetworkBehaviour
     public UnityEvent OnPlayerJoined = new UnityEvent();
     public UnityEvent OnPlayerLeft = new UnityEvent();
     public UnityEvent OnLobbyStarted = new UnityEvent();
+    public UnityEvent<int> OnCountdownValueChanged = new UnityEvent<int>();
 
     [SyncVar(hook = nameof(OnIsLobbyStartedChanged))] public bool IsLobbyStarted;
+    [SyncVar(hook = nameof(OnLobbyCountdownSecondsChanged))] public int lobbyCountdownSeconds;
 
     private void Awake()
     {
@@ -91,10 +93,22 @@ public class Lobby : NetworkBehaviour
         OnLobbyStarted?.Invoke();
     }
 
+    private void OnLobbyCountdownSecondsChanged(int oldValue, int newValue)
+    {
+        OnCountdownValueChanged?.Invoke(newValue);
+    }
+
     private IEnumerator CoroStartLobby()
     {
-        // Wait for countdown
-        yield return new WaitForSeconds(_lobbyStartCountdownSeconds);
+        int timePassed = 0;
+        lobbyCountdownSeconds = _lobbyStartCountdownSeconds;
+        while (timePassed < _lobbyStartCountdownSeconds)
+        {
+            // Wait for the countdown
+            yield return new WaitForSeconds(1);
+            timePassed++;
+            lobbyCountdownSeconds--;
+        }
 
         // Change scene to random Game scene
         GameNetworkManager.Instance?.ServerChangeScene(GameScenes.Random());
@@ -173,8 +187,15 @@ public class Lobby : NetworkBehaviour
 
     private IEnumerator CoroPassiveLobbyStartCountdown()
     {
-        // Wait for the specified amount of time and then start the lobby
-        yield return new WaitForSeconds(_passiveCountdownSeconds);
+        int timePassed = 0;
+        lobbyCountdownSeconds = _passiveCountdownSeconds;
+        while (timePassed < _passiveCountdownSeconds)
+        {
+            // Wait for the specified amount of time and then start the lobby
+            yield return new WaitForSeconds(1);
+            timePassed++;
+            lobbyCountdownSeconds--;
+        }
         StartLobby(true);
     }
 

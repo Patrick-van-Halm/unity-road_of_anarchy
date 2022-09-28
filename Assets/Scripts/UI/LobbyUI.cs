@@ -5,14 +5,27 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using FMOD.Studio;
+using FMODUnity;
 
 public class LobbyUI : MonoBehaviour
 {
     public GameObject LobbyPlayerListContent;
     public GameObject LobbyPlayerListRowPrefab;
     public Button StartLobbyButton;
+    public TMP_Text CountdownTextElement;
     public Button LeaveLobbyButton;
     public Lobby Lobby;
+
+    private EventInstance _countdownAudioEvent;
+    private EventInstance _readyAudioEvent;
+
+    private void Awake()
+    {
+        _countdownAudioEvent = RuntimeManager.CreateInstance("event:/CountdownSfx");
+        _readyAudioEvent = RuntimeManager.CreateInstance("event:/ReadySfx");
+    }
 
     private void Start()
     {
@@ -20,9 +33,30 @@ public class LobbyUI : MonoBehaviour
         Lobby.OnPlayerJoined.AddListener(ReloadLobbyPlayerRows);
         Lobby.OnPlayerLeft.AddListener(ReloadLobbyPlayerRows);
         Lobby.OnLobbyStarted.AddListener(MakeLeaveLobbyButtonNotInteractable);
+        Lobby.OnCountdownValueChanged.AddListener(UpdateCountdownText);
+        Lobby.OnCountdownValueChanged.AddListener(UpdateCountdownAudioEventParameter);
 
         // Check if host if not hide the start button
         if (!Lobby.IsLobbyHost) StartLobbyButton.gameObject.SetActive(false);
+
+        // Start countdown audio event
+        _countdownAudioEvent.start();
+    }
+
+    private void UpdateCountdownAudioEventParameter(int value)
+    {
+        _countdownAudioEvent.setParameterByName("secondsLeft", value);
+    }
+
+    private void UpdateCountdownText(int value)
+    {
+        CountdownTextElement.color = Color.black;
+        if (!Lobby.IsLobbyStarted)
+        {
+            if (value <= 5) CountdownTextElement.color = Color.red;
+            CountdownTextElement.text = $"Starting in: {value}";
+        }
+        else CountdownTextElement.text = $"GET READY!";
     }
 
     private void ReloadLobbyPlayerRows()
@@ -39,8 +73,15 @@ public class LobbyUI : MonoBehaviour
             GameObject row = Instantiate(LobbyPlayerListRowPrefab, LobbyPlayerListContent.transform);
             LobbyPlayerRowUI listingData = row.GetComponent<LobbyPlayerRowUI>();
             listingData.player = player;
+
             player.OnReadyStateChanged.AddListener(ReadyStateChanged);
+            player.OnReadyStateChanged.AddListener(PlayReadySoundWhenReady);
         }
+    }
+
+    private void PlayReadySoundWhenReady(bool isReady)
+    {
+        if(isReady) _readyAudioEvent.start();
     }
 
     private void ReadyStateChanged(bool _)
