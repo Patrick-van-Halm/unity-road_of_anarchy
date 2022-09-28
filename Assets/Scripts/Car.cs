@@ -45,7 +45,7 @@ public class Car : MonoBehaviour
         _currentSpeed = forwardSpeed * 3.6f;
 
         // Apply speed soundFX
-        ParameterSetter._speed = _currentSpeed * 2.5f;
+        ParameterSetter.SetSpeed(_currentSpeed * 2.5f);
 
         // Stop brake sound
         if (_currentSpeed < 5f) SoundFX.StopBrakeSfx();

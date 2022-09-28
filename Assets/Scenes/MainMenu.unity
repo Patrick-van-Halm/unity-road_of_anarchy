@@ -501,6 +501,7 @@ MonoBehaviour:
   - {fileID: 4373659787179813014, guid: 86d9fc2f665b032438d64d070f346588, type: 3}
   - {fileID: 4239432712579632001, guid: 8e8a0057a2da93448b103d3e683ed220, type: 3}
   - {fileID: 4066668061684268395, guid: af0a89e3487a50e4d84e341ef5a165dc, type: 3}
+  - {fileID: 7764002591859567613, guid: ff7401e803d15d347910ae923faf2191, type: 3}
   FallbackScene: Assets/Scenes/MainMenu.unity
   OnClientConnectedToServer:
     m_PersistentCalls:
@@ -528,7 +529,7 @@ MonoBehaviour:
   CurrentLobbyDetails:
     Ip: 
     Port: 0
-  OverwriteIP: 192.168.137.1
+  OverwriteIP: 
 --- !u!4 &1480906298
 Transform:
   m_ObjectHideFlags: 0
