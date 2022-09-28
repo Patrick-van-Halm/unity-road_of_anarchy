@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 4145706721423884571}
   - component: {fileID: 3020979612073954319}
   - component: {fileID: 7470999814309971889}
+  - component: {fileID: -6426339661898084184}
   m_Layer: 0
-  m_Name: NetworkedCar
+  m_Name: NetworkedCarOld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,6 +156,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb17ee691ce8a442b49e973ecca47a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6426339661898084184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4239432712579632001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a10da5e761003740ace876a33331d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  _vehicleAudio: {fileID: 2781681084965213749}
+  _speed: 0
 --- !u!1 &6462831716607350679
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +409,18 @@ PrefabInstance:
       propertyPath: _wheelColliders.Array.data[3]
       value: 
       objectReference: {fileID: 2781681083038278676}
+    - target: {fileID: 2040123632091440921, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
+      propertyPath: _eEngine
+      value: 
+      objectReference: {fileID: 2781681084965213754}
+    - target: {fileID: 2040123632091440921, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
+      propertyPath: _eBraking
+      value: 
+      objectReference: {fileID: 7853144989050183596}
+    - target: {fileID: 2040123632091440921, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
+      propertyPath: audioSync
+      value: 
+      objectReference: {fileID: -6426339661898084184}
     - target: {fileID: 2040123632254374122, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -481,6 +510,28 @@ MonoBehaviour:
   _tiltMultiplier: 30
   _carCrashSfx: {fileID: 13208310023239736}
   _carFallingSfx: {fileID: 391458687672352061}
+--- !u!114 &2781681084965213749 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2040123632091440921, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
+  m_PrefabInstance: {fileID: 4239432712126394668}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c249db9f2545d7547b118198a3a31e26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2781681084965213754 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2040123632091440918, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
+  m_PrefabInstance: {fileID: 4239432712126394668}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!146 &2781681085048760041 stripped
 WheelCollider:
   m_CorrespondingSourceObject: {fileID: 2040123632276461509, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
@@ -496,3 +547,14 @@ AudioListener:
   m_CorrespondingSourceObject: {fileID: 2040123632254374122, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
   m_PrefabInstance: {fileID: 4239432712126394668}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7853144989050183596 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6210046439323561600, guid: 622a4637b5efe5e46a4b81e79f8f44ea, type: 3}
+  m_PrefabInstance: {fileID: 4239432712126394668}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

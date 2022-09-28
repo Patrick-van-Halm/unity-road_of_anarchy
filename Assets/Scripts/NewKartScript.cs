@@ -70,7 +70,8 @@ public class NewKartScript : MonoBehaviour
         }
     }
 
-    public Rigidbody Rigidbody { get; private set; }
+    public Rigidbody Rigidbody => _rigidbody;
+    [SerializeField] private Rigidbody _rigidbody;
     public KeyboardInput Input { get; private set; }
     public float AirPercent { get; private set; }
     public float GroundPercent { get; private set; }
@@ -178,7 +179,7 @@ public class NewKartScript : MonoBehaviour
 
     void Awake()
     {
-        Rigidbody = GetComponent<Rigidbody>();
+        if(!_rigidbody) _rigidbody = GetComponent<Rigidbody>();
         Input = GetComponent<KeyboardInput>();
 
         UpdateSuspensionParams(FrontLeftWheel);
@@ -202,7 +203,7 @@ public class NewKartScript : MonoBehaviour
         TickPowerups();
 
         // apply our physics properties
-        Rigidbody.centerOfMass = transform.InverseTransformPoint(CenterOfMass.position);
+        _rigidbody.centerOfMass = transform.InverseTransformPoint(CenterOfMass.position);
 
         int groundedCount = 0;
         if (FrontLeftWheel.isGrounded && FrontLeftWheel.GetGroundHit(out WheelHit hit))
@@ -274,7 +275,7 @@ public class NewKartScript : MonoBehaviour
         // while in the air, fall faster
         if (AirPercent >= 1)
         {
-            Rigidbody.velocity += Physics.gravity * Time.fixedDeltaTime * m_FinalStats.AddedGravity;
+            _rigidbody.velocity += Physics.gravity * Time.fixedDeltaTime * m_FinalStats.AddedGravity;
         }
     }
 
@@ -289,10 +290,10 @@ public class NewKartScript : MonoBehaviour
     {
         if (m_CanMove)
         {
-            float dot = Vector3.Dot(transform.forward, Rigidbody.velocity);
+            float dot = Vector3.Dot(transform.forward, _rigidbody.velocity);
             if (Mathf.Abs(dot) > 0.1f)
             {
-                float speed = Rigidbody.velocity.magnitude;
+                float speed = _rigidbody.velocity.magnitude;
                 return dot < 0 ? -(speed / m_FinalStats.ReverseSpeed) : (speed / m_FinalStats.TopSpeed);
             }
             return 0f;
@@ -326,7 +327,7 @@ public class NewKartScript : MonoBehaviour
 
         // manual acceleration curve coefficient scalar
         float accelerationCurveCoeff = 5;
-        Vector3 localVel = transform.InverseTransformVector(Rigidbody.velocity);
+        Vector3 localVel = transform.InverseTransformVector(_rigidbody.velocity);
 
         bool accelDirectionIsFwd = accelInput >= 0;
         bool localVelDirectionIsFwd = localVel.z >= 0;
@@ -335,14 +336,14 @@ public class NewKartScript : MonoBehaviour
         float maxSpeed = localVelDirectionIsFwd ? m_FinalStats.TopSpeed : m_FinalStats.ReverseSpeed;
         float accelPower = accelDirectionIsFwd ? m_FinalStats.Acceleration : m_FinalStats.ReverseAcceleration;
 
-        float currentSpeed = Rigidbody.velocity.magnitude;
+        float currentSpeed = _rigidbody.velocity.magnitude;
         float accelRampT = currentSpeed / maxSpeed;
         float multipliedAccelerationCurve = m_FinalStats.AccelerationCurve * accelerationCurveCoeff;
         float accelRamp = Mathf.Lerp(multipliedAccelerationCurve, 1, accelRampT * accelRampT);
 
         bool isBraking = (localVelDirectionIsFwd && brake) || (!localVelDirectionIsFwd && accelerate);
 
-        if (brake && Rigidbody.velocity.magnitude > 10) _parameterSetter.PlayBrakeSFX();
+        if (brake && _rigidbody.velocity.magnitude > 10) _parameterSetter.PlayBrakeSFX();
         
         else _parameterSetter.StopBrakeSFX();
 
@@ -366,8 +367,8 @@ public class NewKartScript : MonoBehaviour
         if (wasOverMaxSpeed && !isBraking)
             movement *= 0.0f;
 
-        Vector3 newVelocity = Rigidbody.velocity + movement * Time.fixedDeltaTime;
-        newVelocity.y = Rigidbody.velocity.y;
+        Vector3 newVelocity = _rigidbody.velocity + movement * Time.fixedDeltaTime;
+        newVelocity.y = _rigidbody.velocity.y;
 
         //  clamp max speed if we are on ground
         if (GroundPercent > 0.0f && !wasOverMaxSpeed)
@@ -378,12 +379,12 @@ public class NewKartScript : MonoBehaviour
         // coasting is when we aren't touching accelerate
         if (Mathf.Abs(accelInput) < k_NullInput && GroundPercent > 0.0f)
         {
-            newVelocity = Vector3.MoveTowards(newVelocity, new Vector3(0, Rigidbody.velocity.y, 0), Time.fixedDeltaTime * m_FinalStats.CoastingDrag);
+            newVelocity = Vector3.MoveTowards(newVelocity, new Vector3(0, _rigidbody.velocity.y, 0), Time.fixedDeltaTime * m_FinalStats.CoastingDrag);
         }
 
-        Rigidbody.velocity = newVelocity;
+        _rigidbody.velocity = newVelocity;
 
-        _parameterSetter._speed = currentSpeed * 4f;
+        _parameterSetter.SetSpeed(currentSpeed * 4f);
 
         // Drift
         if (GroundPercent > 0.0f)
@@ -401,13 +402,13 @@ public class NewKartScript : MonoBehaviour
             if (!localVelDirectionIsFwd && !accelDirectionIsFwd)
                 angularVelocitySteering *= -1.0f;
 
-            var angularVel = Rigidbody.angularVelocity;
+            var angularVel = _rigidbody.angularVelocity;
 
             // move the Y angular velocity towards our target
             angularVel.y = Mathf.MoveTowards(angularVel.y, turningPower * angularVelocitySteering, Time.fixedDeltaTime * angularVelocitySmoothSpeed);
 
             // apply the angular velocity
-            Rigidbody.angularVelocity = angularVel;
+            _rigidbody.angularVelocity = angularVel;
 
             // rotate rigidbody's velocity as well to generate immediate velocity redirection
             // manual velocity steering coefficient
@@ -416,7 +417,7 @@ public class NewKartScript : MonoBehaviour
             // If the karts lands with a forward not in the velocity direction, we start the drift
             if (GroundPercent >= 0.0f && m_PreviousGroundPercent < 0.1f)
             {
-                Vector3 flattenVelocity = Vector3.ProjectOnPlane(Rigidbody.velocity, m_VerticalReference).normalized;
+                Vector3 flattenVelocity = Vector3.ProjectOnPlane(_rigidbody.velocity, m_VerticalReference).normalized;
                 if (Vector3.Dot(flattenVelocity, transform.forward * Mathf.Sign(accelInput)) < Mathf.Cos(MinAngleToFinishDrift * Mathf.Deg2Rad))
                 {
                     IsDrifting = true;
@@ -446,7 +447,7 @@ public class NewKartScript : MonoBehaviour
                 float driftMaxSteerValue = m_FinalStats.Steer + DriftAdditionalSteer;
                 m_DriftTurningPower = Mathf.Clamp(m_DriftTurningPower + (turnInput * Mathf.Clamp01(DriftControl * Time.fixedDeltaTime)), -driftMaxSteerValue, driftMaxSteerValue);
 
-                bool facingVelocity = Vector3.Dot(Rigidbody.velocity.normalized, transform.forward * Mathf.Sign(accelInput)) > Mathf.Cos(MinAngleToFinishDrift * Mathf.Deg2Rad);
+                bool facingVelocity = Vector3.Dot(_rigidbody.velocity.normalized, transform.forward * Mathf.Sign(accelInput)) > Mathf.Cos(MinAngleToFinishDrift * Mathf.Deg2Rad);
 
                 bool canEndDrift = true;
                 if (isBraking)
@@ -466,7 +467,7 @@ public class NewKartScript : MonoBehaviour
             }
 
             // rotate our velocity based on current steer value
-            Rigidbody.velocity = Quaternion.AngleAxis(turningPower * Mathf.Sign(localVel.z) * velocitySteering * m_CurrentGrip * Time.fixedDeltaTime, transform.up) * Rigidbody.velocity;
+            _rigidbody.velocity = Quaternion.AngleAxis(turningPower * Mathf.Sign(localVel.z) * velocitySteering * m_CurrentGrip * Time.fixedDeltaTime, transform.up) * _rigidbody.velocity;
         }
         else
         {
@@ -490,12 +491,12 @@ public class NewKartScript : MonoBehaviour
         // Airborne / Half on ground management
         if (GroundPercent < 0.7f)
         {
-            Rigidbody.angularVelocity = new Vector3(0.0f, Rigidbody.angularVelocity.y * 0.98f, 0.0f);
+            _rigidbody.angularVelocity = new Vector3(0.0f, _rigidbody.angularVelocity.y * 0.98f, 0.0f);
             Vector3 finalOrientationDirection = Vector3.ProjectOnPlane(transform.forward, m_VerticalReference);
             finalOrientationDirection.Normalize();
             if (finalOrientationDirection.sqrMagnitude > 0.0f)
             {
-                Rigidbody.MoveRotation(Quaternion.Lerp(Rigidbody.rotation, Quaternion.LookRotation(finalOrientationDirection, m_VerticalReference), Mathf.Clamp01(AirborneReorientationCoefficient * Time.fixedDeltaTime)));
+                _rigidbody.MoveRotation(Quaternion.Lerp(_rigidbody.rotation, Quaternion.LookRotation(finalOrientationDirection, m_VerticalReference), Mathf.Clamp01(AirborneReorientationCoefficient * Time.fixedDeltaTime)));
             }
         }
         else if (validPosition)

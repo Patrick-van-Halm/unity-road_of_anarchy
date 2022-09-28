@@ -217,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _carObject: {fileID: 4239432712579632001, guid: 8e8a0057a2da93448b103d3e683ed220, type: 3}
+  _carObject: {fileID: 7764002591859567613, guid: ff7401e803d15d347910ae923faf2191, type: 3}
   _gunObject: {fileID: 4066668061684268395, guid: af0a89e3487a50e4d84e341ef5a165dc, type: 3}
   _spawns:
   - {fileID: 512675229}
