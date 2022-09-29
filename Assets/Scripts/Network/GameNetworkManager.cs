@@ -104,6 +104,13 @@ public class GameNetworkManager : NetworkManager
         OnServerClose?.Invoke();
     }
 
+    public void Disconnect()
+    {
+        if (NetworkServer.active && NetworkClient.active) StopHost();
+        else if(NetworkClient.active) StopClient();
+        else if(NetworkServer.active) StopServer();
+    }
+
     override public void OnApplicationQuit()
     {
         base.OnApplicationQuit();
