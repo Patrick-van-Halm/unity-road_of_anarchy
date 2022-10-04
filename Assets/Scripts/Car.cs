@@ -19,7 +19,6 @@ public class Car : MonoBehaviour
     public float CurrentSpeed { get { return _currentSpeed; } set { _currentSpeed = value; } }
 
     [SerializeField] private ParameterSetter ParameterSetter;
-    [SerializeField] private SoundFX SoundFX;
     [SerializeField] private CarInput _input;
     [SerializeField] private Rigidbody _car;
 
@@ -46,9 +45,6 @@ public class Car : MonoBehaviour
 
         // Apply speed soundFX
         ParameterSetter.SetSpeed(_currentSpeed * 2.5f);
-
-        // Stop brake sound
-        if (_currentSpeed < 5f) SoundFX.StopBrakeSfx();
     }
 
 
@@ -59,8 +55,6 @@ public class Car : MonoBehaviour
     {
         if (_input.Accelerating && !_input.Braking)
         {
-            // Stop brake soundFX
-            SoundFX.StopBrakeSfx();
 
             // Applying acceleration to all wheels
             foreach (WheelCollider wheel in _allWheels)
@@ -77,8 +71,6 @@ public class Car : MonoBehaviour
     {
         if (!_input.Accelerating && !_input.Braking || _input.Accelerating && _input.Braking)
         {
-            // Stop brake soundFX
-            SoundFX.StopBrakeSfx();
 
             // Applying deceleration to all wheels
             foreach (WheelCollider wheel in _allWheels)
@@ -96,8 +88,6 @@ public class Car : MonoBehaviour
     {
         if (_input.Braking && !_input.Accelerating)
         {
-            // Play brake sound
-            if (_currentSpeed > 10f) SoundFX.PlayBrakeSfx();
 
             // Applying braking to all wheels
             foreach (WheelCollider wheel in _allWheels)

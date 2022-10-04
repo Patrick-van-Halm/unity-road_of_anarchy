@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GunnerCameraController : MonoBehaviour
@@ -10,18 +9,27 @@ public class GunnerCameraController : MonoBehaviour
     public float mouseSensitivity;
     public float minXRotation;
     public float maxXRotation;
+
+    [SerializeField] ParameterSetter _parameterSetter = new ParameterSetter();
     
-    private float xRotation;
-    private float yRotation;
+    private float _xRotation;
+    private float _yRotation;
+
+    private Quaternion _lastRotate;
 
     void Start()
     {
-        xRotation = 0f;
-        yRotation = 0f;
+        _xRotation = 0f;
+        _yRotation = 0f;
 
         // Lock and hide cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // Set rotation values
+        _lastRotate = gunnerCamera.transform.localRotation;
+
+        StartCoroutine(CheckRotationValues());
     }
 
     // Update is called once per frame
@@ -32,13 +40,29 @@ public class GunnerCameraController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
         
         // Set rotation, if necessary invert mouse rotation
-        xRotation -= mouseY;
-        yRotation += mouseX;
+        _xRotation -= mouseY;
+        _yRotation += mouseX;
 
         // Clamp up and down viewing range
-        xRotation = Mathf.Clamp(xRotation, minXRotation, maxXRotation);
+        _xRotation = Mathf.Clamp(_xRotation, minXRotation, maxXRotation);
 
         // Set camera rotation
-        gunnerCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        gunnerCamera.transform.localRotation = Quaternion.Euler(_xRotation, _yRotation, 0f);
+    }
+
+    IEnumerator CheckRotationValues()
+    {
+        while (true)
+        {
+            // Check rotation values to play audio
+            if (_lastRotate != gunnerCamera.transform.localRotation)
+            {
+                _parameterSetter.PlayIsMovingSFX();
+                _lastRotate = gunnerCamera.transform.localRotation;
+            }
+            else _parameterSetter.StopIsMovingSFX();
+
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }
