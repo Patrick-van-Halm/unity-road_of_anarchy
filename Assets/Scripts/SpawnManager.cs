@@ -55,6 +55,6 @@ public class SpawnManager : NetworkBehaviour
     [TargetRpc]
     private void RpcLinkToCar(NetworkConnection conn, GameObject car)
     {
-        car.GetComponent<PlayerAttributeComponent>().OnHealthChanged.AddListener(_hudComponent.OnHealthChanged);
+        car.GetComponent<AttributeComponent>().OnHealthChanged.AddListener(_hudComponent.OnHealthChanged);
     }
 }

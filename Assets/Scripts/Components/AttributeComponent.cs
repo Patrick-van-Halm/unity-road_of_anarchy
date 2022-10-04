@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Player))]
-public class PlayerAttributeComponent : NetworkBehaviour
+public class AttributeComponent : NetworkBehaviour, IDamageable
 {
     [SyncVar(hook = nameof(OnCurrentHealthChanged))] public float CurrentHealth;
     public float MaxHealth = 100f;
@@ -26,14 +25,17 @@ public class PlayerAttributeComponent : NetworkBehaviour
     }
 
     // Subtracts a value from the CurrentHealth property as long as the damage is in range.
-    private void ApplyDamage(float amount)
+    public void ApplyDamage(float amount)
     {
+        Debug.Log("ApplyDamage");
         if (CurrentHealth < 1)
             return;
 
         float damage = Mathf.Clamp(amount, 0f, MaxHealth);
 
         CurrentHealth -= damage;
+
+        if (!NetworkClient.active) OnHealthChanged?.Invoke(CurrentHealth);
     }
 
     // Hook for when server changed current health

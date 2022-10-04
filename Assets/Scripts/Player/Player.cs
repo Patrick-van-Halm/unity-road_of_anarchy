@@ -2,28 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerAttributeComponent))]
-public class Player : MonoBehaviour
+[RequireComponent(typeof(PlayerHUDComponent))]
+[RequireComponent(typeof(WeaponManager))]
+public class Player : Vehicle
 {
-
-#region Player Components
-    private PlayerAttributeComponent PlayerAttributes { get; set; }
-    public PlayerHUDComponent HudComponent {get; set; }
-#endregion
+    private bool _inputEnabled;
+    [SerializeField] private PlayerHUDComponent _hud;
+    [SerializeField] private WeaponManager _weaponManager;
 
     private void Awake()
     {
-        PlayerAttributes = GetComponent<PlayerAttributeComponent>();
-
-        if (PlayerAttributes is null)
-            PlayerAttributes = gameObject.AddComponent<PlayerAttributeComponent>();
+        _inputEnabled = true;
     }
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (_inputEnabled)
         {
-            PlayerAttributes.CmdApplyDamage(10f);
+            if (Input.GetMouseButton(0))
+                _weaponManager.TryFireWeapon();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("Trying to apply damage to player");
+                _attributes.ApplyDamage(10f);
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+                _weaponManager.ReloadWeapon();
         }
+    }
+
+    protected override void Explode()
+    {
+        _inputEnabled = false;
+        Debug.Log("Player exploded, input is disabled. The object still exists.");
+        //Destroy(gameObject);
     }
 }
