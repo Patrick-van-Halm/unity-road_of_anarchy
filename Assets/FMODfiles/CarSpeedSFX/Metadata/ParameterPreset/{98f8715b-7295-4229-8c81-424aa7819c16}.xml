@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="ParameterPreset" id="{98f8715b-7295-4229-8c81-424aa7819c16}">
 		<property name="name">
-			<value>Loop</value>
+			<value>IsMoving</value>
 		</property>
 		<relationship name="folder">
 			<destination>{edd9c8a3-31f5-4e5c-98d6-165e88d1fdf1}</destination>
