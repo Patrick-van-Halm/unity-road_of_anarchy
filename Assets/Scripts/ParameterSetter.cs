@@ -15,6 +15,8 @@ public class ParameterSetter : MonoBehaviour
     private EventInstance _instanceGunMove;
 
     private bool _isMoving;
+    private bool _isBraking;
+    private float _speed;
 
     private void Start()
     {
@@ -24,7 +26,7 @@ public class ParameterSetter : MonoBehaviour
 
     void Update()
     {
-        //_eEngine.SetParameter("Speed", audioSync.Speed);
+        //_eEngine.SetParameter("Speed", audioSync ? audioSync.Speed : _speed);
         //UpdateBraking();
         UpdateGunMoving();
     }
@@ -33,13 +35,13 @@ public class ParameterSetter : MonoBehaviour
     {
         // Check if already braking so we don't keep starting sound
         _instanceBraking.getParameterByName("IsBraking", out float isBraking);
-        if (isBraking == 1 && audioSync.IsBraking)
+        if (isBraking == 1 && audioSync ? audioSync.IsBraking : _isBraking)
         {
             // Reset isBraking parameter so braking doesn't break out of the loop
             _instanceBraking.setParameterByName("IsBraking", 0);
             _instanceBraking.start();
         }
-        else if (isBraking == 0 && !audioSync.IsBraking)
+        else if (isBraking == 0 && audioSync ? !audioSync.IsBraking : _isBraking)
         {
             // Apply isBraking parameter so it breaks out of the breaking loop
             _instanceBraking.setParameterByName("IsBraking", 1);
@@ -66,23 +68,34 @@ public class ParameterSetter : MonoBehaviour
 
     public void SetSpeed(float speed)
     {
-        audioSync.SetSpeed(speed);
+        if(audioSync) audioSync.SetSpeed(speed);
+        _speed = speed;
     }
 
     /// <summary>
     /// Toggles the braking if it isn't braking yet
     /// </summary>
-    public void PlayBrakeSFX() { if (!audioSync.IsBraking) ToggleBraking(); }
+    public void PlayBrakeSFX() 
+    { 
+        if ((audioSync && !audioSync.IsBraking) || !_isBraking) ToggleBraking(); 
+    }
 
     /// <summary>
     /// Toggles the braking if braking is applied
     /// </summary>
-    public void StopBrakeSFX() { if (audioSync.IsBraking) ToggleBraking(); }
+    public void StopBrakeSFX() 
+    { 
+        if ((audioSync && audioSync.IsBraking) || _isBraking) ToggleBraking(); 
+    }
 
     /// <summary>
     /// Toggle the braking
     /// </summary>
-    public void ToggleBraking() { audioSync.SetIsBraking(!audioSync.IsBraking); }
+    public void ToggleBraking() 
+    { 
+        if(audioSync) audioSync.SetIsBraking(!_isBraking);
+        _isBraking = !_isBraking;
+    }
 
     /// <summary>
     /// Toggles the braking if it isn't braking yet
