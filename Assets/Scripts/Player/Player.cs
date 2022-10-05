@@ -17,20 +17,6 @@ public class Player : Vehicle
 
     private void Update()
     {
-        if (_inputEnabled)
-        {
-            if (Input.GetMouseButton(0))
-                _weaponManager.TryFireWeapon();
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("Trying to apply damage to player");
-                _attributes.ApplyDamage(10f);
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-                _weaponManager.ReloadWeapon();
-        }
     }
 
     protected override void Explode()

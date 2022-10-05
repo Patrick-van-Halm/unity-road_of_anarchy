@@ -8,17 +8,18 @@ public class AttributeComponent : NetworkBehaviour, IDamageable
 {
     [SyncVar(hook = nameof(OnCurrentHealthChanged))] public float CurrentHealth;
     public float MaxHealth = 100f;
+
     public UnityEvent<float> OnHealthChanged;
 
     // Set variables in start and only for server
     private void Start()
     {
-        if (!isServer) return;
+        //if (!isServer) return;
         CurrentHealth = MaxHealth;
     }
 
     // Calls the apply damage on the server
-    [Command(requiresAuthority = false)]
+    //[Command(requiresAuthority = false)]
     public void CmdApplyDamage(float amount)
     {
         ApplyDamage(amount);

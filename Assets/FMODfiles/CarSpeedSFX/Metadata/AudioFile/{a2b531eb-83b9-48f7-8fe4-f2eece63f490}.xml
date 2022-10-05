@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a2b531eb-83b9-48f7-8fe4-f2eece63f490}">
+		<property name="assetPath">
+			<value>[YT2mp3.info] - Car Vehicle On Fire Sound Effect _ Burning Cars On The Street Side Sounds _ Royalty Free Sample (320kbps).mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>188.68244897959184</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ac793a4f-a858-467a-a08b-84c07511a82c}</destination>
+		</relationship>
+	</object>
+</objects>
