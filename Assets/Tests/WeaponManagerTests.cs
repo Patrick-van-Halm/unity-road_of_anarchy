@@ -12,7 +12,8 @@ public class WeaponManagerTests
     public void InitTests()
     {
         GameObject = new GameObject(nameof(WeaponManagerTests));
-        Player player = GameObject.AddComponent<Player>();
+        GameObject.AddComponent<PlayerHUDComponent>();
+        Gunner player = GameObject.AddComponent<Gunner>();
         WeaponManager weaponManager = GameObject.GetComponent<WeaponManager>();
         weaponManager.Weapon = ScriptableObject.CreateInstance<Weapon>();
     }

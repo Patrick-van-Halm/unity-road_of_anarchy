@@ -13,7 +13,13 @@ GameObject:
   - component: {fileID: 1628098756334880865}
   - component: {fileID: 8781988355362827001}
   - component: {fileID: 2898215567512495896}
-  - component: {fileID: 4674028831845254913}
+  - component: {fileID: 7377420834200783185}
+  - component: {fileID: 1015824817394895324}
+  - component: {fileID: 4266954992249484085}
+  - component: {fileID: 1444082793788966840}
+  - component: {fileID: 5179927725195734995}
+  - component: {fileID: 1259275894880037116}
+  - component: {fileID: 3115839205944094294}
   m_Layer: 0
   m_Name: NetworkedGunner
   m_TagString: Untagged
@@ -68,10 +74,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  OnIsLocalPlayer:
+    m_PersistentCalls:
+      m_Calls: []
   localPlayerComponents:
   - {fileID: 3113492308122885328}
   - {fileID: 3113492308122885331}
   - {fileID: 4066668062166026886}
+  - {fileID: 1444082793788966840}
 --- !u!114 &8781988355362827001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +97,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   Target: {fileID: 0}
-  LocalPosition: {x: 0, y: 0, z: 0}
+  LocalPosition: {x: 0, y: 0.962, z: -0.315}
 --- !u!114 &2898215567512495896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +133,7 @@ MonoBehaviour:
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   target: {fileID: 3113492308122885329}
---- !u!114 &4674028831845254913
+--- !u!114 &7377420834200783185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,20 +142,125 @@ MonoBehaviour:
   m_GameObject: {fileID: 4066668061684268395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa4271496d2daf4087fccdc6e062abe, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dfb5ee06264e534b882bfcbc3f2e6fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSync: {fileID: 1015824817394895324}
+--- !u!114 &1015824817394895324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066668061684268395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def10b2b410fd0a4f9abd986fef5ba85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  weaponEndPointPosition: {fileID: 4066668060545147902}
-  weapon: {fileID: 4066668060754307041}
-  gunnerCamera: {fileID: 3113492308122885328}
-  bullet: {fileID: 5227376487224860286, guid: 32fcf41b7264334499184c7176c2feb6, type: 3}
-  weaponAudio: {fileID: 0}
-  vehicleTag: Vehicle
-  weaponDamage: 0
-  weaponRange: 50
-  bulletSpeed: 750
+  _isMoving: 0
+--- !u!114 &4266954992249484085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066668061684268395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682768a2b07847945b05a4b4245f6076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  _bullet: {fileID: 5227376487224860286, guid: 32fcf41b7264334499184c7176c2feb6, type: 3}
+  _bulletSpeed: 200
+  Weapon: {fileID: 11400000, guid: a8fb4334fdb042349a0da4778cbaad4a, type: 2}
+  _weaponMuzzlePosition: {fileID: 4066668060545147902}
+  _weaponObject: {fileID: 4066668060754307041}
+  _targetTagName: Vehicle
+  _gunnerCamera: {fileID: 3113492308122885328}
+  OnEnemyHit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1444082793788966840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066668061684268395}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 58863263bf253124e9e435e6d04132f6, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gunner
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &5179927725195734995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066668061684268395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2d8ccc6ea3a73a4fa5084ccdcbd7261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1259275894880037116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066668061684268395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d25905d06d6f1c4eb236a9e64e32ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  CurrentHealth: 0
+  MaxHealth: 100
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3115839205944094294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066668061684268395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2306a6c5f8ebaa45b3f96e302cac850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  name: Johnson
 --- !u!1001 &4066668062040360591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -153,6 +268,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4066668061684268393}
     m_Modifications:
+    - target: {fileID: 427985929, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
+      propertyPath: audio
+      value: 
+      objectReference: {fileID: 7377420834200783185}
     - target: {fileID: 427985929, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
       propertyPath: m_Enabled
       value: 0

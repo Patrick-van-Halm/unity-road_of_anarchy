@@ -16,10 +16,10 @@ MonoBehaviour:
   WeaponFireSound: {fileID: 0}
   HitSound: {fileID: 11400000, guid: 4ca5db97d0fb84941b472bbb4e0cd483, type: 2}
   DamageAmount: 5
-  AmmoAmount: 0
+  AmmoAmount: 4960
   MaxAmmo: 20
   MaxClipSize: 20
-  ClipAmmoAmount: 6
+  ClipAmmoAmount: 0
   WeaponRange: 200
   ReloadTimeInSeconds: 2
   FireRateDelayInSeconds: 0.5

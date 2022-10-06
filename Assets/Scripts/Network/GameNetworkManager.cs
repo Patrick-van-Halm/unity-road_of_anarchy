@@ -38,7 +38,7 @@ public class GameNetworkManager : NetworkManager
     public override void Awake()
     {
         base.Awake();
-        Instance = this;
+        if(Instance == null) Instance = this;
     }
 
     public ushort Port

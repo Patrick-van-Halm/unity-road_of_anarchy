@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class PlayerHUDComponent : MonoBehaviour
 {
+    [SerializeField] private Transform _canvas;
     [SerializeField] private GameObject _healthBarPrefab;
     private HealthBar _healthBar;
+    [SerializeField] private KillFeedUI _killFeed;
 
     [SerializeField] private GameObject _hitMarker;
     [SerializeField] private float _hitMarkerActiveTime = 0.2f;
@@ -30,13 +32,16 @@ public class PlayerHUDComponent : MonoBehaviour
     public void OnHealthChanged(float currentHealth)
     {
         _healthBar.SetHealthText(currentHealth);
-        ShowEliminatedUIWhenDead(currentHealth);
     }
 
-    private void ShowEliminatedUIWhenDead(float health)
+    public void OnKillFeedMessage(string msg)
     {
-        if (health > 0) return;
-        Instantiate(_eliminatedPrefab);
+        _killFeed.ShowMessage(msg);
+    }
+
+    public void ShowEliminatedUI()
+    {
+        Instantiate(_eliminatedPrefab, _canvas);
     }
 
     public void OnEnemyHit()

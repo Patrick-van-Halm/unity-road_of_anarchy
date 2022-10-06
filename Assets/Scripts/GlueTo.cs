@@ -7,10 +7,11 @@ public class GlueTo : NetworkBehaviour
 {
     [SyncVar] public Transform Target;
     [SyncVar] public Vector3 LocalPosition;
-    private Vector3 pos, fw, up;
+    [SyncVar] private Vector3 pos, fw, up;
 
     private void Start()
     {
+        if (!isServer) return;
         transform.position = Target.position + LocalPosition;
         pos = Target.transform.InverseTransformPoint(transform.position);
         fw = Target.transform.InverseTransformDirection(transform.forward);
@@ -19,6 +20,7 @@ public class GlueTo : NetworkBehaviour
 
     private void Update()
     {
+        if (Target == null || transform == null) return;
         var newpos = Target.transform.TransformPoint(pos);
         var newfw = Target.transform.TransformDirection(fw);
         var newup = Target.transform.TransformDirection(up);

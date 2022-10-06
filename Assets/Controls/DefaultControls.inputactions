@@ -172,6 +172,54 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Gunner",
+            "id": "9cfcc0b6-17f0-4486-ac03-a26c997f0efb",
+            "actions": [
+                {
+                    "name": "Shooting",
+                    "type": "Value",
+                    "id": "a62dcbc5-62bc-49de-8ae3-90076c062149",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Reload",
+                    "type": "Value",
+                    "id": "edf105eb-b83a-4f81-9c3a-21b9f61eec6f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3e5c73a3-21f5-4dd8-ba6d-204bc5bc8bb8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shooting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d684810-ddd1-450b-8473-9f5d19079f6a",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

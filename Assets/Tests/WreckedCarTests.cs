@@ -35,7 +35,7 @@ public class WreckedCarTests
         // Arrange
 
         // Act
-        _wreckedCar.PlaceWreckedCar();
+        _wreckedCar.PlaceWreckedCarWhenHealthZero(0);
 
         // Assert
         Assert.IsTrue(_wreckedCar.WreckedBuggy.activeInHierarchy);

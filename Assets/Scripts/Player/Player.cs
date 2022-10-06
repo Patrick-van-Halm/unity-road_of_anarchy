@@ -1,28 +1,41 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerHUDComponent))]
-[RequireComponent(typeof(WeaponManager))]
-public class Player : Vehicle
+public class Player : NetworkBehaviour
 {
-    private bool _inputEnabled;
-    [SerializeField] private PlayerHUDComponent _hud;
-    [SerializeField] private WeaponManager _weaponManager;
+    [SyncVar] public Team Team;
+    [SyncVar] public string name = "Johnson";
+    private PlayerHUDComponent _hudComponent;
 
-    private void Awake()
+    private void Start()
     {
-        _inputEnabled = true;
+        _hudComponent = FindObjectOfType<PlayerHUDComponent>();
     }
 
-    private void Update()
+    [TargetRpc]
+    public void TargetOnTeamKill(NetworkConnection conn)
     {
+        _hudComponent?.OnKillFeedMessage("Your team has killed another team!");
     }
 
-    protected override void Explode()
+    [TargetRpc]
+    public void TargetOnEliminated(NetworkConnection conn)
     {
-        _inputEnabled = false;
-        Debug.Log("Player exploded, input is disabled. The object still exists.");
-        //Destroy(gameObject);
+        _hudComponent?.ShowEliminatedUI();
     }
+}
+
+public class Team
+{
+    public Gunner Gunner => GunnerIdentity.GetComponent<Gunner>();
+    public Player GunnerPlayer => GunnerIdentity.GetComponent<Player>();
+    public Spectator GunnerSpectator => GunnerIdentity.GetComponent<Spectator>();
+    public NetworkIdentity GunnerIdentity;
+
+    public Vehicle Vehicle => DriverIdentity.GetComponent<Vehicle>();
+    public Player DriverPlayer => GunnerIdentity.GetComponent<Player>();
+    public Spectator DriverSpectator => DriverIdentity.GetComponent<Spectator>();
+    public NetworkIdentity DriverIdentity;
 }

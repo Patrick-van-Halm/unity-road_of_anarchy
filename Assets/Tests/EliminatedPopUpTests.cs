@@ -23,7 +23,7 @@ public class EliminatedPopUpTests
     public void TestPopUpSpawnsOnHealthZero()
     {
         // Run code
-        hudComponent.GetType().GetMethod("ShowEliminatedUIWhenDead", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(hudComponent, new object[] {0});
+        hudComponent.ShowEliminatedUI();
 
         // Check if spawned
         Assert.NotNull(GameObject.Find($"{eliminatedUI.name}(Clone)"));
@@ -33,7 +33,7 @@ public class EliminatedPopUpTests
     public IEnumerator TestPopUpDisconnectToDisableGameObjectAfterFewSeconds()
     {
         // Run code
-        hudComponent.GetType().GetMethod("ShowEliminatedUIWhenDead", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(hudComponent, new object[] { 0 });
+        hudComponent.ShowEliminatedUI();
         GameObject.Find($"{eliminatedUI.name}(Clone)").GetComponent<YouDiedUI>().Disconnect();
 
         // Wait

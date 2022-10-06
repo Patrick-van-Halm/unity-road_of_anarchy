@@ -8,11 +8,11 @@ using UnityEngine.UI;
 public class WeaponManager : NetworkBehaviour
 {
     #region Private fields
-    [SyncVar] private Vector3 bulletDirection;
     private AudioListener _listener;
     private bool _canShoot;
     private bool _isReloading;
     private float _nextShot;
+    private Gunner _gunner;
     #endregion
 
     #region Bullet
@@ -38,10 +38,16 @@ public class WeaponManager : NetworkBehaviour
         _canShoot = true;
         _isReloading = false;
         _listener = FindObjectOfType<AudioListener>();
+        _gunner = GetComponent<Gunner>();
+    }
+
+    private void Start()
+    {
+        OnEnemyHit.AddListener(FindObjectOfType<PlayerHUDComponent>().OnEnemyHit);
     }
 
     #region Shooting
-    public UnityEvent OnEnemyHit;
+    public UnityEvent OnEnemyHit = new UnityEvent();
 
     public void TryFireWeapon()
     {
@@ -70,13 +76,6 @@ public class WeaponManager : NetworkBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, Weapon.WeaponRange))
         {
-            // For now ignore hit if player is hitting itself
-            if (IsFriendlyFire(hit))
-            {
-                Debug.Log("Target is friendly");
-                return;
-            }
-
             // If the target hit is the enemy, get the Interface and call the ApplyDamage function
             if (IsEnemy(hit) is IDamageable target)
             {
@@ -85,7 +84,7 @@ public class WeaponManager : NetworkBehaviour
                 // Store the hit location as Vector3
                 targetPoint = hit.point;
 
-                target.ApplyDamage(Weapon.DamageAmount);
+                target.CmdApplyDamage(Weapon.DamageAmount);
 
                 PlaySoundEffect(Weapon.HitSound);
 
@@ -99,8 +98,7 @@ public class WeaponManager : NetworkBehaviour
         }
 
         // Calculate the direction in which the weapon needs to fire
-        bulletDirection = CalculateFireDirection(targetPoint);
-        InstantiateBullet();
+        InstantiateBullet(CalculateFireDirection(targetPoint));
 
         //CmdSetBulletDirection(bulletDirection);
     }
@@ -113,39 +111,30 @@ public class WeaponManager : NetworkBehaviour
         return null;
     }
 
-    private bool IsFriendlyFire(RaycastHit hit)
-    {
-        return hit.collider.CompareTag(nameof(Player));
-    }
-
     private Vector3 CalculateFireDirection(Vector3 targetPoint)
     {
         return targetPoint - _weaponMuzzlePosition.transform.position;
     }
     #endregion
+
     #region Networking
 
-    // [Command(requiresAuthority = true)]
-    // private void CmdSetBulletDirection(Vector3 bulletDirection)
-    // {
-    //     this.bulletDirection = bulletDirection;
-    // }
+    [Command(requiresAuthority = true)]
+    private void CmdInstatiateBullet(Vector3 bulletDirection)
+    {
+        RpcInstantiateBullet(bulletDirection);
+    }
 
-    // [Command(requiresAuthority = true)]
-    // private void CmdInstatiateBullet()
-    // {
-    //     RpcInstantiateBullet();
-    // }
-
-    // [ClientRpc]
-    // private void RpcInstantiateBullet()
-    // {
-    //     InstantiateBullet();
-    // }
+    [ClientRpc]
+    private void RpcInstantiateBullet(Vector3 bulletDirection)
+    {
+        InstantiateBullet(bulletDirection);
+    }
 
     #endregion
+
     #region Bullets
-    private void InstantiateBullet()
+    private void InstantiateBullet(Vector3 bulletDirection)
     {
         // Instantiate bullet
         GameObject currentBullet = Instantiate(_bullet, _weaponMuzzlePosition.transform.position, Quaternion.identity);
@@ -157,6 +146,7 @@ public class WeaponManager : NetworkBehaviour
         currentBullet.AddComponent<Bullet>().bulletSpeed = _bulletSpeed;
     }
     #endregion
+
     #region Sound
     private void PlaySoundEffect(SoundEffect sound)
     {
@@ -170,6 +160,7 @@ public class WeaponManager : NetworkBehaviour
         AudioSource.PlayClipAtPoint(randomSound, _listener.transform.position);
     }
     #endregion
+
     #region Weapon Handling
     private float CalculateNextShotDelay()
     {
