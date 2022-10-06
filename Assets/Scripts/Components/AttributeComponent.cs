@@ -10,6 +10,9 @@ public class AttributeComponent : NetworkBehaviour, IDamageable
     public float MaxHealth = 100f;
 
     public UnityEvent<float> OnHealthChanged;
+    
+    public Team LastDamagedBy => _lastDamagedBy;
+    [SyncVar] private Team _lastDamagedBy;
 
     // Set variables in start and only for server
     private void Start()
@@ -19,16 +22,16 @@ public class AttributeComponent : NetworkBehaviour, IDamageable
     }
 
     // Calls the apply damage on the server
-    //[Command(requiresAuthority = false)]
-    public void CmdApplyDamage(float amount)
+    [Command(requiresAuthority = false)]
+    public void CmdApplyDamage(float amount, NetworkConnectionToClient connectionToClient = null)
     {
         ApplyDamage(amount);
+        _lastDamagedBy = connectionToClient.identity.GetComponent<Player>().Team;
     }
 
     // Subtracts a value from the CurrentHealth property as long as the damage is in range.
     public void ApplyDamage(float amount)
     {
-        Debug.Log("ApplyDamage");
         if (CurrentHealth < 1)
             return;
 

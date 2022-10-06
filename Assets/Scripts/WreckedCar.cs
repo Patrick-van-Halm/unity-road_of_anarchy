@@ -1,17 +1,18 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class WreckedCar : MonoBehaviour
+public class WreckedCar : NetworkBehaviour
 {
     [SerializeField] private GameObject _wreckedBuggy;
 
     public GameObject WreckedBuggy { get { return _wreckedBuggy; } }
     private Transform _position;
 
-    public UnityEvent<string> KillFeed;
+    public UnityEvent<string> OnKillMessage;
 
     private AttributeComponent _vehicleAttributes;
 
@@ -22,20 +23,35 @@ public class WreckedCar : MonoBehaviour
 
     private void Start()
     {
-        _vehicleAttributes.OnHealthChanged.AddListener(CheckIfDestroyed);
+        if (!isServer) return;
+        _vehicleAttributes.OnHealthChanged.AddListener(PlaceWreckedCarWhenHealthZero);
     }
 
-    private void CheckIfDestroyed(float health)
+    public void PlaceWreckedCarWhenHealthZero(float health)
     {
-        if (health <= 0f) PlaceWreckedCar();
-    }
-
-    public void PlaceWreckedCar()
-    {
-        KillFeed?.Invoke("You killed a team");
+        if (health > 0) return;
 
         _position = GetComponent<Transform>();
-        Destroy(this.gameObject);
+
+        if (NetworkServer.active)
+        {
+            _vehicleAttributes.LastDamagedBy.Gunner.TargetOnTeamKill(_vehicleAttributes.LastDamagedBy.GunnerIdentity.connectionToClient);
+            _vehicleAttributes.LastDamagedBy.Vehicle.TargetOnTeamKill(_vehicleAttributes.LastDamagedBy.DriverIdentity.connectionToClient);
+
+            // Spawn as spectators
+            Player player = GetComponent<Player>();
+            FindObjectOfType<SpawnManager>()?.SpawnSpectators(player.Team);
+
+            // Send elimination rpc to team
+            player.Team.DriverSpectator.wasEliminated = true;
+            player.Team.GunnerSpectator.wasEliminated = true;
+        }
+        else OnKillMessage?.Invoke("You killed a team");      
+
         _wreckedBuggy = Instantiate(_wreckedBuggy, _position.position, _position.rotation);
+        if (NetworkServer.active)
+        {
+            NetworkServer.Spawn(_wreckedBuggy);
+        }
     }
 }

@@ -9,17 +9,12 @@ public class KillFeedUI : MonoBehaviour
     private TMP_Text _text;
     
     public TMP_Text Text { get { return _text; } }
-    [SerializeField] private WreckedCar _wreckedCar;
+
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _text = GetComponentInChildren<TMP_Text>();
         _canvasGroup.alpha = 0f;
-    }
-
-    private void Start()
-    {
-        _wreckedCar.KillFeed.AddListener(ShowMessage);
     }
 
     public void ShowMessage(string text)

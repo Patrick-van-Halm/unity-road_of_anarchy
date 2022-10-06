@@ -201,7 +201,6 @@ public class Lobby : NetworkBehaviour
 
     public void Disconnect()
     {
-        if (isServer) GameNetworkManager.Instance.StopHost();
-        else GameNetworkManager.Instance.StopClient();
+        GameNetworkManager.Instance?.Disconnect();
     }
 }

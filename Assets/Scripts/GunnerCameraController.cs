@@ -4,13 +4,12 @@ using UnityEngine;
 public class GunnerCameraController : MonoBehaviour
 {
     public Camera gunnerCamera;
+    public GunnerAudio audio;
 
     [Header("Camera settings")]
     public float mouseSensitivity;
     public float minXRotation;
     public float maxXRotation;
-
-    [SerializeField] ParameterSetter _parameterSetter = new ParameterSetter();
     
     private float _xRotation;
     private float _yRotation;
@@ -57,10 +56,10 @@ public class GunnerCameraController : MonoBehaviour
             // Check rotation values to play audio
             if (_lastRotate != gunnerCamera.transform.localRotation)
             {
-                _parameterSetter.PlayIsMovingSFX();
+                audio.PlayIsMovingSFX();
                 _lastRotate = gunnerCamera.transform.localRotation;
             }
-            else _parameterSetter.StopIsMovingSFX();
+            else audio.StopIsMovingSFX();
 
             yield return new WaitForSeconds(0.2f);
         }

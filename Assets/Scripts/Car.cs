@@ -18,7 +18,7 @@ public class Car : MonoBehaviour
 
     public float CurrentSpeed { get { return _currentSpeed; } set { _currentSpeed = value; } }
 
-    [SerializeField] private ParameterSetter ParameterSetter;
+    [SerializeField] private VehicleAudio ParameterSetter;
     [SerializeField] private CarInput _input;
     [SerializeField] private Rigidbody _car;
 

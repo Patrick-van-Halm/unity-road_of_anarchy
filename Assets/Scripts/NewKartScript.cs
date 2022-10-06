@@ -137,7 +137,7 @@ public class NewKartScript : MonoBehaviour
     public LayerMask GroundLayers = Physics.DefaultRaycastLayers;
 
     [Header("SoundFX parameters")]
-    [SerializeField] ParameterSetter _parameterSetter;
+    [SerializeField] VehicleAudio _parameterSetter;
 
     const float k_NullInput = 0.01f;
     const float k_NullSpeed = 0.01f;
