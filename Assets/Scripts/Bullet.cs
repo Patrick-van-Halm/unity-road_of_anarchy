@@ -1,14 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int bulletSpeed;
+    public int bulletSpeed = 10;
+
+    private EventInstance bulletInstance;
+    [SerializeField] private EventReference bulletFlySound;
 
     IEnumerator Start() 
     {
-        yield return new WaitForSeconds(5);
+        if (!bulletFlySound.IsNull)
+        {
+            bulletInstance = RuntimeManager.CreateInstance(bulletFlySound);
+            RuntimeManager.AttachInstanceToGameObject(bulletInstance, gameObject.transform);
+            bulletInstance.start();
+        }
+
+        yield return new WaitForSeconds(3);
+
+        // Stop the bullet flying sound before destroying it
+        bulletInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
         Destroy(gameObject);
     }
 

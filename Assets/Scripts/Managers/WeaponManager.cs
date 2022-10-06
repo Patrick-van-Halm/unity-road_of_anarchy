@@ -1,9 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
+using FMOD.Studio;
+using FMODUnity;
 
 public class WeaponManager : NetworkBehaviour
 {
@@ -18,7 +18,6 @@ public class WeaponManager : NetworkBehaviour
     #region Bullet
     [Header("Bullets")]
     [SerializeField] private GameObject _bullet;
-    [SerializeField] private int _bulletSpeed = 200;
     #endregion
 
     #region Weapon
@@ -54,7 +53,9 @@ public class WeaponManager : NetworkBehaviour
         // If the weapon is allowed to shoot, and has enough ammo try shooting
         if (_canShoot && HasEnoughAmmoInClip() && HasWaitedForShotDelay())
         {
-            PlaySoundEffect(Weapon.WeaponFireSound);
+            // Play FMOD fire effect
+            //PlaySoundEffect(Weapon.WeaponFireSound);
+            PlaySoundEffectFMOD(Weapon._fireSoundRef, Vector3.zero);
 
             Weapon.ClipAmmoAmount--;
 
@@ -86,7 +87,8 @@ public class WeaponManager : NetworkBehaviour
 
                 target.CmdApplyDamage(Weapon.DamageAmount);
 
-                PlaySoundEffect(Weapon.HitSound);
+                //PlaySoundEffect(Weapon.HitSound);
+                PlaySoundEffectFMOD(Weapon._hitSoundRef, hit.point);
 
                 OnEnemyHit.Invoke();
             }
@@ -140,25 +142,29 @@ public class WeaponManager : NetworkBehaviour
         GameObject currentBullet = Instantiate(_bullet, _weaponMuzzlePosition.transform.position, Quaternion.identity);
 
         // Rotate bullet to shoot direction
-        currentBullet.transform.forward = bulletDirection.normalized;
-
-        // Add script to bullet and set the speed
-        currentBullet.AddComponent<Bullet>().bulletSpeed = _bulletSpeed;
+        currentBullet.transform.forward = bulletDirection.normalized;   
     }
     #endregion
 
     #region Sound
-    private void PlaySoundEffect(SoundEffect sound)
+    public void PlaySoundEffectFMOD(EventReference soundReference, Vector3 location)
     {
-        if (sound is null || _listener is null)
+        EventInstance soundInstance = RuntimeManager.CreateInstance(soundReference);
+
+        // No location was passed in
+        if (location == Vector3.zero)
+        {
+            soundInstance.start();
             return;
-
-        // Get a random clip from SoundEffect array
-        AudioClip randomSound = sound.GetRandomClip();
-
-        // Play the sound at the listeners point (directly on player)
-        AudioSource.PlayClipAtPoint(randomSound, _listener.transform.position);
+        }
+        else
+        {
+            // When a Vector3 is provided, play sound at location
+            soundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(location));
+            soundInstance.start();
+        }
     }
+
     #endregion
 
     #region Weapon Handling

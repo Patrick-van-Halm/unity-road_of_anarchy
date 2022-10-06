@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using FMOD.Studio;
+using FMODUnity;
 
 [System.Serializable]
 [CreateAssetMenu(menuName = nameof(Weapon))]
@@ -12,10 +14,10 @@ public class Weapon : ScriptableObject
 
     [Header("Weapon Audio")]
     [Tooltip("The sound of the weapon when firing")]
-    public SoundEffect WeaponFireSound = null;
+    public EventReference _fireSoundRef;
 
-    [Tooltip("The sound played when a vehicle is hit")]
-    public SoundEffect HitSound = null;
+    [Tooltip("The sound played when a hit is detected")]
+    public EventReference _hitSoundRef;
 
     [Header("Weapon Properties")]
     [Tooltip("Damage value of the weapon.")]

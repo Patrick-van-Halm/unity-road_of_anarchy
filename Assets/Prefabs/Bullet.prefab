@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3735467993214620659}
   - component: {fileID: 2288374047958290311}
   - component: {fileID: 790573195907620101}
+  - component: {fileID: 4446752301513691322}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -129,3 +130,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4446752301513691322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5227376487224860286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185a0af48d7f012499420925ce333af3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpeed: 200
+  bulletFlySound:
+    Guid:
+      Data1: -1006572809
+      Data2: 1137221868
+      Data3: -464301932
+      Data4: 1747680765
+    Path: event:/BulletFlySfx
