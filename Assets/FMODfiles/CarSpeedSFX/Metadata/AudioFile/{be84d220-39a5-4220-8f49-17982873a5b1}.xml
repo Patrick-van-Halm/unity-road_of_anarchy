@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{be84d220-39a5-4220-8f49-17982873a5b1}">
+		<property name="assetPath">
+			<value>BulletWindSound.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.0216780045351475</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ac793a4f-a858-467a-a08b-84c07511a82c}</destination>
+		</relationship>
+	</object>
+</objects>
