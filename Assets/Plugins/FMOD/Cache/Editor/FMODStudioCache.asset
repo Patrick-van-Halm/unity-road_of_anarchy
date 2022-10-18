@@ -94,10 +94,10 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638007498490829084
+  lastModified: 638016847623727332
   FileSizes:
   - Name: Desktop
-    Value: 2204288
+    Value: 2207872
   Exists: 1
 --- !u!114 &-5057066233008352919
 MonoBehaviour:
@@ -288,12 +288,13 @@ MonoBehaviour:
   - {fileID: 359894623806247523}
   - {fileID: -5517484525202913464}
   - {fileID: -2009267947128016607}
+  - {fileID: 742890021769246850}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5167180079270993416}
   StringsBanks:
   - {fileID: 7458789202599872134}
-  cacheTime: 638007498490859085
+  cacheTime: 638016847624625141
   cacheVersion: 131592
 --- !u!114 &180028034328589315
 MonoBehaviour:
@@ -349,6 +350,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &742890021769246850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/HoverSfx
+  m_EditorClassIdentifier: 
+  Path: event:/HoverSfx
+  Guid:
+    Data1: -843412257
+    Data2: 1256411502
+    Data3: 212029885
+    Data4: -2015376431
+  Banks:
+  - {fileID: -5167180079270993416}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 260
 --- !u!114 &1255268596213936572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,10 +636,10 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638007498490839042
+  lastModified: 638016847623753004
   FileSizes:
   - Name: Desktop
-    Value: 1750
+    Value: 1800
   Exists: 1
 --- !u!114 &9066537787157524052
 MonoBehaviour:
@@ -652,7 +680,7 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/WeaponManager.bank
   Name: WeaponManager
   StudioPath: bank:/WeaponManager
-  lastModified: 638007498490859085
+  lastModified: 638016847624625141
   FileSizes:
   - Name: Desktop
     Value: 59104

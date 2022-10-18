@@ -176,7 +176,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   _bullet: {fileID: 5227376487224860286, guid: 32fcf41b7264334499184c7176c2feb6, type: 3}
-  _bulletSpeed: 200
   Weapon: {fileID: 11400000, guid: a8fb4334fdb042349a0da4778cbaad4a, type: 2}
   _weaponMuzzlePosition: {fileID: 4066668060545147902}
   _weaponObject: {fileID: 4066668060754307041}
@@ -275,6 +274,10 @@ PrefabInstance:
     - target: {fileID: 427985929, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 427985929, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
+      propertyPath: _sensitivityMod
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1979212142, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
       propertyPath: m_LocalPosition.x

@@ -14,9 +14,10 @@ public class LobbyPlayerRowUI : MonoBehaviour
         
         // Listen to player events
         player.OnReadyStateChanged.AddListener(ReadyStateChanged);
-        
+
         // Set the name
         SetName(player.Name);
+        player.OnPlayerNameChanged.AddListener(SetName);
     }
 
     private void ReadyStateChanged(bool isReady)

@@ -504,7 +504,7 @@ MonoBehaviour:
   - {fileID: 7764002591859567613, guid: ff7401e803d15d347910ae923faf2191, type: 3}
   - {fileID: 6350598351882117889, guid: 2f39378dc7ef2db4a9265282b1654ced, type: 3}
   - {fileID: 8739143006898781836, guid: 8e9453b3ebdcedf43bf1aa22a0bc1574, type: 3}
-  FallbackScene: Assets/Scenes/MainMenu.unity
+  FallbackScene: Assets/Scenes/Menu.unity
   OnClientConnectedToServer:
     m_PersistentCalls:
       m_Calls: []

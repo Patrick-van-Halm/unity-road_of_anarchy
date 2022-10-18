@@ -66,6 +66,7 @@ MonoBehaviour:
   syncInterval: 0.1
   Name: Johnson
   IsReady: 0
+  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
   OnReadyStateChanged:
     m_PersistentCalls:
       m_Calls: []
