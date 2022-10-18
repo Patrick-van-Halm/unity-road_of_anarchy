@@ -240,6 +240,8 @@ GameObject:
   - component: {fileID: 1394688497110107000}
   - component: {fileID: 427985929}
   - component: {fileID: 2568552716397588583}
+  - component: {fileID: 2744019708267354068}
+  - component: {fileID: 1608986476931253148}
   m_Layer: 0
   m_Name: Gunner
   m_TagString: Untagged
@@ -298,11 +300,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96926d09a7925b4e94f1dae7f7bbec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
   gunnerCamera: {fileID: 1394688497029536351}
-  mouseSensitivity: 100
-  minXRotation: -20
-  maxXRotation: 20
+  _minXRotation: -20
+  _maxXRotation: 20
   _parameterSetter: {fileID: 0}
+  _gunnerInput: {fileID: 2744019708267354068}
 --- !u!114 &2568552716397588583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,3 +323,45 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 1d4b29fb8a827914aa1c1c2e6de3397c
   hasSpawned: 0
+--- !u!114 &2744019708267354068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394688497110106998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81db98dccdd492345be7f0ef76ccf416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1608986476931253148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394688497110106998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 58863263bf253124e9e435e6d04132f6, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gunner
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

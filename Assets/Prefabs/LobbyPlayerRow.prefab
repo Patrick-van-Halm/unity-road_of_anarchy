@@ -226,3 +226,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nameElement: {fileID: 377669317313846665}
+  player: {fileID: 0}

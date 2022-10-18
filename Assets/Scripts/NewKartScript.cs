@@ -369,7 +369,6 @@ public class NewKartScript : MonoBehaviour
 
         Vector3 newVelocity = _rigidbody.velocity + movement * Time.fixedDeltaTime;
         newVelocity.y = _rigidbody.velocity.y;
-
         //  clamp max speed if we are on ground
         if (GroundPercent > 0.0f && !wasOverMaxSpeed)
         {
