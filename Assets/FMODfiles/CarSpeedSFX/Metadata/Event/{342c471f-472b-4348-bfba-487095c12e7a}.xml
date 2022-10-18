@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{342c471f-472b-4348-bfba-487095c12e7a}">
-		<property name="note" />
 		<property name="name">
 			<value>FallingSfx</value>
 		</property>
@@ -50,6 +49,10 @@
 		</relationship>
 	</object>
 	<object class="MasterTrack" id="{219e9152-d1f2-44f9-a21b-fd5d451e50d9}">
+		<relationship name="modules">
+			<destination>{757abf51-e403-465c-980b-cf7b670a0627}</destination>
+			<destination>{fb72f30f-15cc-44d5-8c0a-b3fe8483393a}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{8b35287a-2fb9-48ee-a018-be7fd08c85f9}</destination>
 		</relationship>
@@ -65,7 +68,11 @@
 			<destination>{3a73c8cc-1880-42ec-b3dd-8d3f58a05419}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{f27254c9-2911-4c7f-8415-e886171760e4}" />
+	<object class="EventAutomatableProperties" id="{f27254c9-2911-4c7f-8415-e886171760e4}">
+		<property name="maxVoices">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{f9a98ec5-20a0-4461-9538-5769b2e39b02}" />
 	<object class="MarkerTrack" id="{65d8be02-5eee-4bf9-aa2d-3f48e18efa79}" />
 	<object class="GroupTrack" id="{d26a04da-482c-40cf-9fa3-9d2032262fee}">
@@ -75,6 +82,8 @@
 		<relationship name="modules">
 			<destination>{8a961607-5104-4f84-8c9f-cf9ac4de2cd2}</destination>
 			<destination>{4f53c34a-e1e2-4854-9c1d-6b576b47eef4}</destination>
+			<destination>{383ae06f-46a6-48f2-96c8-12a32a66baea}</destination>
+			<destination>{302f0653-2fa6-4167-b2e4-58dd48eb8588}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{63544dc2-23b2-41dc-8957-540746deee18}</destination>
@@ -112,6 +121,19 @@
 			<destination>{2c7fa66b-a61a-40ab-a486-04f77b81e193}</destination>
 		</relationship>
 	</object>
+	<object class="TransitionSourceSound" id="{757abf51-e403-465c-980b-cf7b670a0627}">
+		<property name="length">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="TransitionDestinationSound" id="{fb72f30f-15cc-44d5-8c0a-b3fe8483393a}">
+		<property name="start">
+			<value>0.5</value>
+		</property>
+		<property name="length">
+			<value>0</value>
+		</property>
+	</object>
 	<object class="MixerBusEffectChain" id="{0f9cdc46-e7f3-4581-8859-c9f79528ba01}">
 		<relationship name="effects">
 			<destination>{a5a397ac-b48f-4249-82d3-868e9420ac8d}</destination>
@@ -144,6 +166,19 @@
 		<relationship name="audioFile">
 			<destination>{e24fd1ab-4b48-4419-87af-3dccb614456f}</destination>
 		</relationship>
+	</object>
+	<object class="TransitionSourceSound" id="{383ae06f-46a6-48f2-96c8-12a32a66baea}">
+		<property name="length">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="TransitionDestinationSound" id="{302f0653-2fa6-4167-b2e4-58dd48eb8588}">
+		<property name="start">
+			<value>0.5</value>
+		</property>
+		<property name="length">
+			<value>0</value>
+		</property>
 	</object>
 	<object class="EventMixerGroup" id="{63544dc2-23b2-41dc-8957-540746deee18}">
 		<property name="name">
@@ -188,6 +223,9 @@
 		</relationship>
 		<relationship name="markerTrack">
 			<destination>{f9a98ec5-20a0-4461-9538-5769b2e39b02}</destination>
+		</relationship>
+		<relationship name="transitionTimeline">
+			<destination>{abb638d6-018f-439d-bddb-7cfed92a2d7b}</destination>
 		</relationship>
 		<relationship name="destination">
 			<destination>{1316a566-7dab-4539-8ab0-e9e539489573}</destination>
@@ -239,6 +277,17 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{1c27ffeb-ffd6-4807-98fa-45536ac68e90}" />
+	<object class="TransitionTimeline" id="{abb638d6-018f-439d-bddb-7cfed92a2d7b}">
+		<property name="length">
+			<value>0.5</value>
+		</property>
+		<relationship name="modules">
+			<destination>{383ae06f-46a6-48f2-96c8-12a32a66baea}</destination>
+			<destination>{302f0653-2fa6-4167-b2e4-58dd48eb8588}</destination>
+			<destination>{757abf51-e403-465c-980b-cf7b670a0627}</destination>
+			<destination>{fb72f30f-15cc-44d5-8c0a-b3fe8483393a}</destination>
+		</relationship>
+	</object>
 	<object class="ParameterCondition" id="{c0cf0a44-8b1f-401d-a698-2e1d63fe305d}">
 		<property name="minimum">
 			<value>0</value>
