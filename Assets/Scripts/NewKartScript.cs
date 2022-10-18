@@ -162,6 +162,7 @@ public class NewKartScript : MonoBehaviour
     Vector3 m_LastCollisionNormal;
     bool m_HasCollision;
     bool m_InAir = false;
+    bool _isCarFalling;
 
     public void AddPowerup(StatPowerup statPowerup) => m_ActivePowerupList.Add(statPowerup);
     public void SetCanMove(bool move) => m_CanMove = move;
@@ -192,10 +193,13 @@ public class NewKartScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        UpdateSuspensionParams(FrontLeftWheel);
-        UpdateSuspensionParams(FrontRightWheel);
-        UpdateSuspensionParams(RearLeftWheel);
-        UpdateSuspensionParams(RearRightWheel);
+        if (GroundPercent > 0.0f)
+        {
+            UpdateSuspensionParams(FrontLeftWheel);
+            UpdateSuspensionParams(FrontRightWheel);
+            UpdateSuspensionParams(RearLeftWheel);
+            UpdateSuspensionParams(RearRightWheel);
+        }
 
         //GatherInputs();
 
@@ -219,11 +223,15 @@ public class NewKartScript : MonoBehaviour
         GroundPercent = (float)groundedCount / 4.0f;
         AirPercent = 1 - GroundPercent;
 
+        // calculate if car is actually falling
+        _isCarFalling = Mathf.Round(_rigidbody.velocity.y) <= -2;
+
         // apply vehicle physics
         if (m_CanMove)
         {
             MoveVehicle(Input.Accelerating, Input.Braking, Input.SteerInput);
         }
+
         GroundAirbourne();
 
         m_PreviousGroundPercent = GroundPercent;
@@ -273,9 +281,9 @@ public class NewKartScript : MonoBehaviour
     void GroundAirbourne()
     {
         // while in the air, fall faster
-        if (AirPercent >= 1)
+        if (AirPercent >= 1 && _isCarFalling)
         {
-            _rigidbody.velocity += Physics.gravity * Time.fixedDeltaTime * m_FinalStats.AddedGravity;
+            _rigidbody.velocity += m_FinalStats.AddedGravity * Time.fixedDeltaTime * Physics.gravity;
         }
     }
 
@@ -350,7 +358,7 @@ public class NewKartScript : MonoBehaviour
         // if we are braking (moving reverse to where we are going)
         // use the braking accleration instead
         float finalAccelPower = isBraking ? m_FinalStats.Braking : accelPower;
-
+        
         float finalAcceleration = finalAccelPower * accelRamp;
 
         // apply inputs to forward/backward
@@ -359,7 +367,7 @@ public class NewKartScript : MonoBehaviour
         Quaternion turnAngle = Quaternion.AngleAxis(turningPower, transform.up);
         Vector3 fwd = turnAngle * transform.forward;
         Vector3 movement = fwd * accelInput * finalAcceleration * ((m_HasCollision || GroundPercent > 0.0f) ? 1.0f : 0.0f);
-
+        
         // forward movement
         bool wasOverMaxSpeed = currentSpeed >= maxSpeed;
 
@@ -381,7 +389,9 @@ public class NewKartScript : MonoBehaviour
             newVelocity = Vector3.MoveTowards(newVelocity, new Vector3(0, _rigidbody.velocity.y, 0), Time.fixedDeltaTime * m_FinalStats.CoastingDrag);
         }
 
-        _rigidbody.velocity = newVelocity;
+        // only apply when some/all wheels are touching the ground
+        if (GroundPercent > 0.0f)
+            _rigidbody.velocity = newVelocity;
 
         _parameterSetter.SetSpeed(currentSpeed * 4f);
 
@@ -395,16 +405,16 @@ public class NewKartScript : MonoBehaviour
 
             // manual angular velocity coefficient
             float angularVelocitySteering = 0.4f;
-            float angularVelocitySmoothSpeed = 20f;
+            float angularVelocitySmoothSpeed = 10f;
 
             // turning is reversed if we're going in reverse and pressing reverse
-            if (!localVelDirectionIsFwd && !accelDirectionIsFwd)
+            if (!localVelDirectionIsFwd)
                 angularVelocitySteering *= -1.0f;
 
             var angularVel = _rigidbody.angularVelocity;
 
             // move the Y angular velocity towards our target
-            angularVel.y = Mathf.MoveTowards(angularVel.y, turningPower * angularVelocitySteering, Time.fixedDeltaTime * angularVelocitySmoothSpeed);
+            angularVel.y = Mathf.MoveTowards(angularVel.y, turningPower * angularVelocitySteering * (accelRampT >= 0.04f ? 1 : 0), Time.fixedDeltaTime * angularVelocitySmoothSpeed);
 
             // apply the angular velocity
             _rigidbody.angularVelocity = angularVel;
@@ -488,7 +498,7 @@ public class NewKartScript : MonoBehaviour
         validPosition = GroundPercent > 0.7f && !m_HasCollision && Vector3.Dot(m_VerticalReference, Vector3.up) > 0.9f;
 
         // Airborne / Half on ground management
-        if (GroundPercent < 0.7f)
+        if (GroundPercent < 0.7f && GroundPercent > 0.0f || _isCarFalling)
         {
             _rigidbody.angularVelocity = new Vector3(0.0f, _rigidbody.angularVelocity.y * 0.98f, 0.0f);
             Vector3 finalOrientationDirection = Vector3.ProjectOnPlane(transform.forward, m_VerticalReference);
