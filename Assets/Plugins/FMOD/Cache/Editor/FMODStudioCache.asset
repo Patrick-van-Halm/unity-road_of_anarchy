@@ -512,7 +512,7 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/WeaponManager.bank
   Name: WeaponManager
   StudioPath: bank:/WeaponManager
-  lastModified: 638017747551725476
+  lastModified: 638017770064954581
   FileSizes:
   - Name: Desktop
     Value: 59104
@@ -595,6 +595,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1509
+--- !u!114 &-1255911768539280830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/AmmoBox
+  m_EditorClassIdentifier: 
+  Path: event:/AmmoBox
+  Guid:
+    Data1: -889553890
+    Data2: 1264576769
+    Data3: 2037505957
+    Data4: -1562982147
+  Banks:
+  - {fileID: 6205435778097572005}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 754
 --- !u!114 &-1153712833565922259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -776,12 +803,14 @@ MonoBehaviour:
   - {fileID: -877081571487413345}
   - {fileID: 1860868227737128276}
   - {fileID: 522448148247732086}
+  - {fileID: -1255911768539280830}
+  - {fileID: 4402829701490982401}
   EditorParameters: []
   MasterBanks:
   - {fileID: 6205435778097572005}
   StringsBanks:
   - {fileID: 3387954577847116684}
-  cacheTime: 638017747551725476
+  cacheTime: 638017770064954581
   cacheVersion: 131592
 --- !u!114 &272079236890011561
 MonoBehaviour:
@@ -1092,10 +1121,10 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638017747551117104
+  lastModified: 638017770064574350
   FileSizes:
   - Name: Desktop
-    Value: 1926
+    Value: 2004
   Exists: 1
 --- !u!114 &3775157290884650736
 MonoBehaviour:
@@ -1206,6 +1235,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &4402829701490982401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/WaterSplash
+  m_EditorClassIdentifier: 
+  Path: event:/WaterSplash
+  Guid:
+    Data1: -963814079
+    Data2: 1250618962
+    Data3: 1832241841
+    Data4: 1862405727
+  Banks:
+  - {fileID: 6205435778097572005}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1706
 --- !u!114 &4410429513474821811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,10 +1384,10 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638017747551107059
+  lastModified: 638017770064554331
   FileSizes:
   - Name: Desktop
-    Value: 2279744
+    Value: 2312512
   Exists: 1
 --- !u!114 &6251138607929999299
 MonoBehaviour:
