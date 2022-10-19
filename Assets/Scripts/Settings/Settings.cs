@@ -32,4 +32,9 @@ public class Settings : MonoBehaviour
     {
         _gameSettings.Sensitivity = value;
     }
+
+    public void SetAutomaticReload(bool value)
+    {
+        _gameSettings.AutomaticReload = value;
+    }
 }
