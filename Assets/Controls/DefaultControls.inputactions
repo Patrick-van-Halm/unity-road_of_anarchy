@@ -84,6 +84,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "5fe9a535-c105-4db4-b075-9cd7cd7a5087",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Braking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Keyboard AD",
                     "id": "581906a7-d977-484e-9dbf-223a799f7435",
                     "path": "1DAxis",
@@ -131,6 +142,17 @@
                     "name": "",
                     "id": "0a0badbf-4d89-46d3-8859-88af1cd80fdc",
                     "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Brake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5edfd784-eb6d-4a9d-a777-ffffd9e50797",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
