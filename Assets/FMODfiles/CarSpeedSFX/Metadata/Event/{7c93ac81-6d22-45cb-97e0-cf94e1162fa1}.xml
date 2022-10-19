@@ -5,7 +5,7 @@
 			<value>WheelsGroundedSfx</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{47af4342-06ab-430d-8d21-45ed3959aae1}</destination>
@@ -119,6 +119,7 @@
 	<object class="MixerBusEffectChain" id="{a02ff2f1-81eb-4c0f-9d90-75336b6e5f80}">
 		<relationship name="effects">
 			<destination>{9eebef87-a5e6-4be7-a973-a1cf62ec7886}</destination>
+			<destination>{3daaa7d7-4d96-4583-a456-8ef160f94019}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{c70280fb-b6da-46c0-b38f-c38c22743899}" />
@@ -131,6 +132,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{de23ee6e-987b-4f17-b319-c1c48e9fe80d}" />
 	<object class="MixerBusFader" id="{9eebef87-a5e6-4be7-a973-a1cf62ec7886}" />
+	<object class="SpatialiserEffect" id="{3daaa7d7-4d96-4583-a456-8ef160f94019}" />
 	<object class="MixerBusFader" id="{3d1579d1-2ea0-4d0b-85fa-a18ed9d015b6}" />
 	<object class="PitchShifterEffect" id="{ecaea773-af44-464a-a086-18e5d033ea35}">
 		<property name="pitch">

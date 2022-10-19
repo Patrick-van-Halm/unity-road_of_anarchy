@@ -8,7 +8,7 @@
 			<value>RaceSfx</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{47af4342-06ab-430d-8d21-45ed3959aae1}</destination>
@@ -219,6 +219,7 @@
 	<object class="MixerBusEffectChain" id="{38c3ec93-8a20-494f-9bf4-5369614fb5f6}">
 		<relationship name="effects">
 			<destination>{c4d58cbe-a4cb-4386-afb5-e93d4f0e5f8f}</destination>
+			<destination>{691f6253-7db6-43c8-846c-2dbe3c0b063b}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{e5c4cc7f-0833-443c-ac6b-6c45202aab4b}" />
@@ -239,6 +240,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{b84c6f3c-576e-4384-a233-c3ddb314675d}" />
 	<object class="MixerBusFader" id="{c4d58cbe-a4cb-4386-afb5-e93d4f0e5f8f}" />
+	<object class="SpatialiserEffect" id="{691f6253-7db6-43c8-846c-2dbe3c0b063b}" />
 	<object class="MixerBusFader" id="{20f48c0a-7aff-4824-a60b-cc985a7d8c6e}" />
 	<object class="PitchShifterEffect" id="{fcda7592-bc9f-4c6f-a719-205d7162f9a1}">
 		<relationship name="automators">

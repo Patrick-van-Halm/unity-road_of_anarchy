@@ -5,7 +5,7 @@
 			<value>MechanicalSfx</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{47af4342-06ab-430d-8d21-45ed3959aae1}</destination>
@@ -211,6 +211,7 @@
 	<object class="MixerBusEffectChain" id="{9cfe6930-b57f-4213-9345-25a908cd184c}">
 		<relationship name="effects">
 			<destination>{42b27e12-70a9-41c7-beb9-4a0284ef6f69}</destination>
+			<destination>{d82fce2f-c290-4f25-8aea-96f999d3c0dd}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{3afc0827-a62d-4ae0-9b08-bd336588421c}" />
@@ -233,5 +234,6 @@
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{42b27e12-70a9-41c7-beb9-4a0284ef6f69}" />
+	<object class="SpatialiserEffect" id="{d82fce2f-c290-4f25-8aea-96f999d3c0dd}" />
 	<object class="MixerBusFader" id="{2053677b-e9c7-4721-9db8-db91aa4f8f64}" />
 </objects>

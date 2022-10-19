@@ -5,7 +5,7 @@
 			<value>CrashSfx</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{47af4342-06ab-430d-8d21-45ed3959aae1}</destination>
@@ -138,6 +138,7 @@
 	<object class="MixerBusEffectChain" id="{f054897f-b724-4d41-a111-b79538c969ee}">
 		<relationship name="effects">
 			<destination>{8477a0b9-aecb-4f3f-9dae-aacea454612a}</destination>
+			<destination>{4261f00a-ae9c-49a8-bfc2-b29e643288af}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{2e3f7508-4057-4fdd-b285-bcb4df16d978}" />
@@ -157,6 +158,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{d5094f9b-ed8d-4628-83bf-368f845e2a96}" />
 	<object class="MixerBusFader" id="{8477a0b9-aecb-4f3f-9dae-aacea454612a}" />
+	<object class="SpatialiserEffect" id="{4261f00a-ae9c-49a8-bfc2-b29e643288af}" />
 	<object class="AutomationCurve" id="{a7143495-ad9e-4ca0-aa00-26ddc30b0b53}">
 		<relationship name="parameter">
 			<destination>{1f84ed3b-e1a9-4322-afbf-e3622e1ce420}</destination>

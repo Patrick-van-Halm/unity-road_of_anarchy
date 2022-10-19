@@ -8,7 +8,7 @@
 			<value>WaterSplash</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{47af4342-06ab-430d-8d21-45ed3959aae1}</destination>
@@ -122,6 +122,7 @@
 	<object class="MixerBusEffectChain" id="{09ba5fd0-e81f-4c9c-86ae-e6248b320ca7}">
 		<relationship name="effects">
 			<destination>{b7c7758a-35f6-4f62-9c08-09be464d5893}</destination>
+			<destination>{27fc073d-7b20-45f6-8167-560a35343bf0}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{8080a342-8621-4cd5-aa28-81d47ed67b05}" />
@@ -133,5 +134,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{b87d1050-d1cb-4032-be7e-813b70bd0016}" />
 	<object class="MixerBusFader" id="{b7c7758a-35f6-4f62-9c08-09be464d5893}" />
+	<object class="SpatialiserEffect" id="{27fc073d-7b20-45f6-8167-560a35343bf0}" />
 	<object class="MixerBusFader" id="{bd0d4459-6bac-4794-8bc5-5d83f74da94f}" />
 </objects>
