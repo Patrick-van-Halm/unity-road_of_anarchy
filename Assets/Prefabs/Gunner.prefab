@@ -139,7 +139,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1394688497029536350}
   - component: {fileID: 1394688497029536351}
-  - component: {fileID: 1394688497029536348}
   - component: {fileID: 8347074635991737327}
   m_Layer: 0
   m_Name: Main Camera
@@ -207,14 +206,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1394688497029536348
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1394688497029536349}
-  m_Enabled: 1
 --- !u!114 &8347074635991737327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,11 +291,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96926d09a7925b4e94f1dae7f7bbec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
   gunnerCamera: {fileID: 1394688497029536351}
+  audio: {fileID: 0}
+  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
   _minXRotation: -20
   _maxXRotation: 20
-  _parameterSetter: {fileID: 0}
+  _sensitivityMod: 0
   _gunnerInput: {fileID: 2744019708267354068}
 --- !u!114 &2568552716397588583
 MonoBehaviour:
