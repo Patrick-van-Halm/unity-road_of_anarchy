@@ -7,10 +7,20 @@ using UnityEngine;
 
 public class SpawnManager : NetworkBehaviour
 {
+    // Add this for demo will be replaced with the checkpoint system
+    [Header("Temporarily")]
+    [SerializeField] public Transform respawn1;
+    [SerializeField] public Transform respawn2;
+
+    [Header("Spawnable Objects")]
     [SerializeField] private GameObject _carObject;
     [SerializeField] private GameObject _gunObject;
     [SerializeField] private GameObject _spectatorObject;
+
+    [Header("Spawnable Settings")]
     [SerializeField] private Vector3 _gunObjectOffset;
+
+    [Header("Spawn settings")]
     [SerializeField] private List<Transform> _spawns = new List<Transform>();
     [SerializeField] private PlayerHUDComponent _hudComponent;
     private List<Transform> _usedSpawns = new List<Transform>();
@@ -19,11 +29,16 @@ public class SpawnManager : NetworkBehaviour
     private Team _team;
     private bool _isGunnerAssigned;
 
+    public static SpawnManager Instance { get; private set; }
+
     private void Awake()
     {
         if (_spawns.Count == 0) enabled = false;
         if (_carObject == null) enabled = false;
         if (_gunObject == null) enabled = false;
+
+        if (Instance == null) Instance = this;
+        else Destroy(this);
 
         // Run only on server
         if (!NetworkServer.active) return;
@@ -82,12 +97,18 @@ public class SpawnManager : NetworkBehaviour
         GameObject oldDriver = team.DriverIdentity.gameObject;
 
         NetworkConnectionToClient conn = team.GunnerIdentity.connectionToClient;
-        NetworkServer.ReplacePlayerForConnection(conn, Instantiate(_spectatorObject));
-        team.GunnerIdentity = conn.identity;
+        if(conn != null)
+        {
+            NetworkServer.ReplacePlayerForConnection(conn, Instantiate(_spectatorObject));
+            team.GunnerIdentity = conn.identity;
+        }
 
         conn = team.DriverIdentity.connectionToClient;
-        NetworkServer.ReplacePlayerForConnection(conn, Instantiate(_spectatorObject));
-        team.DriverIdentity = conn.identity;
+        if (conn != null)
+        {
+            NetworkServer.ReplacePlayerForConnection(conn, Instantiate(_spectatorObject));
+            team.DriverIdentity = conn.identity;
+        }
 
         Destroy(oldDriver, 0.1f);
         Destroy(oldGunner, 0.1f);

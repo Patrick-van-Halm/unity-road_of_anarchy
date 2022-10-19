@@ -43,8 +43,8 @@ public class WreckedCar : NetworkBehaviour
             FindObjectOfType<SpawnManager>()?.SpawnSpectators(player.Team);
 
             // Send elimination rpc to team
-            player.Team.DriverSpectator.wasEliminated = true;
-            player.Team.GunnerSpectator.wasEliminated = true;
+            if(player.Team.DriverSpectator) player.Team.DriverSpectator.wasEliminated = true;
+            if(player.Team.GunnerSpectator) player.Team.GunnerSpectator.wasEliminated = true;
         }
         else OnKillMessage?.Invoke("You killed a team");      
 
