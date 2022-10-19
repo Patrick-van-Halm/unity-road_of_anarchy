@@ -2130,7 +2130,7 @@ MonoBehaviour:
   syncInterval: 0.1
   LobbyPlayerPrefab: {fileID: 4373659787179813014, guid: 86d9fc2f665b032438d64d070f346588, type: 3}
   GameScenes:
-  - Assets/Scenes/MultiplayerMovement.unity
+  - Assets/Scenes/Map.unity
   _minPlayersRequired: 2
   _passiveCountdownSeconds: 60
   _lobbyStartCountdownSeconds: 5

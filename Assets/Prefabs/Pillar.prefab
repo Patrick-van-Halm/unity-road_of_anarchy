@@ -416,6 +416,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   _pillarCollisionDetection: {fileID: 6426912741380752751}
+  _pillarShootDetection: {fileID: 7325368073723252875}
   _animator: {fileID: 3941773190863805395}
 --- !u!95 &3941773190863805395
 Animator:
@@ -450,6 +451,7 @@ GameObject:
   - component: {fileID: 5293441188244637293}
   - component: {fileID: 4355008726820854460}
   - component: {fileID: 6426912741380752751}
+  - component: {fileID: 7325368073723252875}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -550,5 +552,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnCollision:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &7325368073723252875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9077625926123856582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dc0f635d56eb240bc5a8c902567875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HasBeenHit:
     m_PersistentCalls:
       m_Calls: []

@@ -2,6 +2,7 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnManager : NetworkBehaviour
@@ -12,6 +13,7 @@ public class SpawnManager : NetworkBehaviour
     [SerializeField] private Vector3 _gunObjectOffset;
     [SerializeField] private List<Transform> _spawns = new List<Transform>();
     [SerializeField] private PlayerHUDComponent _hudComponent;
+    private List<Transform> _usedSpawns = new List<Transform>();
     private GameObject _currentCarObject;
     private GameObject _currentGunObject;
     private Team _team;
@@ -38,7 +40,10 @@ public class SpawnManager : NetworkBehaviour
             _team = new Team();
 
             _isGunnerAssigned = false;
-            _currentCarObject = Instantiate(_carObject, _spawns.Random().position, Quaternion.identity);
+            Transform spawn = _spawns.Where(s => !_usedSpawns.Contains(s)).Random();
+            _usedSpawns.Add(spawn);
+
+            _currentCarObject = Instantiate(_carObject, spawn.position, Quaternion.identity);
             _team.DriverIdentity = _currentCarObject.GetComponent<NetworkIdentity>();
             NetworkServer.ReplacePlayerForConnection(conn, _currentCarObject);
 

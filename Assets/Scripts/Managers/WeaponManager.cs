@@ -73,7 +73,7 @@ public class WeaponManager : NetworkBehaviour
     private void PerformRaycast(Ray ray)
     {
         // Stores the location of the point where the target is hit
-        Vector3 targetPoint = ray.direction * Weapon.WeaponRange;
+        Vector3 targetPoint = ray.GetPoint(Weapon.WeaponRange);
 
         if (Physics.Raycast(ray, out RaycastHit hit, Weapon.WeaponRange))
         {
