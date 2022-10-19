@@ -15,4 +15,7 @@ public class GameSettings : ScriptableObject
     public bool InvertX;
     public bool InvertY;
     public float Sensitivity;
+
+    [Header("Gunner settings")]
+    public bool AutomaticReload;
 }

@@ -17,3 +17,4 @@ MonoBehaviour:
   InvertX: 0
   InvertY: 0
   Sensitivity: 1.6
+  AutomaticReload: 0

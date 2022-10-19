@@ -25,6 +25,7 @@ public class WeaponManager : NetworkBehaviour
     public Weapon Weapon;
     [SerializeField] private Transform _weaponMuzzlePosition;
     [SerializeField] private Transform _weaponObject;
+
     #endregion
 
     #region Gunner
@@ -47,6 +48,7 @@ public class WeaponManager : NetworkBehaviour
 
     #region Shooting
     public UnityEvent OnEnemyHit = new UnityEvent();
+
 
     public void TryFireWeapon()
     {
