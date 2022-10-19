@@ -33,7 +33,7 @@ public class LobbyDiscovery : MonoBehaviour
         RefreshServers();
     }
 
-    private void RefreshServers()
+    public void RefreshServers()
     {
         // Create a GET request to server
         UnityWebRequest request = UnityWebRequest.Get($"{_discoveryServerAddress}/servers");

@@ -14,7 +14,7 @@ public class LobbyListingUI : MonoBehaviour
         LobbyDiscovery.Instance.OnLobbyListingRefreshed.AddListener(ReloadLobbyListingRows);
     }
 
-    private void ReloadLobbyListingRows()
+    public void ReloadLobbyListingRows()
     {
         // Destroy all previous listing rows
         for(int i = LobbyListContent.transform.childCount - 1; i > -1; i--)
