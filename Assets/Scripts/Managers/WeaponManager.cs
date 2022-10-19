@@ -73,12 +73,12 @@ public class WeaponManager : NetworkBehaviour
     private void PerformRaycast(Ray ray)
     {
         // Stores the location of the point where the target is hit
-        Vector3 targetPoint = Vector3.zero;
+        Vector3 targetPoint = ray.direction * Weapon.WeaponRange;
 
         if (Physics.Raycast(ray, out RaycastHit hit, Weapon.WeaponRange))
         {
             // If the target hit is the enemy, get the Interface and call the ApplyDamage function
-            if (IsEnemy(hit) is IDamageable target)
+            if (IsHittable(hit) is IDamageable target)
             {
                 Debug.Log("Target is enemy");
 
@@ -93,11 +93,6 @@ public class WeaponManager : NetworkBehaviour
                 OnEnemyHit.Invoke();
             }
         }
-        else
-        {
-            // Player has not hit anything, shoot directly
-            targetPoint = ray.direction * Weapon.WeaponRange;
-        }
 
         // Calculate the direction in which the weapon needs to fire
         InstantiateBullet(CalculateFireDirection(targetPoint));
@@ -105,9 +100,9 @@ public class WeaponManager : NetworkBehaviour
         //CmdSetBulletDirection(bulletDirection);
     }
 
-    private IDamageable IsEnemy(RaycastHit hit)
+    private IDamageable IsHittable(RaycastHit hit)
     {
-        if (hit.collider.CompareTag(_targetTagName) && hit.collider.GetComponent<IDamageable>() is IDamageable target)
+        if (hit.collider.GetComponent<IDamageable>() is IDamageable target)
             return target;
 
         return null;

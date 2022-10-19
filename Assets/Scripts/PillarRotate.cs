@@ -6,11 +6,13 @@ using UnityEngine;
 public class PillarRotate : NetworkBehaviour
 {
     [SerializeField] private PillarCollisionDetection _pillarCollisionDetection;
+    [SerializeField] private PillarShootDetection _pillarShootDetection;
     [SerializeField] private Animator _animator;
 
     private void Start()
     {
         _pillarCollisionDetection.OnCollision.AddListener(CmdStartAnim);
+        _pillarShootDetection.HasBeenHit.AddListener(CmdStartAnim);
     }
 
     [Command(requiresAuthority = false)]
