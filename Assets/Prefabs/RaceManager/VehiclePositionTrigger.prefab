@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2c44fd1dd8ee54db239e1aaa7a832e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frontPositionTriggerObject: {fileID: 6147662761532632584, guid: 9d66b3edc5b084447ad9d45a90f38d49, type: 3}
-  _backPositionTriggerObject: {fileID: 3216482735224063438, guid: 2f24f5ca1e5e4aa47b102469d6a92b40, type: 3}
+  _frontPositionTriggerTag: FrontTrigger
+  _backPositionTriggerTag: RearTrigger
   _constraintOffset: -1.5
 --- !u!1773428102 &1388968748
 ParentConstraint:

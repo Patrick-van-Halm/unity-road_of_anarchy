@@ -8,6 +8,8 @@ TagManager:
   - Bullet
   - AmmoBox
   - Water
+  - FrontTrigger
+  - RearTrigger
   - Terrain
   - Checkpoint
   layers:
