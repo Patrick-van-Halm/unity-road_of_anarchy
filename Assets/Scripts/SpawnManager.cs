@@ -77,6 +77,7 @@ public class SpawnManager : NetworkBehaviour
         {
             NetworkServer.ReplacePlayerForConnection(conn, _currentGunObject);
             _isGunnerAssigned = true;
+            RpcDisableCarCollider(conn, _currentCarObject);
         }
 
         Destroy(currentPlayerObj, .1f);
@@ -87,6 +88,11 @@ public class SpawnManager : NetworkBehaviour
     private void RpcLinkToCar(NetworkConnection conn, GameObject car, GameObject gunner)
     {
         car.GetComponent<AttributeComponent>().OnHealthChanged.AddListener(_hudComponent.OnHealthChanged);
+    }
+
+    [TargetRpc]
+    private void RpcDisableCarCollider(NetworkConnection conn, GameObject car)
+    {
         car.GetComponent<BoxCollider>().enabled = false;
     }
 

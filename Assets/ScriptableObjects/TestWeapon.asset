@@ -28,7 +28,7 @@ MonoBehaviour:
       Data4: 19230530
     Path: event:/HitsoundSfx
   DamageAmount: 5
-  AmmoAmount: 20
+  AmmoAmount: 10
   MaxAmmo: 20
   MaxClipSize: 20
   ClipAmmoAmount: 0

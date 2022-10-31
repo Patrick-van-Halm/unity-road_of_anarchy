@@ -182,13 +182,20 @@ public class WeaponManager : NetworkBehaviour
 
     private bool HasEnoughAmmoToReload()
     {
-        return Weapon.MaxClipSize <= Weapon.AmmoAmount;
+        // Change so player can always reload
+        //return Weapon.MaxClipSize <= Weapon.AmmoAmount;
+        return Weapon.AmmoAmount > 0;
+    }
+
+    private bool HasFullClip()
+    {
+        return Weapon.ClipAmmoAmount == Weapon.MaxClipSize;
     }
 
     public void ReloadWeapon()
     {
         // Only allow reload if player has enough ammo, and not already reloading
-        if (HasEnoughAmmoToReload() && !_isReloading)
+        if (HasEnoughAmmoToReload() && !HasFullClip() && !_isReloading)
             StartCoroutine(nameof(CoroReloadDelay), Weapon.ReloadTimeInSeconds);
     }
 
@@ -199,9 +206,24 @@ public class WeaponManager : NetworkBehaviour
 
         yield return new WaitForSeconds(delayTime);
 
+        // Calculate how much ammo is required to fully reload
+        int ammoRequiredFullReload = Weapon.MaxClipSize - Weapon.ClipAmmoAmount;
+
+        // Reload depending on how much ammo is in storage
+        if (Weapon.AmmoAmount < ammoRequiredFullReload)
+        {
+            Weapon.ClipAmmoAmount += Weapon.AmmoAmount;
+            Weapon.AmmoAmount = 0;
+        }
+        else
+        {
+            Weapon.ClipAmmoAmount = Weapon.MaxClipSize;
+            Weapon.AmmoAmount -= ammoRequiredFullReload;
+        }
+
         // Refill the clip size and subtract a clip from the total ammo amount
-        Weapon.ClipAmmoAmount = Weapon.MaxClipSize;
-        Weapon.AmmoAmount -= Weapon.MaxClipSize;
+        //Weapon.ClipAmmoAmount = Weapon.MaxClipSize;
+        //Weapon.AmmoAmount -= Weapon.MaxClipSize;
 
         _isReloading = false;
         _canShoot = true;
