@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,91 +6,65 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class RaceManager : MonoBehaviour
+public class RaceManager : NetworkBehaviour
 {
     [Header("Race Settings")]
-    [SerializeField] private List<Transform> _vehicleTransformList;
     [SerializeField] private int _numberOfLaps;
 
-    [Header("Object triggers on vehicle")]
-    [SerializeField] private GameObject _frontVehiclePositionTriggerObject;
+    [Header("Checkpoints")]
+    [SerializeField] private List<Checkpoint> _checkpointsList;
 
-    private List<VehiclePositionTrigger> _vehiclePositionTriggerList;
-    private List<Checkpoint> _checkpointsList;
-    private List<VehiclePosition> _vehiclePositionList;
+    public static RaceManager Instance { get; private set; }
+    
+    public int NumberOfLaps => _numberOfLaps;
+    private SyncList<VehiclePosition> _vehiclePositionList = new SyncList<VehiclePosition>();
     private List<DynamicOvertakeTrigger> _dynamicOvertakeTriggerList;
 
-    private class VehiclePosition
+    public class VehiclePosition
     {
-        public Transform VehicleTransform { get; set; }
+        public GameObject Vehicle { get; set; }
+        public List<GameObject> CheckpointsDrivenThrough { get; set; } = new List<GameObject>();
         public int CurrentCheckpoint { get; set; }
         public int CurrentLap { get; set; }
     }
 
     private class DynamicOvertakeTrigger
     {
-        public Transform CurrentVehicleTransform { get; set; }
-        public Transform CollisionVehicleTransform { get; set; }
+        public GameObject CurrentVehicle { get; set; }
+        public GameObject CollisionVehicle { get; set; }
         public bool IsFrontTrigger { get; set; }
     }
 
-    public UnityEvent WrongCheckpoint;
-    public UnityEvent CorrectCheckpoint;
-    public UnityEvent<int> SetNumberOfLaps;
-    public UnityEvent<int> IncreaseLap;
-    public UnityEvent<int> OnPositionUpdate;
-    public UnityEvent<int> OnSwapPosition;
+    [Header("Events")]
+    public UnityEvent WrongCheckpoint = new UnityEvent();
+    public UnityEvent CorrectCheckpoint = new UnityEvent();
+    public UnityEvent<int> IncreaseLap = new UnityEvent<int>();
+    public UnityEvent<int> OnPositionUpdate = new UnityEvent<int>();
 
     private void Awake()
     {
+        if (Instance == null) Instance = this;
+        else Destroy(this);
+
         // Initialization
-        _vehiclePositionTriggerList = new List<VehiclePositionTrigger>();
-        _checkpointsList = new List<Checkpoint>();
-        _vehiclePositionList = new List<VehiclePosition>();
         _dynamicOvertakeTriggerList = new List<DynamicOvertakeTrigger>();
-
-        // Set starting values 
-        for (int i = 0; i < _vehicleTransformList.Count; i++)
-        {
-            _vehiclePositionList.Add(new VehiclePosition { VehicleTransform = _vehicleTransformList[i], CurrentLap = 0, CurrentCheckpoint = 0 });
-        }
-
-        // Get child transforms attached to TrackCheckpoints gameobject
-        Transform allCheckpointsTransform = transform.Find("TrackCheckpoints");
-
-        // Cycles through all of the children from the above selected (Get all checkpoints under TrackCheckPoints)
-        foreach(Transform checkpointTransform in allCheckpointsTransform)
-        {
-            // Get checkpoint script attached to the checkpoint gameobject
-            Checkpoint checkpoint = checkpointTransform.GetComponent<Checkpoint>();
-
-            // Pass this script to Checkpoint script
-            checkpoint.SetRaceManagerScript(this);
-
-            // Add found checkpoints to list
-            _checkpointsList.Add(checkpoint);
-        }
-
-        // Cycles through all the vehicles and passes a reference of this script
-        foreach (Transform vehicleTransform in _vehicleTransformList)
-        {
-            // Instantiate object collider on vehicle
-            GameObject frontVehiclePositionTrigger = Instantiate(_frontVehiclePositionTriggerObject, vehicleTransform.position, vehicleTransform.rotation);
-
-            // Get VehiclePositionCollider Script
-            VehiclePositionTrigger frontVehiclePositionTriggerScript = frontVehiclePositionTrigger.GetComponent<VehiclePositionTrigger>();
-
-            // Set values in vehiclePositionTrigger object
-            frontVehiclePositionTriggerScript.SetValues(this, vehicleTransform);
-
-            // Store all trigger objects on the vehicle
-            _vehiclePositionTriggerList.Add(frontVehiclePositionTriggerScript);
-        }
     }
 
-    private void Start()
+    public void AddVehicleToList(GameObject vehicle)
     {
-        SetNumberOfLaps?.Invoke(_numberOfLaps);
+        // Set starting values 
+        _vehiclePositionList.Add(new VehiclePosition { Vehicle = vehicle, CurrentLap = 0, CurrentCheckpoint = 0 });
+    }
+
+    public int GetCheckpointIndex(Checkpoint checkpoint)
+    {
+        return _checkpointsList.IndexOf(checkpoint);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdVehicleThroughCheckPoint(int checkpointIndex, GameObject vehicle)
+    {
+        VehicleThroughCheckPoint(_checkpointsList[checkpointIndex], vehicle);
     }
 
     /// <summary>
@@ -98,55 +73,99 @@ public class RaceManager : MonoBehaviour
     /// Futhermore, it will trigger another method (CheckRacePosition) which will update the vehicle positions.
     /// </summary>
     /// <param name="checkpoint"></param>
-    /// <param name="vehicleTransform"></param>
-    public void VehicleThroughCheckPoint(Checkpoint checkpoint, Transform vehicleTransform)
+    /// <param name="vehicle"></param>
+    private void VehicleThroughCheckPoint(Checkpoint checkpoint, GameObject vehicle)
     {
         // Get right index of current vehicle in sorted list
         int vehicleIndex = 0;
         for (int i = 0; i < _vehiclePositionList.Count; i++)
         {
-            if(vehicleTransform == _vehiclePositionList[i].VehicleTransform)
+            if(vehicle == _vehiclePositionList[i].Vehicle)
             {
                 vehicleIndex = i;
                 break;
             }
         }
 
+        AddCheckpointToVehiclePositionList(vehicleIndex, checkpoint);
+
         // Check if vehicle is on the right checkpoint
-        if (_checkpointsList.IndexOf(checkpoint) == _vehiclePositionList[vehicleIndex].CurrentCheckpoint)
+        if (_checkpointsList.IndexOf(checkpoint) == _vehiclePositionList[vehicleIndex].CurrentCheckpoint || checkpoint.VehicleExitedCorrectly)
         {
             // Increase checkpoint counter for that vehicle
-            _vehiclePositionList[vehicleIndex].CurrentCheckpoint++;
+            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint) + 1;
 
             // Correct checkpoint event
-            CorrectCheckpoint?.Invoke();
+            TargetCorrectCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
 
             // When lap is completed
-            if (_checkpointsList.Count == _vehiclePositionList[vehicleIndex].CurrentCheckpoint)
+            if (_checkpointsList.Count == _vehiclePositionList[vehicleIndex].CurrentCheckpoint && _checkpointsList.Count == _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.Count)
             {
-                _vehiclePositionList[vehicleIndex].CurrentLap++;               // Increase lap for vehicle                
-                _vehiclePositionList[vehicleIndex].CurrentCheckpoint = 0;      // Reset checkpoint
+                _vehiclePositionList[vehicleIndex].CurrentLap++;                                        // Increase lap for vehicle
+                _vehiclePositionList[vehicleIndex].CurrentCheckpoint = 0;                               // Reset checkpoint
+                _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough = new List<GameObject>();   // Reset list
 
                 // Increaselap event
-                IncreaseLap?.Invoke(_vehiclePositionList[vehicleIndex].CurrentLap);
+                TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
             }
         }
         else
         {
             // Wrong checkpoint
-            WrongCheckpoint?.Invoke();
+            TargetWrongCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
 
             // Decrease checkpoint counter for that vehicle
-            int lastCheckpoint = _vehiclePositionList[vehicleIndex].CurrentCheckpoint - 1;
-            if (lastCheckpoint == _checkpointsList.IndexOf(checkpoint)) _vehiclePositionList[vehicleIndex].CurrentCheckpoint--;
-            if (_checkpointsList.IndexOf(checkpoint) == 0) _vehiclePositionList[vehicleIndex].CurrentCheckpoint++;
+            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint);
         }
 
         // Set the position of the vehicle
         CheckRacePosition();
+    }
 
-        // Update rotation of the trigger collider on the vehicle
-        _vehiclePositionTriggerList[vehicleIndex].SetTransformSize(checkpoint.transform.rotation, checkpoint.transform.localScale);
+    /// <summary>
+    /// Adds checkpoint to list of vehicle if the checkpoint isn't already in the list.
+    /// </summary>
+    /// <param name="vehicleListIndex"></param>
+    /// <param name="checkpoint"></param>
+    private void AddCheckpointToVehiclePositionList(int vehicleListIndex, Checkpoint checkpoint)
+    {
+        List<Checkpoint> _currentCheckpointList = _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Select(x => x.GetComponent<Checkpoint>()).ToList();
+        bool _isNewCheckpoint = true;
+        int _checkpointListLength = _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Count;
+        for (int i = 0; i < _checkpointListLength; i++)
+        {
+            if (_currentCheckpointList[i] == checkpoint)
+            {
+                _isNewCheckpoint = false;
+                break;
+            }
+        }
+
+        if (_isNewCheckpoint) _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Add(checkpoint.gameObject);
+    }
+
+    [TargetRpc]
+    private void TargetWrongCheckpoint(NetworkConnection target)
+    {
+        WrongCheckpoint?.Invoke();
+    }
+
+    [TargetRpc]
+    private void TargetIncreaseLap(NetworkConnection target, int currentLap)
+    {
+        IncreaseLap?.Invoke(currentLap);
+    }
+
+    [TargetRpc]
+    private void TargetCorrectCheckpoint(NetworkConnection target)
+    {
+        CorrectCheckpoint?.Invoke();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdVehicleThroughPositionCollider(GameObject currentVehicle, GameObject collisionVehicle, bool isFrontTrigger, bool hasEnteredTrigger)
+    {
+        VehicleThroughPositionCollider(currentVehicle, collisionVehicle, isFrontTrigger, hasEnteredTrigger);
     }
 
     /// <summary>
@@ -156,11 +175,11 @@ public class RaceManager : MonoBehaviour
     /// <param name="collisionVehicleTransform"></param>
     /// <param name="isFrontTrigger"></param>
     /// <param name="hasEnteredTrigger"></param>
-    public void VehicleThroughPositionCollider(Transform currentVehicleTransform, Transform collisionVehicleTransform, bool isFrontTrigger, bool hasEnteredTrigger)
+    private void VehicleThroughPositionCollider(GameObject currentVehicle, GameObject collisionVehicle, bool isFrontTrigger, bool hasEnteredTrigger)
     {
         if(hasEnteredTrigger)
         {
-            _dynamicOvertakeTriggerList.Add(new DynamicOvertakeTrigger() { CurrentVehicleTransform = currentVehicleTransform, CollisionVehicleTransform = collisionVehicleTransform, IsFrontTrigger = isFrontTrigger});
+            _dynamicOvertakeTriggerList.Add(new DynamicOvertakeTrigger() { CurrentVehicle = currentVehicle, CollisionVehicle = collisionVehicle, IsFrontTrigger = isFrontTrigger});
         }
         else
         {
@@ -169,8 +188,8 @@ public class RaceManager : MonoBehaviour
             for (int i = 0; i < _dynamicOvertakeTriggerList.Count; i++)
             {
                 // Only store the currentvehicle and collisionvehicles
-                if(_dynamicOvertakeTriggerList[i].CurrentVehicleTransform == currentVehicleTransform && _dynamicOvertakeTriggerList[i].CollisionVehicleTransform == collisionVehicleTransform ||
-                   _dynamicOvertakeTriggerList[i].CurrentVehicleTransform == collisionVehicleTransform && _dynamicOvertakeTriggerList[i].CollisionVehicleTransform == currentVehicleTransform)
+                if(_dynamicOvertakeTriggerList[i].CurrentVehicle == currentVehicle && _dynamicOvertakeTriggerList[i].CollisionVehicle == collisionVehicle ||
+                   _dynamicOvertakeTriggerList[i].CurrentVehicle == collisionVehicle && _dynamicOvertakeTriggerList[i].CollisionVehicle == currentVehicle)
                 {
                     tempList.Add(_dynamicOvertakeTriggerList[i]);
                 }
@@ -181,7 +200,7 @@ public class RaceManager : MonoBehaviour
             {
                 if (i >= tempList.Count) continue;
                 DynamicOvertakeTrigger overtakeTrigger = tempList[i];
-                tempList.RemoveAll(o => o.CollisionVehicleTransform == overtakeTrigger.CollisionVehicleTransform && o.CurrentVehicleTransform == overtakeTrigger.CurrentVehicleTransform && o.IsFrontTrigger == overtakeTrigger.IsFrontTrigger);
+                tempList.RemoveAll(o => o.CollisionVehicle == overtakeTrigger.CollisionVehicle && o.CurrentVehicle == overtakeTrigger.CurrentVehicle && o.IsFrontTrigger == overtakeTrigger.IsFrontTrigger);
                 tempList.Add(overtakeTrigger);
             }
 
@@ -201,16 +220,18 @@ public class RaceManager : MonoBehaviour
             }
 
             // Vehicle has overtaken
-            if (isFrontCounter + isBackCounter == 4)
+            VehiclePosition currentVehiclePosition = _vehiclePositionList.Find(p => p.Vehicle == currentVehicle);
+            VehiclePosition collisionVehiclePosition = _vehiclePositionList.Find(p => p.Vehicle == collisionVehicle);
+            if (isFrontCounter + isBackCounter == 4 && currentVehiclePosition.CurrentLap == collisionVehiclePosition.CurrentLap)
             {
-                SwapVehiclePositions(currentVehicleTransform, collisionVehicleTransform);
+                SwapVehiclePositions(currentVehiclePosition, collisionVehiclePosition);
 
                 // Find all vehicles which need to be removed
                 List<int> removeVehicleIndexList = new List<int>();
                 for (int i = 0; i < _dynamicOvertakeTriggerList.Count; i++)
                 {
-                    if (_dynamicOvertakeTriggerList[i].CurrentVehicleTransform == currentVehicleTransform && _dynamicOvertakeTriggerList[i].CollisionVehicleTransform == collisionVehicleTransform ||
-                        _dynamicOvertakeTriggerList[i].CurrentVehicleTransform == collisionVehicleTransform && _dynamicOvertakeTriggerList[i].CollisionVehicleTransform == currentVehicleTransform)
+                    if (_dynamicOvertakeTriggerList[i].CurrentVehicle == currentVehicle && _dynamicOvertakeTriggerList[i].CollisionVehicle == collisionVehicle ||
+                        _dynamicOvertakeTriggerList[i].CurrentVehicle == collisionVehicle && _dynamicOvertakeTriggerList[i].CollisionVehicle == currentVehicle)
                     {
                         removeVehicleIndexList.Add(i);
                     }
@@ -221,42 +242,28 @@ public class RaceManager : MonoBehaviour
                 {
                     _dynamicOvertakeTriggerList.RemoveAt(removeVehicleIndexList[indexToRemove]);
                 }
-
-                OnSwapPosition?.Invoke(1);
             }
+        }
+
+        foreach (VehiclePosition vehiclePosition in _vehiclePositionList)
+        {
+            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
         }
     }
 
-    private void SwapVehiclePositions(Transform currentVehicleTransform, Transform collisionVehicleTransform)
+    private void SwapVehiclePositions(VehiclePosition currentVehicle, VehiclePosition collisionVehicle)
     {
-        //Duplicates exist car is overtaken
-        int firstVehicleIndex = 0;
-        int secondVehicleIndex = 0;
-
-        // Get collided vehicle indexes
-        for (int i = 0; i < _vehiclePositionList.Count; i++)
-        {
-            if (_vehiclePositionList[i].VehicleTransform == currentVehicleTransform)
-            {
-                firstVehicleIndex = i;
-            }
-
-            if (_vehiclePositionList[i].VehicleTransform == collisionVehicleTransform)
-            {
-                secondVehicleIndex = i;
-            }
-        }
-
         //Swap vehicle positions around in list
-        List<VehiclePosition> tempList = new List<VehiclePosition> { _vehiclePositionList[firstVehicleIndex] };
-        _vehiclePositionList[firstVehicleIndex] = _vehiclePositionList[secondVehicleIndex];
-        _vehiclePositionList[secondVehicleIndex] = tempList[0];
+        _vehiclePositionList[_vehiclePositionList.IndexOf(currentVehicle)] = collisionVehicle;
+        _vehiclePositionList[_vehiclePositionList.IndexOf(collisionVehicle)] = currentVehicle;
     }
 
     private void CheckRacePosition()
     {
         // Sort based on lap
-        _vehiclePositionList = _vehiclePositionList.OrderBy(x => -x.CurrentLap).ToList();
+        IEnumerable<VehiclePosition> _temp = _vehiclePositionList.ToArray().OrderBy(x => -x.CurrentLap);
+        _vehiclePositionList.Clear();
+        _vehiclePositionList.AddRange(_temp);
 
         // Sort based on checkpoints when vehicles are on the same lap
         for (int lap = 0; lap < _numberOfLaps; lap++)
@@ -285,6 +292,15 @@ public class RaceManager : MonoBehaviour
             }
         }
 
-        OnPositionUpdate?.Invoke(1);
+        foreach (VehiclePosition vehiclePosition in _vehiclePositionList)
+        {
+            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+        }
+    }
+
+    [TargetRpc]
+    private void TargetPositionUpdate(NetworkConnection target, int position)
+    {
+        OnPositionUpdate?.Invoke(position);
     }
 }

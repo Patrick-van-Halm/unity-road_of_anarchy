@@ -72,6 +72,9 @@ public class SpawnManager : NetworkBehaviour
 
             _team.Vehicle.Team = _team;
             _team.Gunner.Team = _team;
+
+            RaceManager.Instance.AddVehicleToList(_currentCarObject);
+
         }
         else
         {
@@ -88,6 +91,7 @@ public class SpawnManager : NetworkBehaviour
     private void RpcLinkToCar(NetworkConnection conn, GameObject car, GameObject gunner)
     {
         car.GetComponent<AttributeComponent>().OnHealthChanged.AddListener(_hudComponent.OnHealthChanged);
+        car.tag = "Player";
     }
 
     [TargetRpc]

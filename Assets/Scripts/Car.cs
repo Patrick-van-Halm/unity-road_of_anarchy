@@ -44,7 +44,7 @@ public class Car : MonoBehaviour
         _currentSpeed = forwardSpeed * 3.6f;
 
         // Apply speed soundFX
-        ParameterSetter.SetSpeed(_currentSpeed * 2.5f);
+        //ParameterSetter.SetSpeed(_currentSpeed * 2.5f);
     }
 
 

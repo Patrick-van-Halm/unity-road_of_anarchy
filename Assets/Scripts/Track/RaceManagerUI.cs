@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class RaceManagerUI : MonoBehaviour
 {
-    [SerializeField] private RaceManager _raceManager;
-
     [Header("Text")]
     [SerializeField] private GameObject _wrongWayTextObject;
     [SerializeField] private GameObject _lapTextObject;
@@ -15,7 +13,6 @@ public class RaceManagerUI : MonoBehaviour
 
     private TMP_Text _lapText;
     private TMP_Text _positionText;
-    private int _numberOfLaps; 
 
  
     void Start()
@@ -23,12 +20,12 @@ public class RaceManagerUI : MonoBehaviour
         _lapText = _lapTextObject.GetComponent<TMP_Text>();
         _positionText = _positionTextObject.GetComponent<TMP_Text>();
 
-        _raceManager.WrongCheckpoint.AddListener(WrongCheckpoint);
-        _raceManager.CorrectCheckpoint.AddListener(CorrectCheckpoint);
-        _raceManager.SetNumberOfLaps.AddListener(SetNumberOfLaps);
-        _raceManager.IncreaseLap.AddListener(IncreaseLap);
-        _raceManager.OnPositionUpdate.AddListener(OnPositionUpdate);
-        _raceManager.OnSwapPosition.AddListener(OnSwapPosition);
+        RaceManager.Instance.WrongCheckpoint.AddListener(WrongCheckpoint);  
+        RaceManager.Instance.CorrectCheckpoint.AddListener(CorrectCheckpoint);
+        RaceManager.Instance.IncreaseLap.AddListener(IncreaseLap);
+        RaceManager.Instance.OnPositionUpdate.AddListener(OnPositionUpdate);
+
+        _lapText.text = "1 / " + RaceManager.Instance.NumberOfLaps.ToString();
     }
 
     private void WrongCheckpoint()
@@ -41,24 +38,13 @@ public class RaceManagerUI : MonoBehaviour
         _wrongWayTextObject.SetActive(false);
     }
 
-    private void SetNumberOfLaps(int numberOfLaps)
-    {
-        _numberOfLaps = numberOfLaps;
-        _lapText.text = "1 / " + numberOfLaps.ToString();
-    }
-
     private void IncreaseLap(int lap)
     {
         int tmp = lap + 1;
-        _lapText.text = tmp.ToString() + " / " + _numberOfLaps.ToString();
+        _lapText.text = tmp.ToString() + " / " + RaceManager.Instance.NumberOfLaps.ToString();
     }
 
     private void OnPositionUpdate(int position)
-    {
-        _positionText.text = position.ToString();
-    }
-
-    private void OnSwapPosition(int position)
     {
         _positionText.text = position.ToString();
     }

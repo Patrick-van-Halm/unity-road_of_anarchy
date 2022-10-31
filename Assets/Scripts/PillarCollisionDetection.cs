@@ -10,6 +10,6 @@ public class PillarCollisionDetection : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Check if wall is hit
-        if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Vehicle")) OnCollision?.Invoke();
+        if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Player")) OnCollision?.Invoke();
     }
 }

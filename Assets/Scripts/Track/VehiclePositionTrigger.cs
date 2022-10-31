@@ -7,19 +7,20 @@ using UnityEngine.UI;
 
 public class VehiclePositionTrigger : MonoBehaviour
 {
-    [SerializeField] private GameObject _frontPositionTriggerObject;
-    [SerializeField] private GameObject _backPositionTriggerObject;
+    [SerializeField] private string _frontPositionTriggerTag;
+    [SerializeField] private string _backPositionTriggerTag;
     [SerializeField] private float _constraintOffset;
 
-    private RaceManager _raceManager;
+    private Transform _checkpointTransform;
     private Transform _vehicleTransform;
     private ParentConstraint _parentConstraint;
     private ConstraintSource _constraintSource;
 
-
     private void Start()
     {
         _parentConstraint = GetComponent<ParentConstraint>();
+        _vehicleTransform = transform.parent;
+        if (_checkpointTransform == null) _checkpointTransform = _vehicleTransform;
 
         // Set car transform as constraint (Transform to follow)
         _constraintSource.sourceTransform = _vehicleTransform.transform;
@@ -36,57 +37,39 @@ public class VehiclePositionTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // If not colliding with itself
-        Transform[] temp = other.GetComponentsInParent<Transform>();
-        if (!temp.Contains(_vehicleTransform))
-        {
-            // Get vehicle transform with which we are colliding
-            Car[] car = other.GetComponentsInParent<Car>();
-            Transform collisionVehicleTransform = car[0].transform;
-
-            //When triggers on vehicle gets hit
-            if (other.name == _frontPositionTriggerObject.name)
-            {
-                _raceManager.VehicleThroughPositionCollider(_vehicleTransform, collisionVehicleTransform, true, true);
-            }
-            else if (other.name == _backPositionTriggerObject.name)
-            {
-                _raceManager.VehicleThroughPositionCollider(_vehicleTransform, collisionVehicleTransform, false, true);
-            }
-            
-        }
+        OnTriggerChange(other, other.CompareTag(_frontPositionTriggerTag), true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // If not colliding with itself
-        Transform[] temp = other.GetComponentsInParent<Transform>();
-        if (!temp.Contains(_vehicleTransform))
-        {
-            // Get vehicle transform with which we are colliding
-            Car[] car = other.GetComponentsInParent<Car>();
-            Transform collisionVehicleTransform = car[0].transform;
-
-            //When triggers on vehicle gets hit
-            if (other.name == _frontPositionTriggerObject.name)
-            {
-                _raceManager.VehicleThroughPositionCollider(_vehicleTransform, collisionVehicleTransform, true, false);
-            }
-            else if (other.name == _backPositionTriggerObject.name)
-            {
-                _raceManager.VehicleThroughPositionCollider(_vehicleTransform, collisionVehicleTransform, false, false);
-            }
-        }
+        OnTriggerChange(other, other.CompareTag(_frontPositionTriggerTag), false);
     }
 
-    /// <summary>
-    /// Sets values in this script
-    /// </summary>
-    /// <param name="raceManagerScript"></param>
-    public void SetValues(RaceManager raceManagerScript, Transform vehicleTransform)
+    private void Update()
     {
-        _raceManager = raceManagerScript;
-        this._vehicleTransform = vehicleTransform;
+        SetRotationOffset();
+    }
+
+    private void SetRotationOffset()
+    {
+        // Calculate rotation offset so the car can rotate freely without changing the rotation of the this (VehiclePositionTrigger) collider.
+        float newRotationOffsetY = _checkpointTransform.localEulerAngles.y - _vehicleTransform.localEulerAngles.y;
+        Vector3 newRotationOffset = new Vector3(0, newRotationOffsetY, 0);
+        _parentConstraint.SetRotationOffset(0, newRotationOffset);
+    }
+
+    private void OnTriggerChange(Collider other, bool isFrontTrigger, bool hasEnteredTrigger)
+    {
+        if (!other.CompareTag(_frontPositionTriggerTag) && !other.CompareTag(_backPositionTriggerTag)) return;
+
+        // Get vehicle transform with which we are colliding
+        Transform collisionVehicleTransform = other.transform.parent;
+
+        // If not colliding with itself
+        if (collisionVehicleTransform != null && collisionVehicleTransform.CompareTag("Vehicle"))
+        {
+            RaceManager.Instance.CmdVehicleThroughPositionCollider(collisionVehicleTransform.gameObject, _vehicleTransform.gameObject, isFrontTrigger, hasEnteredTrigger);
+        }
     }
 
     /// <summary>
@@ -99,5 +82,10 @@ public class VehiclePositionTrigger : MonoBehaviour
     {
         transform.rotation = rotation;
         transform.localScale = new Vector3(scale.x, scale.y, transform.localScale.z);
+    }
+
+    public void SetCheckpointTransform(Transform checkpointTransform)
+    {
+        _checkpointTransform = checkpointTransform;
     }
 }

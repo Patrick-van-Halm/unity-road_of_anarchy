@@ -4,23 +4,40 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    private RaceManager _raceManager;
+    [SerializeField] private CheckpointBackCollider _backCollider;
+    [SerializeField] private CheckpointFrontCollider _frontCollider;
 
-    private void OnTriggerEnter(Collider other)
+    private GameObject _vehicleGoingThroughCheckpoint;
+    private bool _playerRidingBack = false;
+
+    public bool VehicleExitedCorrectly { get; private set; }
+
+    private void OnTriggerExit(Collider other)
     {
+        Transform car = other.transform;
+
         // When vehicle hits checkpoint
-        if(other.TryGetComponent(out Car car))
+        if (car != null && car.CompareTag("Player"))
         {
-            _raceManager.VehicleThroughCheckPoint(this, other.transform);
+            _vehicleGoingThroughCheckpoint = other.gameObject;
+            CheckVehicleExit();
+            RaceManager.Instance.CmdVehicleThroughCheckPoint(RaceManager.Instance.GetCheckpointIndex(this), _vehicleGoingThroughCheckpoint);
+            _vehicleGoingThroughCheckpoint.GetComponentInChildren<VehiclePositionTrigger>()?.SetTransformSize(transform.rotation, transform.localScale);
+            _vehicleGoingThroughCheckpoint.GetComponentInChildren<VehiclePositionTrigger>()?.SetCheckpointTransform(transform);
         }
     }
 
-    /// <summary>
-    /// Sets a reference to the RaceManager script
-    /// </summary>
-    /// <param name="raceManagerScript"></param>
-    public void SetRaceManagerScript(RaceManager raceManagerScript)
+    private void CheckVehicleExit()
     {
-        _raceManager = raceManagerScript;
+        if (!_playerRidingBack)
+        {
+            if (!_backCollider.Entered && _frontCollider.Entered) VehicleExitedCorrectly = true;
+            if (_backCollider.Entered && !_frontCollider.Entered) VehicleExitedCorrectly = false;
+        }
+        else
+        {
+            if (!_backCollider.Entered && _frontCollider.Entered) VehicleExitedCorrectly = false;
+            if (_backCollider.Entered && !_frontCollider.Entered) VehicleExitedCorrectly = true;
+        }
     }
 }
