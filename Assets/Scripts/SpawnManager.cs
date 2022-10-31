@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpawnManager : NetworkBehaviour
 {
@@ -29,6 +30,12 @@ public class SpawnManager : NetworkBehaviour
     private Team _team;
     private bool _isGunnerAssigned;
 
+    private readonly List<Team> _allTeams = new List<Team>();
+
+    private readonly List<Team> _eliminatedTeams = new List<Team>();
+
+    public UnityEvent<string> OnLastTeamStanding;
+
     public static SpawnManager Instance { get; private set; }
 
     private void Awake()
@@ -45,6 +52,28 @@ public class SpawnManager : NetworkBehaviour
 
         // Listen to the add player (is called every scene switch)
         GameNetworkManager.Instance.OnServerAddPlayerToClient.AddListener(ReplacePlayerWithPrefab);
+    }
+
+    public void TeamEliminated(Team team)
+    {
+        _eliminatedTeams.Add(team);
+        LastTeamStanding();
+    }
+
+    private void LastTeamStanding()
+    {
+        List<Team> teamsAlive = _allTeams.Where(t => !_eliminatedTeams.Any(t2 => t2 == t)).ToList();
+        if (teamsAlive.Count == 1)
+        {
+            TargetOnLastTeamStanding(teamsAlive[0].GunnerIdentity.connectionToClient);
+            TargetOnLastTeamStanding(teamsAlive[0].DriverIdentity.connectionToClient);
+        }
+    }
+
+    [TargetRpc]
+    private void TargetOnLastTeamStanding(NetworkConnection target)
+    {
+        OnLastTeamStanding?.Invoke("Your team has killed the last remaining team. You win!");
     }
 
     private void ReplacePlayerWithPrefab(NetworkConnectionToClient conn)
@@ -73,8 +102,8 @@ public class SpawnManager : NetworkBehaviour
             _team.Vehicle.Team = _team;
             _team.Gunner.Team = _team;
 
+            _allTeams.Add(_team);
             RaceManager.Instance.AddVehicleToList(_currentCarObject);
-
         }
         else
         {
@@ -90,6 +119,7 @@ public class SpawnManager : NetworkBehaviour
     [TargetRpc]
     private void RpcLinkToCar(NetworkConnection conn, GameObject car, GameObject gunner)
     {
+        OnLastTeamStanding.AddListener(_hudComponent.ShowWinUI);
         car.GetComponent<AttributeComponent>().OnHealthChanged.AddListener(_hudComponent.OnHealthChanged);
         car.tag = "Player";
     }

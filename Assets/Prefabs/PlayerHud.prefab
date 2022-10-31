@@ -50,3 +50,4 @@ MonoBehaviour:
   _hitMarker: {fileID: 6004456730461090964, guid: ca35bb8923d5bae4ebdfae225fd33b16, type: 3}
   _hitMarkerActiveTime: 0.2
   _eliminatedPrefab: {fileID: 8955499678734428232, guid: b88f00e9077d4ee4598c729be2af8fba, type: 3}
+  _winPrefab: {fileID: 8955499678734428232, guid: 6006d08bd0cd0ce40bf152c190877f08, type: 3}

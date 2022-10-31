@@ -4290,6 +4290,7 @@ MonoBehaviour:
   _invertX: {fileID: 573332596}
   _invertY: {fileID: 956579172}
   _sensitivity: {fileID: 1196191322}
+  _automaticReload: {fileID: 57133057}
   _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
 --- !u!1 &1302017968
 GameObject:
