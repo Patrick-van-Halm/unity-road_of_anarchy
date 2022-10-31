@@ -13,8 +13,30 @@ public class WreckedCar : NetworkBehaviour
     private Transform _position;
 
     public UnityEvent<string> OnKillMessage;
+    public UnityEvent<string> OnLastTeamStanding;
 
     private AttributeComponent _vehicleAttributes;
+
+    //private List<Team> _eliminatedTeams;
+    //[SyncVar(hook = nameof(LastTeamStanding))]
+    //public List<Team> EliminatedTeams;
+    //public List<Team> EliminatedTeams
+    //{
+    //    get { return _eliminatedTeams; }
+    //    set
+    //    {
+    //        if (value.Count == SpawnManager.Instance.AllTeams.Count - 1)
+    //        {
+    //            OnLastTeamStanding?.Invoke("You have killed the last team standing. You win!");
+    //        }
+    //    }
+    //}
+
+    //public void LastTeamStanding(List<Team> oldValue, List<Team> newValue)
+    //{
+    //    if (newValue.Count == SpawnManager.Instance.AllTeams.Count - 1)
+    //    OnLastTeamStanding?.Invoke("Your team has killed the last remaining team. You win!");
+    //}
 
     private void Awake()
     {
@@ -45,6 +67,8 @@ public class WreckedCar : NetworkBehaviour
             // Send elimination rpc to team
             if(player.Team.DriverSpectator) player.Team.DriverSpectator.wasEliminated = true;
             if(player.Team.GunnerSpectator) player.Team.GunnerSpectator.wasEliminated = true;
+
+            SpawnManager.Instance.TeamEliminated(player.Team);
         }
         else OnKillMessage?.Invoke("You killed a team");      
 

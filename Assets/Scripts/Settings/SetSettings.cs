@@ -12,6 +12,7 @@ public class SetSettings : MonoBehaviour
     [SerializeField] private Toggle _invertX;
     [SerializeField] private Toggle _invertY;
     [SerializeField] private Slider _sensitivity;
+    [SerializeField] private Toggle _automaticReload;
 
     [Header("Settings")]
     [SerializeField] private GameSettings _gameSettings;
@@ -22,6 +23,7 @@ public class SetSettings : MonoBehaviour
         _invertX.isOn = _gameSettings.InvertX;
         _invertY.isOn = _gameSettings.InvertY;
         _sensitivity.value = _gameSettings.Sensitivity;
+        _automaticReload.isOn = _gameSettings.AutomaticReload;
     }
 
 }

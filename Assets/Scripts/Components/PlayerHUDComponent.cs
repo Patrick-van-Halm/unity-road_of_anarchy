@@ -14,6 +14,7 @@ public class PlayerHUDComponent : MonoBehaviour
     [SerializeField] private GameObject _hitMarker;
     [SerializeField] private float _hitMarkerActiveTime = 0.2f;
     [SerializeField] private GameObject _eliminatedPrefab;
+    [SerializeField] private GameObject _winPrefab;
 
     private void Awake()
     {
@@ -42,6 +43,12 @@ public class PlayerHUDComponent : MonoBehaviour
     public void ShowEliminatedUI()
     {
         Instantiate(_eliminatedPrefab, _canvas);
+    }
+
+    public void ShowWinUI(string text)
+    {
+        GameObject winUI = Instantiate(_winPrefab, _canvas);
+        winUI.GetComponent<YouWinUI>().ShowWinUI(text);
     }
 
     public void OnEnemyHit()

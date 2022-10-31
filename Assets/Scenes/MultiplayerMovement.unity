@@ -349,6 +349,9 @@ MonoBehaviour:
   - {fileID: 512675229}
   - {fileID: 157081317}
   _hudComponent: {fileID: 1060846497}
+  OnLastTeamStanding:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &572728235
 Transform:
   m_ObjectHideFlags: 0
@@ -442,18 +445,6 @@ PrefabInstance:
       propertyPath: _killFeed
       value: 
       objectReference: {fileID: 1805849664}
-    - target: {fileID: 2905406508800855038, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
-      propertyPath: _hitMarker
-      value: 
-      objectReference: {fileID: 6004456730461090964, guid: ca35bb8923d5bae4ebdfae225fd33b16, type: 3}
-    - target: {fileID: 2905406508800855038, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
-      propertyPath: _killFeedPrefab
-      value: 
-      objectReference: {fileID: 5207383315409827538, guid: eacf2e224fce10845b1d64e93635cd67, type: 3}
-    - target: {fileID: 2905406508800855038, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
-      propertyPath: _eliminatedPrefab
-      value: 
-      objectReference: {fileID: 8955499678734428232, guid: b88f00e9077d4ee4598c729be2af8fba, type: 3}
     - target: {fileID: 2905406508800855039, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
       propertyPath: m_Name
       value: PlayerHud
