@@ -626,6 +626,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6707154458035762358, guid: 12e531f58ef406e42b0768c26c37671d, type: 3}
+      propertyPath: StopEvent
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6707154458035762359, guid: 12e531f58ef406e42b0768c26c37671d, type: 3}
       propertyPath: _eEngine
       value: 

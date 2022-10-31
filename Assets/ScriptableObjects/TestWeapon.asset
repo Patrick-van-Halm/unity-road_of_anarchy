@@ -31,7 +31,7 @@ MonoBehaviour:
   AmmoAmount: 10
   MaxAmmo: 20
   MaxClipSize: 20
-  ClipAmmoAmount: 0
+  ClipAmmoAmount: 5000
   WeaponRange: 200
   ReloadTimeInSeconds: 2
   FireRateDelayInSeconds: 0.5
