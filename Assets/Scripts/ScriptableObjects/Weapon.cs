@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
+using PlasticPipe.PlasticProtocol.Messages;
 
 [System.Serializable]
 [CreateAssetMenu(menuName = nameof(Weapon))]
@@ -24,16 +25,16 @@ public class Weapon : ScriptableObject
     public float DamageAmount = 10f;
 
     [Tooltip("Amount of ammo the player starts with.")]
-    public int AmmoAmount = 90;
+    public int AmmoAmount = 0;
 
     [Tooltip("The maximum amount of ammo the weapon can hold.")]
-    public int MaxAmmo = 90;
+    public int MaxAmmo = 50;
 
     [Tooltip("The amount of times the weapon can fire, before the player has to reload.")]
-    public int MaxClipSize = 30;
+    public int MaxClipSize = 10;
 
     [Tooltip("Amount of ammo in a single clip. If this is empty, the player has to reload.")]
-    public int ClipAmmoAmount = 30;
+    public int ClipAmmoAmount = 0;
 
     [Tooltip("The range the weapon can shoot")]
     public float WeaponRange = 200f;

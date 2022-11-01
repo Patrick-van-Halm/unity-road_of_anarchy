@@ -34,4 +34,9 @@ public class CarRespawn : MonoBehaviour
 
         if (other.gameObject.tag == "Checkpoint") _checkpoint2 = true;
     }
+
+    public bool CanFinish()
+    {
+        return _checkpoint2;
+    }
 }
