@@ -97,9 +97,13 @@ public class Lobby : NetworkBehaviour
         _lobbyStartCountdown = StartCoroutine(CoroStartLobby());
 
         // Stop the passive countdown and reset it to null
-        StopCoroutine(_passiveLobbyStartCountdown);
-        _passiveLobbyStartCountdown = null;
-        _passiveCountdownSeconds = 60;
+        if(_passiveLobbyStartCountdown != null)
+        {
+            StopCoroutine(_passiveLobbyStartCountdown);
+            _passiveLobbyStartCountdown = null;
+            _passiveCountdownSeconds = 60;
+
+        }
         lobbyCountdownSeconds = 60;
 
         IsLobbyStarted = true;
@@ -121,7 +125,7 @@ public class Lobby : NetworkBehaviour
     private IEnumerator CoroStartLobby()
     {
         // Disable new connections so no one new can connect
-        GameNetworkManager.Instance.AcceptNewConnections = false;
+        if(GameNetworkManager.Instance) GameNetworkManager.Instance.AcceptNewConnections = false;
 
         int timePassed = 0;
         lobbyCountdownSeconds = _lobbyStartCountdownSeconds;

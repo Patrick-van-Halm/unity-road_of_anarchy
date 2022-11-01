@@ -10,7 +10,7 @@ public class CheckFinish : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _canFinish = _carRespawn.CanFinish();
+        //_canFinish = _carRespawn.CanFinish();
         if (_canFinish && other.gameObject.tag == "Finish") print("Hey great job. You past the border.");
         else if (other.gameObject.tag == "Finish") print("No cheating!");
     }

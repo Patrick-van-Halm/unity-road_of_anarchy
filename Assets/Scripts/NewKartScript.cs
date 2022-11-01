@@ -394,7 +394,7 @@ public class NewKartScript : MonoBehaviour
         _rigidbody.velocity = newVelocity;
 
         _parameterSetter.SetSpeed(currentSpeed * 4f);
-        PostFX.SetLensDis(currentSpeed);
+        PostFX?.SetLensDis(currentSpeed);
 
         // Drift
         if (GroundPercent > 0.0f)

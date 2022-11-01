@@ -8,8 +8,6 @@ public class CarRespawn : MonoBehaviour
 
     private Rigidbody rb;
 
-    private bool _checkpoint2 = false;
-
     private void Start()
     {
         rb = _parentObject.GetComponent<Rigidbody>();
@@ -17,26 +15,17 @@ public class CarRespawn : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!_checkpoint2 && other.gameObject.tag == "Terrain")
+        if (other.gameObject.tag == "Terrain")
         {
-            _parentObject.transform.position = SpawnManager.Instance.respawn1.position;
-            _parentObject.transform.rotation = SpawnManager.Instance.respawn1.rotation;
+            Checkpoint lastCheckpoint = RaceManager.Instance?.LastCheckpoint();
+            if (lastCheckpoint == null) return;
+
+            Vector3 centerOfCheckpoint = lastCheckpoint.GetComponent<Collider>().bounds.center;
+
+            _parentObject.transform.position = centerOfCheckpoint;
+            _parentObject.transform.rotation = lastCheckpoint.transform.rotation;
             rb.velocity = new Vector3(0f, 0f, 0f);
             rb.angularVelocity = new Vector3(0f, 0f, 0f);
         }
-        else if (other.gameObject.tag == "Terrain")
-        {
-            _parentObject.transform.position = SpawnManager.Instance.respawn2.position;
-            _parentObject.transform.rotation = SpawnManager.Instance.respawn2.rotation;
-            rb.velocity = new Vector3(0f, 0f, 0f);
-            rb.angularVelocity = new Vector3(0f, 0f, 0f);
-        }
-
-        if (other.gameObject.tag == "Checkpoint") _checkpoint2 = true;
-    }
-
-    public bool CanFinish()
-    {
-        return _checkpoint2;
     }
 }
