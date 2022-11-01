@@ -47,8 +47,11 @@ public class AmmoSpawner : NetworkBehaviour
         // Hide the box on all clients
         RpcHideBox();
 
+        // Get the team
+        Team team = sender.identity.GetComponent<Vehicle>().Team;
+
         // Send add ammo to gunner of person that picked up the box
-        TargetAddAmmo(sender.identity.GetComponent<Vehicle>().Team.GunnerIdentity.connectionToClient, _ammoAmount);
+        if (team.GunnerIdentity) TargetAddAmmo(team.GunnerIdentity.connectionToClient, _ammoAmount);
 
         // Start timer to make ammo box active again
         StartCoroutine(RespawnAmmo());

@@ -103,7 +103,7 @@ public class SpawnManager : NetworkBehaviour
             _team.Gunner.Team = _team;
 
             _allTeams.Add(_team);
-            RaceManager.Instance.AddVehicleToList(_currentCarObject);
+            RaceManager.Instance?.AddVehicleToList(_currentCarObject);
         }
         else
         {

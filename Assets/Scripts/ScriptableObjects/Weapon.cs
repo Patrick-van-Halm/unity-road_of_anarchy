@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
-using PlasticPipe.PlasticProtocol.Messages;
 
 [System.Serializable]
 [CreateAssetMenu(menuName = nameof(Weapon))]
