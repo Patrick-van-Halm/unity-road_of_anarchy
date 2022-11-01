@@ -1,54 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5192570088008740713
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4612176561049991257}
-  - component: {fileID: 8019122666638860339}
-  m_Layer: 1
-  m_Name: PostFX
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4612176561049991257
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5192570088008740713}
-  m_LocalRotation: {x: -0, y: -0.0109204855, z: -0, w: 0.99994045}
-  m_LocalPosition: {x: 575.049, y: 35.056, z: 1443.091}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8536147302605564809}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8019122666638860339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5192570088008740713}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 270838303cd09ec45857e7ed3a7dde54, type: 2}
-  isGlobal: 0
-  blendDistance: 0
-  weight: 1
-  priority: 0
 --- !u!1 &7764002591859567613
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +113,6 @@ MonoBehaviour:
   - {fileID: 8600534021718207661}
   - {fileID: 1065733802672233224}
   - {fileID: 1630557880404177409}
-  - {fileID: 8019122666638860339}
 --- !u!114 &363783203155700621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +213,9 @@ MonoBehaviour:
   syncInterval: 0.1
   _wreckedBuggy: {fileID: 6350598351882117889, guid: 2f39378dc7ef2db4a9265282b1654ced, type: 3}
   OnKillMessage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLastTeamStanding:
     m_PersistentCalls:
       m_Calls: []
 --- !u!65 &1765122025594908623

@@ -44,6 +44,9 @@ public class WeaponManager : NetworkBehaviour
     private void Start()
     {
         OnEnemyHit.AddListener(FindObjectOfType<PlayerHUDComponent>().OnEnemyHit);
+
+        Weapon.AmmoAmount = 0;
+        Weapon.ClipAmmoAmount = 0;
     }
 
     #region Shooting

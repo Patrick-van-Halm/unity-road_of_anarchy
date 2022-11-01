@@ -139,6 +139,12 @@ public class NewKartScript : MonoBehaviour
     [Header("SoundFX parameters")]
     [SerializeField] VehicleAudio _parameterSetter;
 
+    [Header("PostFX")]
+    public PostFXScript PostFX;
+
+    [Header("Scriptable object")]
+    [SerializeField] private Weapon _weapon;
+
     const float k_NullInput = 0.01f;
     const float k_NullSpeed = 0.01f;
     Vector3 m_VerticalReference = Vector3.up;
@@ -388,6 +394,7 @@ public class NewKartScript : MonoBehaviour
         _rigidbody.velocity = newVelocity;
 
         _parameterSetter.SetSpeed(currentSpeed * 4f);
+        PostFX.SetLensDis(currentSpeed);
 
         // Drift
         if (GroundPercent > 0.0f)

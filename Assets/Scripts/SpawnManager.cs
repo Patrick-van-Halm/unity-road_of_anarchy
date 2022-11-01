@@ -121,6 +121,7 @@ public class SpawnManager : NetworkBehaviour
     {
         OnLastTeamStanding.AddListener(_hudComponent.ShowWinUI);
         car.GetComponent<AttributeComponent>().OnHealthChanged.AddListener(_hudComponent.OnHealthChanged);
+        car.GetComponentInChildren<NewKartScript>().PostFX = FindObjectOfType<PostFXScript>();
         car.tag = "Player";
     }
 
