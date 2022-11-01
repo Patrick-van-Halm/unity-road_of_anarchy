@@ -8,11 +8,6 @@ using UnityEngine.Events;
 
 public class SpawnManager : NetworkBehaviour
 {
-    // Add this for demo will be replaced with the checkpoint system
-    [Header("Temporarily")]
-    [SerializeField] public Transform respawn1;
-    [SerializeField] public Transform respawn2;
-
     [Header("Spawnable Objects")]
     [SerializeField] private GameObject _carObject;
     [SerializeField] private GameObject _gunObject;

@@ -61,6 +61,17 @@ public class RaceManager : NetworkBehaviour
         return _checkpointsList.IndexOf(checkpoint);
     }
 
+    public Checkpoint LastCheckpoint()
+    {
+        Vehicle myVehicle = NetworkClient.connection.identity.GetComponent<Vehicle>();
+        if(myVehicle == null) return null;
+
+        VehiclePosition pos = _vehiclePositionList.Find(v => v.Vehicle == myVehicle.gameObject);
+        GameObject lastCheckpointObj = pos.CheckpointsDrivenThrough[pos.CheckpointsDrivenThrough.Count - 1];
+
+        return lastCheckpointObj.GetComponent<Checkpoint>();
+    }
+
     [Command(requiresAuthority = false)]
     public void CmdVehicleThroughCheckPoint(int checkpointIndex, GameObject vehicle)
     {
@@ -99,11 +110,10 @@ public class RaceManager : NetworkBehaviour
             TargetCorrectCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
 
             // When lap is completed
-            if (_checkpointsList.Count == _vehiclePositionList[vehicleIndex].CurrentCheckpoint && _checkpointsList.Count == _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.Count)
+            if (_checkpointsList.Count == _vehiclePositionList[vehicleIndex].CurrentCheckpoint && _checkpointsList.Count == _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.Count - _vehiclePositionList[vehicleIndex].CurrentLap * _checkpointsList.Count)
             {
                 _vehiclePositionList[vehicleIndex].CurrentLap++;                                        // Increase lap for vehicle
                 _vehiclePositionList[vehicleIndex].CurrentCheckpoint = 0;                               // Reset checkpoint
-                _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough = new List<GameObject>();   // Reset list
 
                 // Increaselap event
                 TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
@@ -114,8 +124,8 @@ public class RaceManager : NetworkBehaviour
             // Wrong checkpoint
             TargetWrongCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
 
-            // Decrease checkpoint counter for that vehicle
-            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint);
+            // Change the current checkpoint to checkpoint that is next
+            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint) + 1;
         }
 
         // Set the position of the vehicle
