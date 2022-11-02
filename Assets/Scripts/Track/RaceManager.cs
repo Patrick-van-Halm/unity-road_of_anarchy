@@ -127,6 +127,9 @@ public class RaceManager : NetworkBehaviour
                 Team team = _vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team;
                 if (_vehiclePositionList[vehicleIndex].CurrentLap == _numberOfLaps)
                 {
+                    // Spawn spectators
+                    SpawnManager.Instance?.SpawnSpectators(team);
+
                     // Finished race
                     TargetFinishRace(team.DriverIdentity.connectionToClient, vehicleIndex + 1);
                     TargetFinishRace(team.GunnerIdentity.connectionToClient, vehicleIndex + 1);
