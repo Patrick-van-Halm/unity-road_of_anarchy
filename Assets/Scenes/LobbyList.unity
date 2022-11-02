@@ -706,7 +706,7 @@ MonoBehaviour:
   OnServerClose:
     m_PersistentCalls:
       m_Calls: []
-  UseLan: 1
+  UseLan: 0
   AcceptNewConnections: 0
   CurrentLobbyDetails:
     Ip: 
