@@ -356,7 +356,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8213701909006153545}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Piller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 5293441188244637293}
   - component: {fileID: 4355008726820854461}
   - component: {fileID: 4355008726820854460}
+  - component: {fileID: 7166088920064513613}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -480,7 +481,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f5a63c9090fba4081bc68a2b9c18cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pillar: {fileID: 4958318854371810978}
+  syncMode: 0
+  syncInterval: 0.1
+  _pillarCollisionDetection: {fileID: 0}
+  _pillarShootDetection: {fileID: 0}
+  _animator: {fileID: 0}
 --- !u!65 &4355008726820854460
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -494,3 +499,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.020000001, y: 0.019999998, z: 0.019999996}
   m_Center: {x: 0.0000038146973, y: 0.00000011920929, z: 0.000000014901161}
+--- !u!114 &7166088920064513613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9077625926123856582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: cbcc9b4852fb6ea48918f1811be802ff
+  hasSpawned: 0
