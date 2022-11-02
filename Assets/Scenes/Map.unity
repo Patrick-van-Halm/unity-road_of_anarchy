@@ -18178,10 +18178,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 9077625926123856582, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
 --- !u!1001 &231211264
@@ -25523,14 +25519,6 @@ PrefabInstance:
     - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
       propertyPath: m_Name
       value: Piller (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9077625926123856582, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
@@ -44484,14 +44472,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piller (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9077625926123856582, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
 --- !u!1001 &627561984
@@ -45026,10 +45006,6 @@ PrefabInstance:
     - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
       propertyPath: m_Layer
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9077625926123856582, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
@@ -63112,14 +63088,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piller (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9077625926123856582, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
 --- !u!114 &1073033035 stripped
@@ -80928,14 +80896,6 @@ PrefabInstance:
     - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
       propertyPath: m_Name
       value: Piller (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9077625926123856582, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
@@ -109646,14 +109606,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piller (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9077625926123856582, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
 --- !u!1 &1564410936 stripped
@@ -110417,14 +110369,6 @@ PrefabInstance:
     - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
       propertyPath: m_Name
       value: Piller (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9077625926123856582, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
@@ -112413,10 +112357,6 @@ PrefabInstance:
     - target: {fileID: 8842605606158347763, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
       propertyPath: m_Layer
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9077625926123856582, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f88e232a94c1e4380cbfc8e7ab4dc2, type: 3}
