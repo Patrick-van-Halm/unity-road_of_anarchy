@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using static RaceManager;
 
 public class RaceManager : NetworkBehaviour
 {
@@ -121,18 +122,18 @@ public class RaceManager : NetworkBehaviour
                 _vehiclePositionList[vehicleIndex].CurrentLap++;                                        // Increase lap for vehicle
                 _vehiclePositionList[vehicleIndex].CurrentCheckpoint = 0;                               // Reset checkpoint
 
+                Team team = _vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team;
                 if (_vehiclePositionList[vehicleIndex].CurrentLap == _numberOfLaps)
                 {
                     // Finished race
-                    TargetFinishRace(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team.DriverIdentity.connectionToClient, vehicleIndex + 1);
-                    TargetFinishRace(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team.GunnerIdentity.connectionToClient, vehicleIndex + 1);
+                    TargetFinishRace(team.DriverIdentity.connectionToClient, vehicleIndex + 1);
+                    TargetFinishRace(team.GunnerIdentity.connectionToClient, vehicleIndex + 1);
                 }
                 else
                 {
                     // Increaselap event
-                    //TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
-                    TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team.DriverIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
-                    TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team.GunnerIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
+                    TargetIncreaseLap(team.DriverIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
+                    TargetIncreaseLap(team.GunnerIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
                 }
             }
         }
@@ -275,9 +276,11 @@ public class RaceManager : NetworkBehaviour
 
         foreach (VehiclePosition vehiclePosition in _vehiclePositionList)
         {
+            Team team = vehiclePosition.Vehicle.GetComponent<Player>().Team;
+
             //TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
-            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<Player>().Team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
-            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<Player>().Team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            TargetPositionUpdate(team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            TargetPositionUpdate(team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
         }
     }
 
@@ -324,9 +327,11 @@ public class RaceManager : NetworkBehaviour
 
         foreach (VehiclePosition vehiclePosition in _vehiclePositionList)
         {
+            Team team = vehiclePosition.Vehicle.GetComponent<Player>().Team;
+
             //TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
-            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<Player>().Team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
-            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<Player>().Team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            TargetPositionUpdate(team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            TargetPositionUpdate(team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
         }
     }
 

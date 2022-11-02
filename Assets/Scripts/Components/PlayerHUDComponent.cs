@@ -15,6 +15,8 @@ public class PlayerHUDComponent : MonoBehaviour
     [SerializeField] private float _hitMarkerActiveTime = 0.2f;
     [SerializeField] private GameObject _eliminatedPrefab;
     [SerializeField] private GameObject _winPrefab;
+    [SerializeField] private GameObject _ammoUI;
+    [SerializeField] private GameObject _raceManagerUI;
 
     private void Awake()
     {
@@ -75,5 +77,10 @@ public class PlayerHUDComponent : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         _hitMarker.SetActive(false);
+    }
+
+    public void HideGunnerUI()
+    {
+        _ammoUI.SetActive(false);
     }
 }

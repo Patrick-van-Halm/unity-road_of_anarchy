@@ -99,6 +99,7 @@ public class SpawnManager : NetworkBehaviour
 
             _allTeams.Add(_team);
             RaceManager.Instance?.AddVehicleToList(_currentCarObject);
+            RpcHideGunnerUI(conn);
         }
         else
         {
@@ -109,6 +110,12 @@ public class SpawnManager : NetworkBehaviour
 
         Destroy(currentPlayerObj, .1f);
         RpcLinkToCar(conn, _currentCarObject, _currentGunObject);
+    }
+
+    [TargetRpc]
+    private void RpcHideGunnerUI(NetworkConnection conn)
+    {
+        _hudComponent.HideGunnerUI();
     }
 
     [TargetRpc]
