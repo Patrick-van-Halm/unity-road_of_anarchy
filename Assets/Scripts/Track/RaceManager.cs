@@ -20,20 +20,21 @@ public class RaceManager : NetworkBehaviour
     public int NumberOfLaps => _numberOfLaps;
     private SyncList<VehiclePosition> _vehiclePositionList = new SyncList<VehiclePosition>();
     private List<DynamicOvertakeTrigger> _dynamicOvertakeTriggerList;
+    //private List<GameObject> CheckpointsDrivenThrough = new List<GameObject>();
 
     public class VehiclePosition
     {
-        public GameObject Vehicle { get; set; }
-        public SyncList<GameObject> CheckpointsDrivenThrough { get; set; } = new SyncList<GameObject>();
-        public int CurrentCheckpoint { get; set; }
-        public int CurrentLap { get; set; }
+        public GameObject Vehicle;
+        public List<GameObject> CheckpointsDrivenThrough = new List<GameObject>();
+        public int CurrentCheckpoint;
+        public int CurrentLap;
     }
 
     private class DynamicOvertakeTrigger
     {
-        public GameObject CurrentVehicle { get; set; }
-        public GameObject CollisionVehicle { get; set; }
-        public bool IsFrontTrigger { get; set; }
+        public GameObject CurrentVehicle;
+        public GameObject CollisionVehicle;
+        public bool IsFrontTrigger;
     }
 
     [Header("Events")]
