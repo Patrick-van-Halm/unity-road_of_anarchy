@@ -29,8 +29,8 @@ public class WeaponManager : NetworkBehaviour
     #endregion
 
     #region Gunner
-    [SerializeField] private string _targetTagName = "Vehicle";
     [SerializeField] private Camera _gunnerCamera;
+    [SerializeField] private LayerMask _hittableLayers;
     #endregion
 
     private void Awake()
@@ -80,7 +80,7 @@ public class WeaponManager : NetworkBehaviour
         // Stores the location of the point where the target is hit
         Vector3 targetPoint = ray.GetPoint(Weapon.WeaponRange);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Weapon.WeaponRange))
+        if (Physics.Raycast(ray, out RaycastHit hit, Weapon.WeaponRange, _hittableLayers))
         {
             // If the target hit is the enemy, get the Interface and call the ApplyDamage function
             if (IsHittable(hit) is IDamageable target)
