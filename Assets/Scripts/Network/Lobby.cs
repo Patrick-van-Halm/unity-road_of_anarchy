@@ -67,7 +67,7 @@ public class Lobby : NetworkBehaviour
         }
 
         // Stop passive countdown coroutine
-        if (_passiveLobbyStartCountdown == null)
+        if (_passiveLobbyStartCountdown != null)
         {
             StopCoroutine(_passiveLobbyStartCountdown);
             _passiveLobbyStartCountdown = null;
