@@ -48,9 +48,19 @@ public class PlayerHUDComponent : MonoBehaviour
     public void ShowWinUI(string text)
     {
         GameObject winUI = Instantiate(_winPrefab, _canvas);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         winUI.GetComponent<YouWinUI>().ShowWinUI(text);
     }
 
+    public void ShowWinUI(int position, string text)
+    {
+        GameObject winUI = Instantiate(_winPrefab, _canvas);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        winUI.GetComponent<YouWinUI>().ShowWinUI(position, text);
+
+    }
     public void OnEnemyHit()
     {
         if (_hitMarker is null)

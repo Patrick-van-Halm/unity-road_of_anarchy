@@ -276,6 +276,74 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &512323719
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1835632799}
+    m_Modifications:
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.104001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 56.0836
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99967694
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.025417192
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 2.913
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870594146501733112, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+      propertyPath: m_Name
+      value: Finish
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+--- !u!114 &512323720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2103068839, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
+  m_PrefabInstance: {fileID: 512323719}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc97f5aef96c164789283a38703e7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &512675228
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +761,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92032a42bd6203245954e38415c702d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1835632799 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 560685999563645413, guid: 19ec681bc0b8dd54b8b39d187eb4a337, type: 3}
+  m_PrefabInstance: {fileID: 1995300554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1995300554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -750,7 +823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 560685999879777743, guid: 19ec681bc0b8dd54b8b39d187eb4a337, type: 3}
       propertyPath: _checkpointsList.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 560685999879777743, guid: 19ec681bc0b8dd54b8b39d187eb4a337, type: 3}
       propertyPath: _checkpointsList.Array.data[0]
@@ -764,6 +837,10 @@ PrefabInstance:
       propertyPath: _checkpointsList.Array.data[2]
       value: 
       objectReference: {fileID: 1995300555}
+    - target: {fileID: 560685999879777743, guid: 19ec681bc0b8dd54b8b39d187eb4a337, type: 3}
+      propertyPath: _checkpointsList.Array.data[3]
+      value: 
+      objectReference: {fileID: 512323720}
     - target: {fileID: 560685999879777743, guid: 19ec681bc0b8dd54b8b39d187eb4a337, type: 3}
       propertyPath: _vehicleTransformList.Array.data[0]
       value: 
