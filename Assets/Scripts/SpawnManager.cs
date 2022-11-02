@@ -115,6 +115,7 @@ public class SpawnManager : NetworkBehaviour
     private void RpcLinkToCar(NetworkConnection conn, GameObject car, GameObject gunner)
     {
         OnLastTeamStanding.AddListener(_hudComponent.ShowWinUI);
+        RaceManager.Instance.FinishRace.AddListener(_hudComponent.ShowWinUI);
         car.GetComponent<AttributeComponent>().OnHealthChanged.AddListener(_hudComponent.OnHealthChanged);
         car.GetComponentInChildren<NewKartScript>().PostFX = FindObjectOfType<PostFXScript>();
         car.tag = "Player";

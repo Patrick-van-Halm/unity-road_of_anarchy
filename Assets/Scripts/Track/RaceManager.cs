@@ -40,6 +40,7 @@ public class RaceManager : NetworkBehaviour
     public UnityEvent CorrectCheckpoint = new UnityEvent();
     public UnityEvent<int> IncreaseLap = new UnityEvent<int>();
     public UnityEvent<int> OnPositionUpdate = new UnityEvent<int>();
+    public UnityEvent<int, string> FinishRace = new UnityEvent<int, string>();
 
     private void Awake()
     {
@@ -120,8 +121,19 @@ public class RaceManager : NetworkBehaviour
                 _vehiclePositionList[vehicleIndex].CurrentLap++;                                        // Increase lap for vehicle
                 _vehiclePositionList[vehicleIndex].CurrentCheckpoint = 0;                               // Reset checkpoint
 
-                // Increaselap event
-                TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
+                if (_vehiclePositionList[vehicleIndex].CurrentLap == _numberOfLaps)
+                {
+                    // Finished race
+                    TargetFinishRace(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team.DriverIdentity.connectionToClient, vehicleIndex + 1);
+                    TargetFinishRace(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team.GunnerIdentity.connectionToClient, vehicleIndex + 1);
+                }
+                else
+                {
+                    // Increaselap event
+                    //TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
+                    TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team.DriverIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
+                    TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Player>().Team.GunnerIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
+                }
             }
         }
         else if(_checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint - 1] != checkpoint)
@@ -263,7 +275,9 @@ public class RaceManager : NetworkBehaviour
 
         foreach (VehiclePosition vehiclePosition in _vehiclePositionList)
         {
-            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            //TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<Player>().Team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<Player>().Team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
         }
     }
 
@@ -310,7 +324,9 @@ public class RaceManager : NetworkBehaviour
 
         foreach (VehiclePosition vehiclePosition in _vehiclePositionList)
         {
-            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            //TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<Player>().Team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<Player>().Team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
         }
     }
 
@@ -318,5 +334,11 @@ public class RaceManager : NetworkBehaviour
     private void TargetPositionUpdate(NetworkConnection target, int position)
     {
         OnPositionUpdate?.Invoke(position);
+    }
+
+    [TargetRpc]
+    private void TargetFinishRace(NetworkConnection target, int position)
+    {
+        FinishRace?.Invoke(position, "You finished the match. Your team's position: ");
     }
 }
