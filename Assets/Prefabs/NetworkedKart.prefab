@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 9072909455832602760}
   - component: {fileID: 2143204525097426477}
   - component: {fileID: 1765122025594908623}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NetworkedKart
   m_TagString: Vehicle
   m_Icon: {fileID: 0}

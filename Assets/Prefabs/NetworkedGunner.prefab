@@ -180,8 +180,10 @@ MonoBehaviour:
   Weapon: {fileID: 11400000, guid: a8fb4334fdb042349a0da4778cbaad4a, type: 2}
   _weaponMuzzlePosition: {fileID: 4066668060545147902}
   _weaponObject: {fileID: 4066668060754307041}
-  _targetTagName: Vehicle
   _gunnerCamera: {fileID: 3113492308122885328}
+  _hittableLayers:
+    serializedVersion: 2
+    m_Bits: 128
   OnEnemyHit:
     m_PersistentCalls:
       m_Calls: []
