@@ -16,6 +16,7 @@ public class PlayerHUDComponent : MonoBehaviour
     [SerializeField] private GameObject _eliminatedPrefab;
     [SerializeField] private GameObject _winPrefab;
     [SerializeField] private GameObject _ammoUI;
+    [SerializeField] private GameObject _crosshairUI;
 
     private void Awake()
     {
@@ -81,5 +82,6 @@ public class PlayerHUDComponent : MonoBehaviour
     public void HideGunnerUI()
     {
         _ammoUI.SetActive(false);
+        _crosshairUI.SetActive(false);
     }
 }

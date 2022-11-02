@@ -10,18 +10,12 @@ public class Gunner : Player
     private WeaponManager _weaponManager;
     private AmmoUI _ammoUI;
     [SerializeField] GameSettings _gameSettings;
-    [SerializeField] Image _crosshair;
 
     private void Awake()
     {
         _input = GetComponent<KeyboardInput>();
         _weaponManager = GetComponent<WeaponManager>();
         _ammoUI = FindObjectOfType<AmmoUI>();
-    }
-
-    private void Start()
-    {
-        if (_crosshair) _crosshair.enabled = true;
     }
 
     private void Update()
