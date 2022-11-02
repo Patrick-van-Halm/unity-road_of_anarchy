@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(WeaponManager))]
 public class Gunner : Player
@@ -9,12 +10,18 @@ public class Gunner : Player
     private WeaponManager _weaponManager;
     private AmmoUI _ammoUI;
     [SerializeField] GameSettings _gameSettings;
+    [SerializeField] Image _crosshair;
 
     private void Awake()
     {
         _input = GetComponent<KeyboardInput>();
         _weaponManager = GetComponent<WeaponManager>();
         _ammoUI = FindObjectOfType<AmmoUI>();
+    }
+
+    private void Start()
+    {
+        if (_crosshair) _crosshair.enabled = true;
     }
 
     private void Update()
