@@ -75,9 +75,10 @@ public class RaceManager : NetworkBehaviour
         if(myVehicle == null) return null;
 
         VehiclePosition pos = _vehiclePositionList.Find(v => v.Vehicle == myVehicle.gameObject);
-        GameObject lastCheckpointObj = pos.CheckpointsDrivenThrough[pos.CheckpointsDrivenThrough.Count - 1];
+        //GameObject lastCheckpointObj = pos.CheckpointsDrivenThrough[pos.CheckpointsDrivenThrough.Count - 1];
 
-        return lastCheckpointObj.GetComponent<Checkpoint>();
+        //return lastCheckpointObj.GetComponent<Checkpoint>();
+        return _checkpointsList[pos.CurrentCheckpoint - 1];
     }
 
     [Command(requiresAuthority = false)]
