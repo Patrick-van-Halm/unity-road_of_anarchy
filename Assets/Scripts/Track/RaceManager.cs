@@ -50,6 +50,11 @@ public class RaceManager : NetworkBehaviour
         _dynamicOvertakeTriggerList = new List<DynamicOvertakeTrigger>();
     }
 
+    private void Start()
+    {
+        FindObjectOfType<RaceManagerUI>().RaceManagerReady();
+    }
+
     public void AddVehicleToList(GameObject vehicle)
     {
         // Set starting values 
@@ -73,9 +78,9 @@ public class RaceManager : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdVehicleThroughCheckPoint(int checkpointIndex, GameObject vehicle)
+    public void CmdVehicleThroughCheckPoint(int checkpointIndex, GameObject vehicle, bool exitedCorrectly)
     {
-        VehicleThroughCheckPoint(_checkpointsList[checkpointIndex], vehicle);
+        VehicleThroughCheckPoint(_checkpointsList[checkpointIndex], vehicle, exitedCorrectly);
     }
 
     /// <summary>
@@ -85,7 +90,7 @@ public class RaceManager : NetworkBehaviour
     /// </summary>
     /// <param name="checkpoint"></param>
     /// <param name="vehicle"></param>
-    private void VehicleThroughCheckPoint(Checkpoint checkpoint, GameObject vehicle)
+    private void VehicleThroughCheckPoint(Checkpoint checkpoint, GameObject vehicle, bool exitedCorrectly)
     {
         // Get right index of current vehicle in sorted list
         int vehicleIndex = 0;
@@ -98,13 +103,13 @@ public class RaceManager : NetworkBehaviour
             }
         }
 
-        AddCheckpointToVehiclePositionList(vehicleIndex, checkpoint);
-
         // Check if vehicle is on the right checkpoint
-        if (_checkpointsList.IndexOf(checkpoint) == _vehiclePositionList[vehicleIndex].CurrentCheckpoint || checkpoint.VehicleExitedCorrectly)
+        if (_checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint] == checkpoint && exitedCorrectly)
         {
+            AddCheckpointToVehiclePositionList(vehicleIndex, checkpoint);
+
             // Increase checkpoint counter for that vehicle
-            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint) + 1;
+            _vehiclePositionList[vehicleIndex].CurrentCheckpoint++;
 
             // Correct checkpoint event
             TargetCorrectCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
@@ -119,7 +124,7 @@ public class RaceManager : NetworkBehaviour
                 TargetIncreaseLap(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
             }
         }
-        else
+        else if(_checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint - 1] != checkpoint)
         {
             // Wrong checkpoint
             TargetWrongCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
@@ -139,19 +144,20 @@ public class RaceManager : NetworkBehaviour
     /// <param name="checkpoint"></param>
     private void AddCheckpointToVehiclePositionList(int vehicleListIndex, Checkpoint checkpoint)
     {
-        List<Checkpoint> _currentCheckpointList = _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Select(x => x.GetComponent<Checkpoint>()).ToList();
-        bool _isNewCheckpoint = true;
-        int _checkpointListLength = _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Count;
-        for (int i = 0; i < _checkpointListLength; i++)
-        {
-            if (_currentCheckpointList[i] == checkpoint)
-            {
-                _isNewCheckpoint = false;
-                break;
-            }
-        }
+        //List<Checkpoint> _currentCheckpointList = _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Select(x => x.GetComponent<Checkpoint>()).ToList();
+        //bool _isNewCheckpoint = true;
+        //int _checkpointListLength = _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Count;
+        //for (int i = 0; i < _checkpointListLength; i++)
+        //{
+        //    if (_currentCheckpointList[i] == checkpoint)
+        //    {
+        //        _isNewCheckpoint = false;
+        //        break;
+        //    }
+        //}
 
-        if (_isNewCheckpoint) _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Add(checkpoint.gameObject);
+        //if (_isNewCheckpoint) _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Add(checkpoint.gameObject);
+        _vehiclePositionList[vehicleListIndex].CheckpointsDrivenThrough.Add(checkpoint.gameObject);
     }
 
     [TargetRpc]

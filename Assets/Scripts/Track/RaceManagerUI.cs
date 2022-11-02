@@ -14,8 +14,7 @@ public class RaceManagerUI : MonoBehaviour
     private TMP_Text _lapText;
     private TMP_Text _positionText;
 
- 
-    void Start()
+    public void RaceManagerReady()
     {
         _lapText = _lapTextObject.GetComponent<TMP_Text>();
         _positionText = _positionTextObject.GetComponent<TMP_Text>();
