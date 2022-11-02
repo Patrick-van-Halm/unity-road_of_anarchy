@@ -143,10 +143,10 @@ public class RaceManager : NetworkBehaviour
             TargetWrongCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
 
             // Change the current checkpoint to checkpoint that is next
-            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint) + 1;
+            //_vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint) + 1;
 
-            // Remove all driven through checkpoints till index of wrong way checkpoint
-            _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.RemoveRange(_vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.IndexOf(checkpoint.gameObject), _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.Count - _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.IndexOf(checkpoint.gameObject) - 1);
+            // Update the list to till the current driven checkpoint
+            //_vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough = _checkpointsList.GetRange(0, _checkpointsList.IndexOf(checkpoint)).Select(c => c.gameObject).ToList();
         }
 
         // Set the position of the vehicle

@@ -304,6 +304,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentObject: {fileID: 7764002591859567613}
+  _environmentLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &1958889225725852799
 PrefabInstance:
   m_ObjectHideFlags: 0
