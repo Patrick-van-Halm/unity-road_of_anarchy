@@ -136,13 +136,13 @@ public class RaceManager : NetworkBehaviour
                 }
             }
         }
-        else if(_checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint - 1] != checkpoint)
+        else if(_checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint] != checkpoint)
         {
             // Wrong checkpoint
             TargetWrongCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
 
             // Change the current checkpoint to checkpoint that is next
-            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint) + 1;
+            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint);
         }
 
         // Set the position of the vehicle
