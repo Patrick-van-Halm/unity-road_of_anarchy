@@ -68703,6 +68703,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2905406508800855038, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
+      propertyPath: _ammoUI
+      value: 
+      objectReference: {fileID: 8730945381030294473}
+    - target: {fileID: 2905406508800855038, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
       propertyPath: _canvas
       value: 
       objectReference: {fileID: 88523499}
@@ -141237,6 +141241,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbcff7d9cab300e4abd89c060792f172, type: 3}
+--- !u!1 &8730945381030294473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5443869257118345379, guid: bbcff7d9cab300e4abd89c060792f172, type: 3}
+  m_PrefabInstance: {fileID: 8730945381030294472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8781651446179681907 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 68747953634813371, guid: bbcff7d9cab300e4abd89c060792f172, type: 3}

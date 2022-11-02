@@ -137,13 +137,16 @@ public class RaceManager : NetworkBehaviour
                 }
             }
         }
-        else if(_checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint] != checkpoint)
+        else if(_checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint] != checkpoint && _checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint - 1] != checkpoint)
         {
             // Wrong checkpoint
             TargetWrongCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
 
             // Change the current checkpoint to checkpoint that is next
-            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint);
+            _vehiclePositionList[vehicleIndex].CurrentCheckpoint = _checkpointsList.IndexOf(checkpoint) + 1;
+
+            // Remove all driven through checkpoints till index of wrong way checkpoint
+            _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.RemoveRange(_vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.IndexOf(checkpoint.gameObject), _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.Count - _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.IndexOf(checkpoint.gameObject) - 1);
         }
 
         // Set the position of the vehicle
