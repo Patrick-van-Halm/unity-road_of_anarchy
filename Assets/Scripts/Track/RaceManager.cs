@@ -107,7 +107,7 @@ public class RaceManager : NetworkBehaviour
         }
 
         // Check if vehicle is on the right checkpoint
-        if (_checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint] == checkpoint && exitedCorrectly)
+        if (_checkpointsList[_vehiclePositionList[vehicleIndex].CurrentCheckpoint] == checkpoint)
         {
             AddCheckpointToVehiclePositionList(vehicleIndex, checkpoint);
 
