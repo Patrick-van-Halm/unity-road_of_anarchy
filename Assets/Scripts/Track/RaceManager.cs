@@ -24,7 +24,7 @@ public class RaceManager : NetworkBehaviour
     public class VehiclePosition
     {
         public GameObject Vehicle { get; set; }
-        public List<GameObject> CheckpointsDrivenThrough { get; set; } = new List<GameObject>();
+        public SyncList<GameObject> CheckpointsDrivenThrough { get; set; } = new SyncList<GameObject>();
         public int CurrentCheckpoint { get; set; }
         public int CurrentLap { get; set; }
     }
