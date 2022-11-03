@@ -181,12 +181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82491ac6f1658a448ad3d6da9e2e76e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameInput: {fileID: 922857495}
-  _volumeSlider: {fileID: 548925981}
-  _invertX: {fileID: 573332596}
-  _invertY: {fileID: 956579172}
-  _sensitivity: {fileID: 1196191322}
-  _automaticReload: {fileID: 57133057}
   _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
 --- !u!114 &1691940
 MonoBehaviour:
@@ -4980,6 +4974,7 @@ GameObject:
   - component: {fileID: 1276875173}
   - component: {fileID: 1276875175}
   - component: {fileID: 1276875174}
+  - component: {fileID: 1276875176}
   m_Layer: 5
   m_Name: Panel - Settings
   m_TagString: Untagged
@@ -5059,6 +5054,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276875172}
   m_CullTransparentMesh: 1
+--- !u!114 &1276875176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276875172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef2b2a7c29adbe4a8487248a8af7250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameInput: {fileID: 922857495}
+  _volumeSlider: {fileID: 548925981}
+  _invertX: {fileID: 573332596}
+  _invertY: {fileID: 956579172}
+  _sensitivity: {fileID: 1196191322}
+  _automaticReload: {fileID: 57133057}
+  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
 --- !u!1 &1302017968
 GameObject:
   m_ObjectHideFlags: 0
@@ -8402,63 +8416,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049619821}
   m_CullTransparentMesh: 1
---- !u!1001 &2059583286
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4972069472388075943, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_Name
-      value: BackgroundMusic
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972069472388075992, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4d2f2c2de08a76546b20ec3a52aa35d4, type: 3}
 --- !u!1 &2090676822
 GameObject:
   m_ObjectHideFlags: 0
