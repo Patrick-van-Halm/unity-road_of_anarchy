@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using Mirror;
 using System;
 using System.Collections;
@@ -10,6 +12,12 @@ public class AmmoSpawner : NetworkBehaviour
     [SerializeField] Weapon _weapon;
 
     private int _ammoAmount = 10;
+    private EventInstance _ammoSound;
+
+    private void Start()
+    {
+        _ammoSound = RuntimeManager.CreateInstance("Event:/AmmoBox");
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -40,6 +48,9 @@ public class AmmoSpawner : NetworkBehaviour
     {
         // Exit this if the ammo box is inactive in scene meaning its picked up
         if (!_ammoBox.activeSelf) return;
+
+        // Play audio
+        _ammoSound.start();
 
         // Set ammo box inactive
         _ammoBox.SetActive(false);
