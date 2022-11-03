@@ -16,12 +16,12 @@ public class RaceManagerUI : MonoBehaviour
 
     public void RaceManagerReady()
     {
-        _lapText = _lapTextObject.GetComponent<TMP_Text>();
+        if(_lapTextObject) _lapText = _lapTextObject.GetComponent<TMP_Text>();
         _positionText = _positionTextObject.GetComponent<TMP_Text>();
 
         RaceManager.Instance.WrongCheckpoint.AddListener(WrongCheckpoint);  
         RaceManager.Instance.CorrectCheckpoint.AddListener(CorrectCheckpoint);
-        RaceManager.Instance.IncreaseLap.AddListener(IncreaseLap);
+        if(_lapTextObject) RaceManager.Instance.IncreaseLap.AddListener(IncreaseLap);
         RaceManager.Instance.OnPositionUpdate.AddListener(OnPositionUpdate);
 
         _lapText.text = "1 / " + RaceManager.Instance.NumberOfLaps.ToString();
@@ -45,6 +45,25 @@ public class RaceManagerUI : MonoBehaviour
 
     private void OnPositionUpdate(int position)
     {
-        _positionText.text = position.ToString();
+        string positionText;
+        switch (position)
+        {
+            case 1:
+                positionText = "1ST";
+                break;
+
+            case 2:
+                positionText = "2ND";
+                break;
+
+            case 3:
+                positionText = "3RD";
+                break;
+
+            default:
+                positionText = $"{position}TH";
+                break;
+        }
+        _positionText.text = positionText;
     }
 }
