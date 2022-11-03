@@ -1,12 +1,15 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LobbyListingUI : MonoBehaviour
 {
     public GameObject LobbyListContent;
     public GameObject LobbyListRowPrefab;
+    [Scene] public string MainMenuScene;
 
     private void Start()
     {
@@ -35,5 +38,10 @@ public class LobbyListingUI : MonoBehaviour
     {
         // Host a new lobby
         GameNetworkManager.Instance?.StartHost();
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(MainMenuScene);
     }
 }
