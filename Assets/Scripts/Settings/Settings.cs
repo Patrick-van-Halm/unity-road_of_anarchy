@@ -16,6 +16,13 @@ public class Settings : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private GameSettings _gameSettings;
+    private AudioSettings _audioSettings;
+
+    private void Awake()
+    {
+        _audioSettings = GetComponent<AudioSettings>();
+    }
+
     void Start()
     {
         _gameSettings.Load();
@@ -26,6 +33,8 @@ public class Settings : MonoBehaviour
         _invertY.isOn = _gameSettings.InvertY;
         _sensitivity.value = _gameSettings.Sensitivity;
         _automaticReload.isOn = _gameSettings.AutomaticReload;
+
+        _audioSettings.ChangeMasterVolume(_gameSettings.AudioVolume);
     }
 
     public void SetUsername(string value)
