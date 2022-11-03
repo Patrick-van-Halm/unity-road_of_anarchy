@@ -108295,7 +108295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1354.9
+      value: 1357.64
       objectReference: {fileID: 0}
     - target: {fileID: 5328513518124881137, guid: 9c55cecce96ed884d81e0c4ed82f9e2f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -141342,7 +141342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3052300281444952875, guid: 47482b014f7a2564598935a3a98746ff, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -61.274048
+      value: -0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 4461543940252557538, guid: 47482b014f7a2564598935a3a98746ff, type: 3}
       propertyPath: m_VerticalAlignment
@@ -141448,6 +141448,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -32
       objectReference: {fileID: 0}
+    - target: {fileID: 7451317447636742436, guid: 47482b014f7a2564598935a3a98746ff, type: 3}
+      propertyPath: _lapTextObject
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7451317447636742438, guid: 47482b014f7a2564598935a3a98746ff, type: 3}
       propertyPath: m_Name
       value: RaceManagerUI
@@ -141534,6 +141538,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7451317447636742439, guid: 47482b014f7a2564598935a3a98746ff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7451317447677005276, guid: 47482b014f7a2564598935a3a98746ff, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7451317447677005277, guid: 47482b014f7a2564598935a3a98746ff, type: 3}
