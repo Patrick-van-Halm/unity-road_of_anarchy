@@ -24,7 +24,7 @@ public class RaceManagerUI : MonoBehaviour
         if(_lapTextObject) RaceManager.Instance.IncreaseLap.AddListener(IncreaseLap);
         RaceManager.Instance.OnPositionUpdate.AddListener(OnPositionUpdate);
 
-        _lapText.text = "1 / " + RaceManager.Instance.NumberOfLaps.ToString();
+        if (_lapTextObject) _lapText.text = "1 / " + RaceManager.Instance.NumberOfLaps.ToString();
     }
 
     private void WrongCheckpoint()
