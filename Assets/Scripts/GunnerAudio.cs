@@ -1,3 +1,4 @@
+using FMOD;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class GunnerAudio : MonoBehaviour
 
     void Update()
     {
+        _instanceGunMove.set3DAttributes(transform.To3DAttributes());
+
         UpdateGunMoving();
     }
 

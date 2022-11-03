@@ -15,6 +15,11 @@ public class CheckWater : MonoBehaviour
         _instanceWater = RuntimeManager.CreateInstance("event:/WaterSplash");
     }
 
+    private void Update()
+    {
+        _instanceWater.set3DAttributes(_kartScript.transform.To3DAttributes());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Water")
