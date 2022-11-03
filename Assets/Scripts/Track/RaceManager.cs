@@ -131,14 +131,14 @@ public class RaceManager : NetworkBehaviour
                     SpawnManager.Instance?.SpawnSpectators(team);
 
                     // Finished race
-                    TargetFinishRace(team.DriverIdentity.connectionToClient, vehicleIndex + 1);
-                    TargetFinishRace(team.GunnerIdentity.connectionToClient, vehicleIndex + 1);
+                    if (team.DriverIdentity.connectionToClient != null) TargetFinishRace(team.DriverIdentity.connectionToClient, vehicleIndex + 1);
+                    if (team.GunnerIdentity.connectionToClient != null) TargetFinishRace(team.GunnerIdentity.connectionToClient, vehicleIndex + 1);
                 }
                 else
                 {
                     // Increaselap event
-                    TargetIncreaseLap(team.DriverIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
-                    TargetIncreaseLap(team.GunnerIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
+                    if (team.DriverIdentity.connectionToClient != null) TargetIncreaseLap(team.DriverIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
+                    if (team.GunnerIdentity.connectionToClient != null) TargetIncreaseLap(team.GunnerIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentLap);
                 }
             }
         }
@@ -287,8 +287,8 @@ public class RaceManager : NetworkBehaviour
             Team team = vehiclePosition.Vehicle.GetComponent<Player>().Team;
 
             //TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
-            TargetPositionUpdate(team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
-            TargetPositionUpdate(team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            if (team.DriverIdentity.connectionToClient != null) TargetPositionUpdate(team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            if (team.GunnerIdentity.connectionToClient != null) TargetPositionUpdate(team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
         }
     }
 
@@ -338,8 +338,8 @@ public class RaceManager : NetworkBehaviour
             Team team = vehiclePosition.Vehicle.GetComponent<Player>().Team;
 
             //TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
-            TargetPositionUpdate(team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
-            TargetPositionUpdate(team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            if (team.DriverIdentity.connectionToClient != null) TargetPositionUpdate(team.DriverIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
+            if (team.GunnerIdentity.connectionToClient != null) TargetPositionUpdate(team.GunnerIdentity.connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
         }
     }
 
