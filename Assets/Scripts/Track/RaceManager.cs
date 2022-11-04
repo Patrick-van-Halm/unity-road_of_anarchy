@@ -284,6 +284,7 @@ public class RaceManager : NetworkBehaviour
 
         foreach (VehiclePosition vehiclePosition in _vehiclePositionList)
         {
+            if (vehiclePosition.CurrentLap == _numberOfLaps) continue;
             Team team = vehiclePosition.Vehicle.GetComponent<Player>().Team;
 
             //TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
@@ -335,6 +336,7 @@ public class RaceManager : NetworkBehaviour
 
         foreach (VehiclePosition vehiclePosition in _vehiclePositionList)
         {
+            if (vehiclePosition.CurrentLap == _numberOfLaps) continue;
             Team team = vehiclePosition.Vehicle.GetComponent<Player>().Team;
 
             //TargetPositionUpdate(vehiclePosition.Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList.IndexOf(vehiclePosition) + 1);
