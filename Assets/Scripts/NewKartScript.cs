@@ -139,6 +139,12 @@ public class NewKartScript : MonoBehaviour
     [Header("SoundFX parameters")]
     [SerializeField] VehicleAudio _parameterSetter;
 
+    [Header("PostFX")]
+    public PostFXScript PostFX;
+
+    [Header("Scriptable object")]
+    [SerializeField] private Weapon _weapon;
+
     const float k_NullInput = 0.01f;
     const float k_NullSpeed = 0.01f;
     Vector3 m_VerticalReference = Vector3.up;
@@ -162,6 +168,7 @@ public class NewKartScript : MonoBehaviour
     Vector3 m_LastCollisionNormal;
     bool m_HasCollision;
     bool m_InAir = false;
+    bool _inWater = false;
 
     public void AddPowerup(StatPowerup statPowerup) => m_ActivePowerupList.Add(statPowerup);
     public void SetCanMove(bool move) => m_CanMove = move;
@@ -358,7 +365,9 @@ public class NewKartScript : MonoBehaviour
 
         Quaternion turnAngle = Quaternion.AngleAxis(turningPower, transform.up);
         Vector3 fwd = turnAngle * transform.forward;
-        Vector3 movement = fwd * accelInput * finalAcceleration * ((m_HasCollision || GroundPercent > 0.0f) ? 1.0f : 0.0f);
+        Vector3 movement = fwd * accelInput * finalAcceleration * ((m_HasCollision || GroundPercent > 0.0f) ? 1.0f : 0.0f) * (_inWater ? 0.5f : 1.0f);
+
+        if (_inWater) maxSpeed /= 2;
 
         // forward movement
         bool wasOverMaxSpeed = currentSpeed >= maxSpeed;
@@ -385,6 +394,7 @@ public class NewKartScript : MonoBehaviour
         _rigidbody.velocity = newVelocity;
 
         _parameterSetter.SetSpeed(currentSpeed * 4f);
+        PostFX?.SetLensDis(currentSpeed);
 
         // Drift
         if (GroundPercent > 0.0f)
@@ -505,4 +515,6 @@ public class NewKartScript : MonoBehaviour
             m_LastValidRotation.eulerAngles = new Vector3(0.0f, transform.rotation.y, 0.0f);
         }
     }
+
+    public void InWater(bool m_inWater) { _inWater = m_inWater; }
 }

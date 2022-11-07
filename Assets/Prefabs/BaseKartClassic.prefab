@@ -277,28 +277,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 0}
   baseStats:
-    TopSpeed: 25
-    Acceleration: 4
-    ReverseSpeed: 5
-    ReverseAcceleration: 1
-    AccelerationCurve: 1
-    Braking: 1
+    TopSpeed: 30
+    Acceleration: 5
+    ReverseSpeed: 10
+    ReverseAcceleration: 3
+    AccelerationCurve: 0.8
+    Braking: 3
     CoastingDrag: 4
     Grip: 0.5
-    Steer: 5
-    AddedGravity: 2
+    Steer: 3
+    AddedGravity: 1
   m_VisualWheels: []
   CenterOfMass: {fileID: 2226206944896085528}
   AirborneReorientationCoefficient: 3
-  DriftGrip: 0.4
-  DriftAdditionalSteer: 5
-  MinAngleToFinishDrift: 10
-  MinSpeedPercentToFinishDrift: 0.5
-  DriftControl: 10
-  DriftDampening: 10
+  DriftGrip: 0.5
+  DriftAdditionalSteer: 4
+  MinAngleToFinishDrift: 30
+  MinSpeedPercentToFinishDrift: 0.01
+  DriftControl: 20
+  DriftDampening: 16
   SuspensionHeight: 0.2
   SuspensionSpring: 20000
-  SuspensionDamp: 500
+  SuspensionDamp: 3000
   WheelsPositionVerticalOffset: 0
   FrontLeftWheel: {fileID: 2226206944688662078}
   FrontRightWheel: {fileID: 2226206944183943435}
@@ -307,7 +307,9 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 4294967291
-  _parameterSetter: {fileID: 6707154458035762359}
+  _parameterSetter: {fileID: 0}
+  PostFX: {fileID: 0}
+  _weapon: {fileID: 0}
 --- !u!114 &1503497587667767201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,9 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c249db9f2545d7547b118198a3a31e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSync: {fileID: 0}
-  _eEngine: {fileID: 0}
-  _eBraking: {fileID: 0}
+  _speed: 0
 --- !u!1001 &3230071234010691392
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class WreckedCar : NetworkBehaviour
     private Transform _position;
 
     public UnityEvent<string> OnKillMessage;
+    public UnityEvent<string> OnLastTeamStanding;
 
     private AttributeComponent _vehicleAttributes;
 
@@ -43,8 +44,10 @@ public class WreckedCar : NetworkBehaviour
             FindObjectOfType<SpawnManager>()?.SpawnSpectators(player.Team);
 
             // Send elimination rpc to team
-            player.Team.DriverSpectator.wasEliminated = true;
-            player.Team.GunnerSpectator.wasEliminated = true;
+            if(player.Team.DriverSpectator) player.Team.DriverSpectator.wasEliminated = true;
+            if(player.Team.GunnerSpectator) player.Team.GunnerSpectator.wasEliminated = true;
+
+            SpawnManager.Instance.TeamEliminated(player.Team);
         }
         else OnKillMessage?.Invoke("You killed a team");      
 

@@ -5,7 +5,7 @@
 			<value>WreckedSfx</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{47af4342-06ab-430d-8d21-45ed3959aae1}</destination>
@@ -75,6 +75,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{355721fc-cba3-4e4e-ba88-f32ec9c8ee73}">
+		<property name="volume">
+			<value>-8.5</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{84e8eb62-f496-4349-9a22-b28e872b7ab6}</destination>
 		</relationship>
@@ -133,6 +136,7 @@
 	<object class="MixerBusEffectChain" id="{84e8eb62-f496-4349-9a22-b28e872b7ab6}">
 		<relationship name="effects">
 			<destination>{85377e47-9688-49bd-b319-380462348def}</destination>
+			<destination>{e7628a26-6ffa-461c-8cd0-c2a627ff8be3}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{8f37c33c-c416-43a1-80d2-3e44d70e6d3f}" />
@@ -144,5 +148,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{6134ece8-63c0-4083-9503-b53d9108a33a}" />
 	<object class="MixerBusFader" id="{85377e47-9688-49bd-b319-380462348def}" />
+	<object class="SpatialiserEffect" id="{e7628a26-6ffa-461c-8cd0-c2a627ff8be3}" />
 	<object class="MixerBusFader" id="{39a4371b-3cfe-475a-8fc1-b580dce7377c}" />
 </objects>

@@ -276,8 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1a1762e22da5e049bfd91a44ff7631f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParameterSetter: {fileID: 2040123632091440921}
-  SoundFX: {fileID: 5464262727041854716}
+  ParameterSetter: {fileID: 0}
   _input: {fileID: 2040123631504675454}
   _car: {fileID: 2040123631504675455}
   _allWheels:

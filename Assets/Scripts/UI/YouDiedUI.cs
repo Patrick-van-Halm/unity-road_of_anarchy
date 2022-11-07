@@ -24,6 +24,11 @@ public class YouDiedUI : MonoBehaviour
         if (NetworkServer.active) _button.interactable = false;
     }
 
+    private void Update()
+    {
+        if (NetworkServer.connections.Count == 1) _button.interactable = true;
+    }
+
     private void OnEnable()
     {
         _animator.SetTrigger("FadeIn");
