@@ -124,6 +124,9 @@ public class SpawnManager : NetworkBehaviour
         OnLastTeamStanding.AddListener(_hudComponent.ShowWinUI);
         RaceManager.Instance.FinishRace.AddListener(_hudComponent.ShowWinUI);
         car.GetComponent<AttributeComponent>().OnHealthChanged.AddListener(_hudComponent.OnHealthChanged);
+        gunner.GetComponent<WeaponManager>().OnHeatChanged.AddListener(_hudComponent.OnHeatChanged);
+        _hudComponent.SetMaxHeat(gunner.GetComponent<WeaponManager>().Weapon.HeatMaxValue);
+        car.GetComponent<Vehicle>().OnInWater.AddListener(gunner.GetComponent<WeaponManager>().WaterCooldown);
         car.GetComponentInChildren<NewKartScript>().PostFX = FindObjectOfType<PostFXScript>();
         car.tag = "Player";
     }

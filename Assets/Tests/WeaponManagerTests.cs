@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -13,6 +14,7 @@ public class WeaponManagerTests
     {
         GameObject = new GameObject(nameof(WeaponManagerTests));
         GameObject.AddComponent<PlayerHUDComponent>();
+        GameObject.AddComponent<WeaponManager>();
         Gunner player = GameObject.AddComponent<Gunner>();
         WeaponManager weaponManager = GameObject.GetComponent<WeaponManager>();
         weaponManager.Weapon = ScriptableObject.CreateInstance<Weapon>();
@@ -79,5 +81,52 @@ public class WeaponManagerTests
         yield return new WaitForSeconds(4);
 
         Assert.AreEqual(expectedAmmoAmount, weaponManager.Weapon.AmmoAmount);
+    }
+
+    [Test]
+    public void WhenNotEnoughAmmoInClipReturnsFalse()
+    {
+        WeaponManager weaponManager = GameObject.GetComponent<WeaponManager>();
+
+        // Make sure there is no ammo
+        weaponManager.Weapon.ClipAmmoAmount = 0;
+        weaponManager.Weapon.AmmoAmount = 0;
+        weaponManager.Weapon.MaxAmmo = 10;
+
+        bool result = (bool)weaponManager.GetType().GetMethod("HasEnoughAmmoInClip", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(weaponManager);
+
+        Assert.IsFalse(result);
+    }
+
+    [Test]
+    public void WhenEnoughAmmoInClipReturnsTrue()
+    {
+        WeaponManager weaponManager = GameObject.GetComponent<WeaponManager>();
+
+        // Make sure there is enough ammo in clip
+        ConfigureWeaponAmmoValues(weaponManager.Weapon);
+
+        bool result = (bool)weaponManager.GetType().GetMethod("HasEnoughAmmoInClip", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(weaponManager);
+
+        Assert.IsTrue(result);
+    }
+
+    [Test]
+    public void WhenReloadingWeaponStateShouldBeReloading()
+    {
+        WeaponState expectedWeaponState = WeaponState.Reloading;
+        WeaponManager weaponManager = GameObject.GetComponent<WeaponManager>();
+        ConfigureWeaponAmmoValues(weaponManager.Weapon);
+
+        weaponManager.ReloadWeapon();
+
+        Assert.AreEqual(expectedWeaponState, weaponManager.Weapon.WeaponState);
+    }
+
+    private void ConfigureWeaponAmmoValues(Weapon weapon)
+    {
+        weapon.ClipAmmoAmount = 1;
+        weapon.AmmoAmount = 1;
+        weapon.MaxAmmo = 10;
     }
 }

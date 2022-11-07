@@ -8,7 +8,9 @@ public class PlayerHUDComponent : MonoBehaviour
 {
     [SerializeField] private Transform _canvas;
     [SerializeField] private GameObject _healthBarPrefab;
+    [SerializeField] private GameObject _heatBarPrefab;
     private HealthBar _healthBar;
+    private HeatBar _heatBar;
     [SerializeField] private KillFeedUI _killFeed;
 
     [SerializeField] private GameObject _hitMarker;
@@ -30,11 +32,21 @@ public class PlayerHUDComponent : MonoBehaviour
         {
             _hitMarker = GameObject.Instantiate(_hitMarker);
         }
+
+        if (_healthBarPrefab is not null)
+        {
+            _heatBar = Instantiate(_heatBarPrefab).GetComponent<HeatBar>();
+        }
     }
 
     public void OnHealthChanged(float currentHealth)
     {
         _healthBar.SetHealthText(currentHealth);
+    }
+
+    public void OnHeatChanged(float currentHeat)
+    {
+        _heatBar.UpdateHeatText(currentHeat);
     }
 
     public void OnKillFeedMessage(string msg)
@@ -83,5 +95,11 @@ public class PlayerHUDComponent : MonoBehaviour
     {
         _ammoUI.SetActive(false);
         _crosshairUI.SetActive(false);
+        _heatBar.gameObject.SetActive(false);
+    }
+
+    public void SetMaxHeat(float heatMaxValue)
+    {
+        _heatBar.SetMaxHeat(heatMaxValue);
     }
 }

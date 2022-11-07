@@ -9,20 +9,37 @@ using FMODUnity;
 [CreateAssetMenu(menuName = nameof(Weapon))]
 public class Weapon : ScriptableObject
 {
+    [Header("Tags")]
     [Tooltip("Sets the name of the weapon that will be displayed in the player UI.")]
     public string Name = "DefaultWeapon";
 
+
     [Header("Weapon Audio")]
     [Tooltip("The sound of the weapon when firing")]
-    public EventReference _fireSoundRef;
+    public EventReference FireSoundRef;
 
     [Tooltip("The sound played when a hit is detected")]
-    public EventReference _hitSoundRef;
+    public EventReference HitSoundRef;
 
-    [Header("Weapon Properties")]
+    [Tooltip("The sound played when a the weapon is overheated")]
+    public EventReference OverheatSoundRef;
+
+    [Tooltip("The sound played when player tries to fire and there is no ammo in clip")]
+    public EventReference NoAmmoSoundRef;
+
+
+    [Header("Weapon")]
+    [Tooltip("The state the weapon is in on init")]
+    public WeaponState WeaponState = WeaponState.ReadyToShoot;
+
     [Tooltip("Damage value of the weapon.")]
     public float DamageAmount = 10f;
 
+    [Tooltip("The range the weapon can shoot")]
+    public float WeaponRange = 200f;
+
+
+    [Header("Ammo")]
     [Tooltip("Amount of ammo the player starts with.")]
     public int AmmoAmount = 0;
 
@@ -35,13 +52,34 @@ public class Weapon : ScriptableObject
     [Tooltip("Amount of ammo in a single clip. If this is empty, the player has to reload.")]
     public int ClipAmmoAmount = 0;
 
-    [Tooltip("The range the weapon can shoot")]
-    public float WeaponRange = 200f;
 
-    [Header("Weapon Timing")]
+    [Header("Timing (in seconds)")]
     [Tooltip("Time it takes for the weapon to reload.")]
-    public float ReloadTimeInSeconds = 2f;
+    public float ReloadTime = 2f;
 
     [Tooltip("FireRate of the weapon when the player holds Mouse1")]
-    public float FireRateDelayInSeconds = 0.2f;
+    public float FireRateDelay = 0.2f;
+
+    [Tooltip("The amount of seconds the gunner has to wait once the weapon has the overheating state")]
+    public float OverheatedTime = 1.0f;
+
+    [Tooltip("The time it takes before the gun is cooled by one tick")]
+    public float CooldownTime = 0.8f;
+
+
+    [Header("Overheating")]
+    [Tooltip("The maximum heat value before the weapon goes into the overheating state")]
+    public float HeatMaxValue = 40.0f;
+
+    [Tooltip("The maximum heat value before the weapon goes into the overheating state")]
+    public float CurrentHeatValue = 0.0f;
+
+    [Tooltip("The amount this weapon adds to the total heath counter")]
+    public float HeatPerShotValue = 4.0f;
+
+    [Tooltip("The amount of heat that is subtracted from the current heat value")]
+    public float HeatReducingValue = 4f;
+
+    [Tooltip("The amount of heat that is subtracted from the current heat value when in water")]
+    public float HeatReducingValueInWater = 10f;
 }

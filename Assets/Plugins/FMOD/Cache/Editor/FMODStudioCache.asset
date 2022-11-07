@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638030690179146384
+  lastModified: 638034253434233472
   FileSizes:
   - Name: Desktop
-    Value: 2090
+    Value: 2178
   Exists: 1
 --- !u!114 &-8680014843433355944
 MonoBehaviour:
@@ -353,10 +353,10 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/WeaponManager.bank
   Name: WeaponManager
   StudioPath: bank:/WeaponManager
-  lastModified: 638030654071698631
+  lastModified: 638034253435217100
   FileSizes:
   - Name: Desktop
-    Value: 59392
+    Value: 83136
   Exists: 1
 --- !u!114 &-6688875955170367764
 MonoBehaviour:
@@ -1276,12 +1276,14 @@ MonoBehaviour:
   - {fileID: 8245366705769305148}
   - {fileID: -5215003454602834023}
   - {fileID: 4645747520644306955}
+  - {fileID: 8217927459683403235}
+  - {fileID: 4196250919856048310}
   EditorParameters: []
   MasterBanks:
   - {fileID: 2858199789752211538}
   StringsBanks:
   - {fileID: -8928467904859745739}
-  cacheTime: 638030690179146384
+  cacheTime: 638034253435217100
   cacheVersion: 131592
 --- !u!114 &272079236890011561
 MonoBehaviour:
@@ -1671,7 +1673,7 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638030690179126650
+  lastModified: 638034253434193473
   FileSizes:
   - Name: Desktop
     Value: 4472000
@@ -1886,6 +1888,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2646
+--- !u!114 &4196250919856048310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/WeaponEmptySfx
+  m_EditorClassIdentifier: 
+  Path: event:/WeaponEmptySfx
+  Guid:
+    Data1: -2064390887
+    Data2: 1328080987
+    Data3: -204970613
+    Data4: -9422597
+  Banks:
+  - {fileID: -6728143473731072827}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &4224182223610594726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2363,6 +2392,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 260
+--- !u!114 &8217927459683403235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/WeaponHeatSfx
+  m_EditorClassIdentifier: 
+  Path: event:/WeaponHeatSfx
+  Guid:
+    Data1: 1205203213
+    Data2: 1336279091
+    Data3: -1390043770
+    Data4: -8239959
+  Banks:
+  - {fileID: -6728143473731072827}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &8245366705769305148
 MonoBehaviour:
   m_ObjectHideFlags: 0
