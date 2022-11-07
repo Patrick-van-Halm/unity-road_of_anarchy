@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Vehicle
+  - Bullet
+  - AmmoBox
+  - Water
+  - FrontTrigger
+  - RearTrigger
+  - Terrain
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
@@ -13,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Environment
-  - 
+  - Damageable
   - 
   - 
   - 

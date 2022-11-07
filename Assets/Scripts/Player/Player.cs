@@ -30,12 +30,10 @@ public class Player : NetworkBehaviour
 public class Team
 {
     public Gunner Gunner => GunnerIdentity.GetComponent<Gunner>();
-    public Player GunnerPlayer => GunnerIdentity.GetComponent<Player>();
     public Spectator GunnerSpectator => GunnerIdentity.GetComponent<Spectator>();
     public NetworkIdentity GunnerIdentity;
 
     public Vehicle Vehicle => DriverIdentity.GetComponent<Vehicle>();
-    public Player DriverPlayer => GunnerIdentity.GetComponent<Player>();
     public Spectator DriverSpectator => DriverIdentity.GetComponent<Spectator>();
     public NetworkIdentity DriverIdentity;
 }

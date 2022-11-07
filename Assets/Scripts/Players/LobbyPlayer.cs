@@ -6,16 +6,37 @@ using UnityEngine.Events;
 
 public class LobbyPlayer : NetworkBehaviour
 {
-    [SyncVar] public string Name;
+    [SyncVar(hook = nameof(OnNameChanged))] [HideInInspector] public string Name;
     [SyncVar(hook = nameof(OnIsReadyChanged))] public bool IsReady;
 
+    [SerializeField] private GameSettings _gameSettings;
+
+    public UnityEvent<string> OnPlayerNameChanged;
     public UnityEvent<bool> OnReadyStateChanged;
+
+    private void Start()
+    {
+        if (!isLocalPlayer) return;
+        SetUsername(_gameSettings.Username);
+    }
+
+    private void OnNameChanged(string oldUsername, string newUsername)
+    {
+        // Invoke name change event
+        OnPlayerNameChanged.Invoke(newUsername);
+    }
+
+    [Command(requiresAuthority = true)]
+    public void SetUsername(string name)
+    {
+        Name = name;
+    }
 
     private void OnIsReadyChanged(bool _, bool newValue)
     {
         // Invoke ready state change event
         OnReadyStateChanged.Invoke(newValue);
-    }
+    } 
 
     [Command(requiresAuthority = true)]
     public void SetReady(bool ready)

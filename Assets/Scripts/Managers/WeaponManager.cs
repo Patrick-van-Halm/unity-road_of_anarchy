@@ -25,11 +25,12 @@ public class WeaponManager : NetworkBehaviour
     public Weapon Weapon;
     [SerializeField] private Transform _weaponMuzzlePosition;
     [SerializeField] private Transform _weaponObject;
+
     #endregion
 
     #region Gunner
-    [SerializeField] private string _targetTagName = "Vehicle";
     [SerializeField] private Camera _gunnerCamera;
+    [SerializeField] private LayerMask _hittableLayers;
     #endregion
 
     private void Awake()
@@ -43,10 +44,14 @@ public class WeaponManager : NetworkBehaviour
     private void Start()
     {
         OnEnemyHit.AddListener(FindObjectOfType<PlayerHUDComponent>().OnEnemyHit);
+
+        Weapon.AmmoAmount = 0;
+        Weapon.ClipAmmoAmount = 0;
     }
 
     #region Shooting
     public UnityEvent OnEnemyHit = new UnityEvent();
+
 
     public void TryFireWeapon()
     {
@@ -73,12 +78,12 @@ public class WeaponManager : NetworkBehaviour
     private void PerformRaycast(Ray ray)
     {
         // Stores the location of the point where the target is hit
-        Vector3 targetPoint = Vector3.zero;
+        Vector3 targetPoint = ray.GetPoint(Weapon.WeaponRange);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Weapon.WeaponRange))
+        if (Physics.Raycast(ray, out RaycastHit hit, Weapon.WeaponRange, _hittableLayers))
         {
             // If the target hit is the enemy, get the Interface and call the ApplyDamage function
-            if (IsEnemy(hit) is IDamageable target)
+            if (IsHittable(hit) is IDamageable target)
             {
                 Debug.Log("Target is enemy");
 
@@ -93,11 +98,6 @@ public class WeaponManager : NetworkBehaviour
                 OnEnemyHit.Invoke();
             }
         }
-        else
-        {
-            // Player has not hit anything, shoot directly
-            targetPoint = ray.direction * Weapon.WeaponRange;
-        }
 
         // Calculate the direction in which the weapon needs to fire
         InstantiateBullet(CalculateFireDirection(targetPoint));
@@ -105,9 +105,9 @@ public class WeaponManager : NetworkBehaviour
         //CmdSetBulletDirection(bulletDirection);
     }
 
-    private IDamageable IsEnemy(RaycastHit hit)
+    private IDamageable IsHittable(RaycastHit hit)
     {
-        if (hit.collider.CompareTag(_targetTagName) && hit.collider.GetComponent<IDamageable>() is IDamageable target)
+        if (hit.collider.GetComponent<IDamageable>() is IDamageable target)
             return target;
 
         return null;
@@ -185,13 +185,20 @@ public class WeaponManager : NetworkBehaviour
 
     private bool HasEnoughAmmoToReload()
     {
-        return Weapon.MaxClipSize <= Weapon.AmmoAmount;
+        // Change so player can always reload
+        //return Weapon.MaxClipSize <= Weapon.AmmoAmount;
+        return Weapon.AmmoAmount > 0;
+    }
+
+    private bool HasFullClip()
+    {
+        return Weapon.ClipAmmoAmount == Weapon.MaxClipSize;
     }
 
     public void ReloadWeapon()
     {
         // Only allow reload if player has enough ammo, and not already reloading
-        if (HasEnoughAmmoToReload() && !_isReloading)
+        if (HasEnoughAmmoToReload() && !HasFullClip() && !_isReloading)
             StartCoroutine(nameof(CoroReloadDelay), Weapon.ReloadTimeInSeconds);
     }
 
@@ -202,9 +209,24 @@ public class WeaponManager : NetworkBehaviour
 
         yield return new WaitForSeconds(delayTime);
 
+        // Calculate how much ammo is required to fully reload
+        int ammoRequiredFullReload = Weapon.MaxClipSize - Weapon.ClipAmmoAmount;
+
+        // Reload depending on how much ammo is in storage
+        if (Weapon.AmmoAmount < ammoRequiredFullReload)
+        {
+            Weapon.ClipAmmoAmount += Weapon.AmmoAmount;
+            Weapon.AmmoAmount = 0;
+        }
+        else
+        {
+            Weapon.ClipAmmoAmount = Weapon.MaxClipSize;
+            Weapon.AmmoAmount -= ammoRequiredFullReload;
+        }
+
         // Refill the clip size and subtract a clip from the total ammo amount
-        Weapon.ClipAmmoAmount = Weapon.MaxClipSize;
-        Weapon.AmmoAmount -= Weapon.MaxClipSize;
+        //Weapon.ClipAmmoAmount = Weapon.MaxClipSize;
+        //Weapon.AmmoAmount -= Weapon.MaxClipSize;
 
         _isReloading = false;
         _canShoot = true;

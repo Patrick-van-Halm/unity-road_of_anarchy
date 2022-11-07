@@ -20,6 +20,7 @@ public class Lobby : NetworkBehaviour
     public bool IsLobbyHost => NetworkServer.active;
 
     private Coroutine _passiveLobbyStartCountdown;
+    private Coroutine _lobbyStartCountdown;
     [SerializeField] private int _minPlayersRequired = 4;
     [SerializeField] private int _passiveCountdownSeconds = 60;
     [SerializeField] private int _lobbyStartCountdownSeconds = 5;
@@ -52,10 +53,27 @@ public class Lobby : NetworkBehaviour
         // Check if player amount is less than minimum
         if (LobbyPlayers.Count >= _minPlayersRequired) return;
 
+        // Check if player amount is enough to fill all cars and gunners
+        if(LobbyPlayers.Count % 2 == 0) return;
+
+        // Stop start lobby
+        if(_lobbyStartCountdown != null)
+        {
+            StopCoroutine(_lobbyStartCountdown);
+            _lobbyStartCountdown = null;
+            _lobbyStartCountdownSeconds = 5;
+            lobbyCountdownSeconds = 60;
+            GameNetworkManager.Instance.AcceptNewConnections = true;
+        }
+
         // Stop passive countdown coroutine
-        if (_passiveLobbyStartCountdown == null) return;
-        StopCoroutine(_passiveLobbyStartCountdown);
-        _passiveLobbyStartCountdown = null;
+        if (_passiveLobbyStartCountdown != null)
+        {
+            StopCoroutine(_passiveLobbyStartCountdown);
+            _passiveLobbyStartCountdown = null;
+            _passiveCountdownSeconds = 60;
+            lobbyCountdownSeconds = 60;
+        }
     }
 
     [ClientRpc]
@@ -76,11 +94,17 @@ public class Lobby : NetworkBehaviour
         if(GameScenes.Count == 0) return false;
 
         // Start lobby countdown
-        StartCoroutine(CoroStartLobby());
+        _lobbyStartCountdown = StartCoroutine(CoroStartLobby());
 
         // Stop the passive countdown and reset it to null
-        StopCoroutine(_passiveLobbyStartCountdown);
-        _passiveLobbyStartCountdown = null;
+        if(_passiveLobbyStartCountdown != null)
+        {
+            StopCoroutine(_passiveLobbyStartCountdown);
+            _passiveLobbyStartCountdown = null;
+            _passiveCountdownSeconds = 60;
+
+        }
+        lobbyCountdownSeconds = 60;
 
         IsLobbyStarted = true;
 
@@ -100,6 +124,9 @@ public class Lobby : NetworkBehaviour
 
     private IEnumerator CoroStartLobby()
     {
+        // Disable new connections so no one new can connect
+        if(GameNetworkManager.Instance) GameNetworkManager.Instance.AcceptNewConnections = false;
+
         int timePassed = 0;
         lobbyCountdownSeconds = _lobbyStartCountdownSeconds;
         while (timePassed < _lobbyStartCountdownSeconds)
@@ -115,9 +142,6 @@ public class Lobby : NetworkBehaviour
 
         // Unlist lobby since it has started
         GameNetworkManager.Instance?.RemoveLobbyFromRegistry();
-
-        // Disable new connections so no one new can connect
-        GameNetworkManager.Instance.AcceptNewConnections = false;
     }
 
     [Server]
@@ -162,11 +186,22 @@ public class Lobby : NetworkBehaviour
 
     private void CheckEnoughPlayersToStart()
     {
+        // Unset passive coroutine if set
+        if (_passiveLobbyStartCountdown != null)
+        {
+            StopCoroutine(_passiveLobbyStartCountdown);
+            _passiveLobbyStartCountdown = null;
+            _passiveCountdownSeconds = 60;
+            lobbyCountdownSeconds = 60;
+        }
+
         // Check if player amount is 4 or more
         if (LobbyPlayers.Count < _minPlayersRequired) return;
 
-        // Start passive countdown if not started yet
-        if (_passiveLobbyStartCountdown != null) return;
+        // Check if enough players to fill all roles
+        if (LobbyPlayers.Count % 2 != 0) return;
+
+        // Start passive countdown
         _passiveLobbyStartCountdown = StartCoroutine(CoroPassiveLobbyStartCountdown());
     }
 
@@ -174,6 +209,9 @@ public class Lobby : NetworkBehaviour
     {
         // Check if lobby has min players
         if(LobbyPlayers.Count < _minPlayersRequired) return false;
+
+        // Check if enough players to fill all roles
+        if (LobbyPlayers.Count % 2 != 0) return false;
 
         // Check if everyone ready
         if (!LobbyPlayers.All(p => p.IsReady)) return false;

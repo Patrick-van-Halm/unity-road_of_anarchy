@@ -14,6 +14,9 @@ public class PlayerHUDComponent : MonoBehaviour
     [SerializeField] private GameObject _hitMarker;
     [SerializeField] private float _hitMarkerActiveTime = 0.2f;
     [SerializeField] private GameObject _eliminatedPrefab;
+    [SerializeField] private GameObject _winPrefab;
+    [SerializeField] private GameObject _ammoUI;
+    [SerializeField] private GameObject _crosshairUI;
 
     private void Awake()
     {
@@ -44,6 +47,22 @@ public class PlayerHUDComponent : MonoBehaviour
         Instantiate(_eliminatedPrefab, _canvas);
     }
 
+    public void ShowWinUI(string text)
+    {
+        GameObject winUI = Instantiate(_winPrefab, _canvas);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        winUI.GetComponent<YouWinUI>().ShowWinUI(text);
+    }
+
+    public void ShowWinUI(int position, string text)
+    {
+        GameObject winUI = Instantiate(_winPrefab, _canvas);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        winUI.GetComponent<YouWinUI>().ShowWinUI(position, text);
+
+    }
     public void OnEnemyHit()
     {
         if (_hitMarker is null)
@@ -58,5 +77,11 @@ public class PlayerHUDComponent : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         _hitMarker.SetActive(false);
+    }
+
+    public void HideGunnerUI()
+    {
+        _ammoUI.SetActive(false);
+        _crosshairUI.SetActive(false);
     }
 }
