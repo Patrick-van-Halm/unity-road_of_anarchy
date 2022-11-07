@@ -197,6 +197,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   name: Johnson
+  OnInWater:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2143204525097426477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _kartScript: {fileID: 2779060281466190564}
+  vehicle: {fileID: 9072909455832602760}
 --- !u!114 &3121252772849393423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,7 +619,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5001204584527813350, guid: 12e531f58ef406e42b0768c26c37671d, type: 3}
   m_PrefabInstance: {fileID: 7203205824073015298}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 9012827533958111557}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07ac11bd9a8a13640ab667421b3d5787, type: 3}
@@ -656,7 +660,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6707154458255966556, guid: 12e531f58ef406e42b0768c26c37671d, type: 3}
   m_PrefabInstance: {fileID: 7203205824073015298}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 9012827533958111557}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
@@ -755,6 +759,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2226206944250249536, guid: 12e531f58ef406e42b0768c26c37671d, type: 3}
   m_PrefabInstance: {fileID: 7203205824073015298}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9012827533958111557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2226206944250249543, guid: 12e531f58ef406e42b0768c26c37671d, type: 3}
+  m_PrefabInstance: {fileID: 7203205824073015298}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &74288631757870597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9012827533958111557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f644a3bf4e5784042a9b9786bab6be55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _kartScript: {fileID: 2779060281466190564}
+  vehicle: {fileID: 0}
 --- !u!1001 &8347614082772210896
 PrefabInstance:
   m_ObjectHideFlags: 0
