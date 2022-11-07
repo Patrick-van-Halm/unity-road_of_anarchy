@@ -22,7 +22,7 @@ public class GlueTo : NetworkBehaviour
     {
         if (Target == null || transform == null) return;
         var newpos = Target.transform.TransformPoint(pos);
-        var newfw = Target.transform.TransformDirection(fw);
+        var newfw = transform.TransformDirection(fw);
         var newup = Target.transform.TransformDirection(up);
         var newrot = Quaternion.LookRotation(newfw, newup);
         transform.position = newpos;
