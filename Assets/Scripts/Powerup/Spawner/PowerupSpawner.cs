@@ -9,13 +9,14 @@ public class PowerupSpawner : NetworkBehaviour
 
     private void Start()
     {
-        _powerupCollisionDetection.HasCollided.AddListener(CmdCollectPowerup);
-        _powerupShootDetection.HasBeenHit.AddListener(CmdCollectPowerup);
+        if (_powerupCollisionDetection != null) _powerupCollisionDetection.HasCollided.AddListener(CmdCollectPowerup);
+        if (_powerupShootDetection != null) _powerupShootDetection.HasBeenHit.AddListener(CmdCollectPowerup);
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdCollectPowerup()
+    private void CmdCollectPowerup(Team team)
     {
+        PowerupManager.Instance?.Pickup(team, this);
         RpcCollectPowerup();
     }
 

@@ -1,18 +1,20 @@
 using Mirror;
-using UnityEngine;
 using UnityEngine.Events;
 
-public class PowerupShootDetection : MonoBehaviour, IDamageable
+public class PowerupShootDetection : NetworkBehaviour, IDamageable
 {
-    public UnityEvent HasBeenHit = new UnityEvent();
+    public UnityEvent<Team> HasBeenHit = new UnityEvent<Team>();
 
-    public void ApplyDamage(float value)
-    {
-        HasBeenHit?.Invoke();
-    }
+    public void ApplyDamage(float value) { }
 
+    [Command(requiresAuthority = false)]
     public void CmdApplyDamage(float value, NetworkConnectionToClient connectionToClient = null)
     {
-        ApplyDamage(0);
+        TargetHasHitPowerup(connectionToClient);
+    }
+
+    private void TargetHasHitPowerup(NetworkConnection target)
+    {
+        HasBeenHit?.Invoke(target.identity.GetComponent<Player>().Team);
     }
 }
