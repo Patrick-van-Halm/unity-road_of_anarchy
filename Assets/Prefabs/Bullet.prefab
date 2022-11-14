@@ -153,7 +153,7 @@ MonoBehaviour:
     Path: event:/BulletFire
   Event: 
   PlayEvent: 1
-  StopEvent: 0
+  StopEvent: 12
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0

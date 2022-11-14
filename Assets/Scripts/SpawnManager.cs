@@ -60,6 +60,7 @@ public class SpawnManager : NetworkBehaviour
         List<Team> teamsAlive = _allTeams.Where(t => !_eliminatedTeams.Any(t2 => t2 == t)).ToList();
         if (teamsAlive.Count == 1)
         {
+            SpawnSpectators(teamsAlive[0]);
             TargetOnLastTeamStanding(teamsAlive[0].GunnerIdentity.connectionToClient);
             TargetOnLastTeamStanding(teamsAlive[0].DriverIdentity.connectionToClient);
         }

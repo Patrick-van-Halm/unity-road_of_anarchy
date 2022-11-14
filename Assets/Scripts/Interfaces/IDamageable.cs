@@ -6,5 +6,7 @@ using UnityEngine;
 public interface IDamageable
 {
     void ApplyDamage(float value);
+
+    [Command]
     void CmdApplyDamage(float value, NetworkConnectionToClient connectionToClient = null);
 }

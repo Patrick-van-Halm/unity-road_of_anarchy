@@ -64,6 +64,8 @@ public class WeaponManager : NetworkBehaviour
             Weapon.WeaponState = WeaponState.Firing;
             PlaySoundEffectFMOD(Weapon.FireSoundRef, Vector3.zero);
             if(_gunnerCamera) PerformRaycast();
+            
+
             // Calculate the time to wait before allowing the next shot
             _nextShot = Time.time + Weapon.FireRateDelay;
 
@@ -95,11 +97,13 @@ public class WeaponManager : NetworkBehaviour
                 Debug.Log("Target is enemy");
                 PlaySoundEffectFMOD(Weapon.HitSoundRef, hit.point);
 
+                target.CmdApplyDamage(Weapon.DamageAmount);
                 OnEnemyHit.Invoke();
             }
         }
 
         // Calculate the direction in which the weapon needs to fire
+        Weapon.ClipAmmoAmount--;
         CmdInstatiateBullet(CalculateFireDirection(targetPoint));
     }
 
@@ -150,8 +154,6 @@ public class WeaponManager : NetworkBehaviour
 
         // Rotate bullet to shoot direction
         currentBullet.transform.forward = bulletDirection.normalized;
-
-        Weapon.ClipAmmoAmount--;
     }
     #endregion
 

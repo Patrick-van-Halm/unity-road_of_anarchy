@@ -58173,6 +58173,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5685651473004033619, guid: b73d2d20e276f4543b836075058748c5, type: 3}
+      propertyPath: StopEvent
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5685651473004033629, guid: b73d2d20e276f4543b836075058748c5, type: 3}
       propertyPath: m_Name
       value: GameMusic
@@ -113282,6 +113286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _kartScript: {fileID: 8985058583079855263}
+  vehicle: {fileID: 0}
 --- !u!65 &1736438795
 BoxCollider:
   m_ObjectHideFlags: 0
