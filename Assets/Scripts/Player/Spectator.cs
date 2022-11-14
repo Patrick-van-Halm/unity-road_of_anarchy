@@ -11,6 +11,7 @@ public class Spectator : Player
 
     private void Start()
     {
+        if (!isLocalPlayer) return;
         _hudComponent = FindObjectOfType<PlayerHUDComponent>();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
