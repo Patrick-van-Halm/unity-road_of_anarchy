@@ -9,9 +9,19 @@ public class Player : NetworkBehaviour
     [SyncVar] public string name = "Johnson";
     private PlayerHUDComponent _hudComponent;
 
+    [SyncVar] public bool IsReady;
+
     private void Start()
     {
+        if (isLocalPlayer) CmdReadyPlayer();      
         _hudComponent = FindObjectOfType<PlayerHUDComponent>();
+    }
+
+    [Command]
+    private void CmdReadyPlayer()
+    {
+        IsReady = true;
+        CountdownManager.Instance?.CheckIfStartCountdown();
     }
 
     [TargetRpc]
