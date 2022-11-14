@@ -1,6 +1,6 @@
 {
     "Username": "Isabel",
-    "AudioVolume": 0.0,
+    "AudioVolume": 0.011226060800254345,
     "InvertX": false,
     "InvertY": false,
     "Sensitivity": 1.2550358772277833,

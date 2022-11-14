@@ -16,6 +16,7 @@ public class ProcessInputTests
     {
         _playerGameObject = Object.Instantiate(_playerPrefab);
         _playerInput = _playerGameObject.GetComponent<KeyboardInput>();
+        _playerInput.InputAllowed();
         _carTiltMechanic = _playerGameObject.GetComponent<CarTiltMechanic>();
     }
 
