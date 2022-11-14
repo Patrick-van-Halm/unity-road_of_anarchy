@@ -356,4 +356,9 @@ public class RaceManager : NetworkBehaviour
     {
         FinishRace?.Invoke(position, "You finished the match. Your team's position: ");
     }
+
+    public int GetCarPosition(GameObject car)
+    {
+        return _vehiclePositionList.FindIndex(v => v.Vehicle == car) + 1;
+    }
 }

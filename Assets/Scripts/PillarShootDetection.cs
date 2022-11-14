@@ -8,13 +8,10 @@ public class PillarShootDetection : MonoBehaviour, IDamageable
 {
     public UnityEvent HasBeenHit = new UnityEvent();
 
-    public void ApplyDamage(float value)
-    {
-        HasBeenHit?.Invoke();
-    }
+    public void ApplyDamage(float value) { }
 
     public void CmdApplyDamage(float value, NetworkConnectionToClient connectionToClient = null)
     {
-        ApplyDamage(0);
+        HasBeenHit?.Invoke();
     }
 }

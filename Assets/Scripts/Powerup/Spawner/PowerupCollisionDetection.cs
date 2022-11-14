@@ -5,11 +5,11 @@ using UnityEngine.Events;
 
 public class PowerupCollisionDetection : MonoBehaviour
 {
-    public UnityEvent HasCollided = new UnityEvent();
+    public UnityEvent<Team> HasCollided = new UnityEvent<Team>();
 
     private void OnTriggerEnter(Collider collidedObj)
     {
         // Check if the powerup is hit
-        if (collidedObj.gameObject.CompareTag("Player")) HasCollided?.Invoke();
+        if (collidedObj.gameObject.CompareTag("Player")) HasCollided?.Invoke(collidedObj.GetComponent<Player>().Team);
     }
 }
