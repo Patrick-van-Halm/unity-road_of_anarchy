@@ -23,6 +23,11 @@ public class GunnerAudio : MonoBehaviour
         UpdateGunMoving();
     }
 
+    private void OnDisable()
+    {
+        StopIsMovingSFX();
+    }
+
     private void UpdateGunMoving()
     {
         // Check if already moving so we don't keep starting sound

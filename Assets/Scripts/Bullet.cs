@@ -32,4 +32,9 @@ public class Bullet : MonoBehaviour
         // Add movement to bullet
         transform.position += transform.forward * bulletSpeed * Time.deltaTime;
     }
+
+    private void OnDisable()
+    {
+        bulletInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
 }

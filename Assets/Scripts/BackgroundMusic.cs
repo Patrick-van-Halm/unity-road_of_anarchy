@@ -28,4 +28,9 @@ public class BackgroundMusic : MonoBehaviour
         _eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         _musicPlaying = false;
     }
+
+    private void OnDisable()
+    {
+        StopBackgroundMusic();
+    }
 }
