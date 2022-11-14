@@ -30,16 +30,21 @@ public class GunnerCameraController : MonoBehaviour
 
         // Set rotation values
         _lastRotate = gunnerCamera.transform.localRotation;
-
-        StartCoroutine(CheckRotationValues());
     }
 
     // Update is called once per frame
     void Update()
     {
+        float oldMouseX = 0;
+        float oldMouseY = 0;
+
         // Get the mouse delta. This is not in the range -1...1
         float mouseX = _gunnerInput.LookInput.x * (_gameSettings.Sensitivity * _sensitivityMod) * Time.deltaTime;
         float mouseY = _gunnerInput.LookInput.y * (_gameSettings.Sensitivity * _sensitivityMod) * Time.deltaTime;
+
+        // Check mouse movement for rotation soundFX
+        if (mouseX != oldMouseX || mouseY != oldMouseY) audio.PlayIsMovingSFX();
+        else audio.StopIsMovingSFX();
 
         // Set rotation, if necessary invert mouse rotation
         if (_gameSettings.InvertX) _yRotation -= mouseX; // inverted x
@@ -52,21 +57,5 @@ public class GunnerCameraController : MonoBehaviour
 
         // Set camera rotation
         gunnerCamera.transform.localRotation = Quaternion.Euler(_xRotation, _yRotation, 0f);
-    }
-
-    IEnumerator CheckRotationValues()
-    {
-        while (true)
-        {
-            // Check rotation values to play audio
-            if (_lastRotate != gunnerCamera.transform.localRotation)
-            {
-                audio.PlayIsMovingSFX();
-                _lastRotate = gunnerCamera.transform.localRotation;
-            }
-            else audio.StopIsMovingSFX();
-
-            yield return new WaitForSeconds(0.2f);
-        }
     }
 }
