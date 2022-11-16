@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638040212767204425
+  lastModified: 638040394114372797
   FileSizes:
   - Name: Desktop
-    Value: 2178
+    Value: 2282
   Exists: 1
 --- !u!114 &-8680014843433355944
 MonoBehaviour:
@@ -125,6 +125,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-8066935637425153250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/RaceCountdownGoSfx
+  m_EditorClassIdentifier: 
+  Path: event:/RaceCountdownGoSfx
+  Guid:
+    Data1: 907506992
+    Data2: 1200143069
+    Data3: -122548341
+    Data4: -821810871
+  Banks:
+  - {fileID: 2858199789752211538}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2875
 --- !u!114 &-7999628195412927115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +380,7 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/WeaponManager.bank
   Name: WeaponManager
   StudioPath: bank:/WeaponManager
-  lastModified: 638040199367185670
+  lastModified: 638040200491087778
   FileSizes:
   - Name: Desktop
     Value: 83136
@@ -592,6 +619,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 20500
+--- !u!114 &-5042075983866929443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/RaceCountdownSfx
+  m_EditorClassIdentifier: 
+  Path: event:/RaceCountdownSfx
+  Guid:
+    Data1: -221191579
+    Data2: 1215535987
+    Data3: 553666719
+    Data4: -820236659
+  Banks:
+  - {fileID: 2858199789752211538}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1100
 --- !u!114 &-4944263828080237929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1278,12 +1332,14 @@ MonoBehaviour:
   - {fileID: 4645747520644306955}
   - {fileID: 8217927459683403235}
   - {fileID: 4196250919856048310}
+  - {fileID: -8066935637425153250}
+  - {fileID: -5042075983866929443}
   EditorParameters: []
   MasterBanks:
   - {fileID: 2858199789752211538}
   StringsBanks:
   - {fileID: -8928467904859745739}
-  cacheTime: 638040212767204425
+  cacheTime: 638040394114372797
   cacheVersion: 131592
 --- !u!114 &272079236890011561
 MonoBehaviour:
@@ -1673,10 +1729,10 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638040212767204425
+  lastModified: 638040394114357800
   FileSizes:
   - Name: Desktop
-    Value: 4472000
+    Value: 4552608
   Exists: 1
 --- !u!114 &3006401405019929376
 MonoBehaviour:
