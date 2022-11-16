@@ -9,7 +9,6 @@ public class Gunner : Player
     private KeyboardInput _input;
     private WeaponManager _weaponManager;
     private AmmoUI _ammoUI;
-    [SerializeField] GameSettings _gameSettings;
 
     private void Awake()
     {
