@@ -26,6 +26,7 @@ public class SpawnManager : NetworkBehaviour
     private bool _isGunnerAssigned;
 
     private readonly List<Team> _allTeams = new List<Team>();
+    public List<Team> AllTeams { get { return _allTeams; } }
 
     private readonly List<Team> _eliminatedTeams = new List<Team>();
 
@@ -95,8 +96,8 @@ public class SpawnManager : NetworkBehaviour
             glueTo.Target = _currentCarObject.transform;
             glueTo.LocalPosition = _gunObjectOffset;
 
-            _team.Vehicle.Team = _team;
-            _team.Gunner.Team = _team;
+            _currentCarObject.GetComponent<Player>().Team = _team;
+            _currentGunObject.GetComponent<Player>().Team = _team;
 
             _allTeams.Add(_team);
             RaceManager.Instance?.AddVehicleToList(_currentCarObject);
@@ -107,10 +108,30 @@ public class SpawnManager : NetworkBehaviour
             NetworkServer.ReplacePlayerForConnection(conn, _currentGunObject);
             _isGunnerAssigned = true;
             RpcDisableCarCollider(conn, _currentCarObject);
+            foreach(Team team in _allTeams)
+            {
+                if (team == _team) continue;
+                TargetCreateTeamWorldspacePlayerNameUI(team.DriverIdentity.connectionToClient, _team);
+                TargetCreateTeamWorldspacePlayerNameUI(team.GunnerIdentity.connectionToClient, _team);
+            }
         }
 
         Destroy(currentPlayerObj, .1f);
         RpcLinkToCar(conn, _currentCarObject, _currentGunObject);
+        TargetCreateTeamsWorldspacePlayerNameUI(conn, _allTeams);
+    }
+
+    [TargetRpc]
+    private void TargetCreateTeamsWorldspacePlayerNameUI(NetworkConnection target, List<Team> teams)
+    {
+        foreach(Team team in teams)
+            _hudComponent.CreateTeamPlayerNamesUI(team);
+    }
+
+    [TargetRpc]
+    private void TargetCreateTeamWorldspacePlayerNameUI(NetworkConnection target, Team team)
+    {
+        _hudComponent.CreateTeamPlayerNamesUI(team);
     }
 
     [TargetRpc]
@@ -130,6 +151,7 @@ public class SpawnManager : NetworkBehaviour
         car.GetComponent<Vehicle>().OnInWater.AddListener(gunner.GetComponent<WeaponManager>().WaterCooldown);
         car.GetComponentInChildren<NewKartScript>().PostFX = FindObjectOfType<PostFXScript>();
         car.tag = "Player";
+        _hudComponent.SetPlayerNames(car.GetComponent<Player>(), gunner.GetComponent<Player>());
     }
 
     [TargetRpc]

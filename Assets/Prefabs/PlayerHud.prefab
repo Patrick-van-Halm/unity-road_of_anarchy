@@ -46,7 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 0}
   _healthBarPrefab: {fileID: 8972612194474170478, guid: 444853650aaca7047a45d571d248bc14, type: 3}
-  _heatBarPrefab: {fileID: 8972612194474170478, guid: 43e95a8000de1604d9ebeae1cada529d, type: 3}
   _killFeed: {fileID: 0}
   _hitMarker: {fileID: 6004456730461090964, guid: ca35bb8923d5bae4ebdfae225fd33b16, type: 3}
   _hitMarkerActiveTime: 0.2
@@ -54,3 +53,4 @@ MonoBehaviour:
   _winPrefab: {fileID: 8955499678734428232, guid: 6006d08bd0cd0ce40bf152c190877f08, type: 3}
   _ammoUI: {fileID: 0}
   _crosshairUI: {fileID: 0}
+  _playerNameUI: {fileID: 0}
