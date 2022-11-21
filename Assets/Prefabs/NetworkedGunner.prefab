@@ -262,9 +262,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  OnNameChanged:
+    m_PersistentCalls:
+      m_Calls: []
   name: Johnson
   _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
-  _crosshair: {fileID: 7575851362637794795, guid: f2e727a6dc703a1448ba889d33d01d09, type: 3}
+  playerCam: {fileID: 3113492308122885328}
 --- !u!1001 &4066668062040360591
 PrefabInstance:
   m_ObjectHideFlags: 0
