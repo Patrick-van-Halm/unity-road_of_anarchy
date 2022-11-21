@@ -33,7 +33,7 @@ public class Weapon : ScriptableObject
     public WeaponState WeaponState = WeaponState.ReadyToShoot;
 
     [Tooltip("Damage value of the weapon.")]
-    public float DamageAmount = 10f;
+    public float DamageAmount = 15f;
 
     [Tooltip("The range the weapon can shoot")]
     public float WeaponRange = 200f;
@@ -47,7 +47,7 @@ public class Weapon : ScriptableObject
     public int MaxAmmo = 50;
 
     [Tooltip("The amount of times the weapon can fire, before the player has to reload.")]
-    public int MaxClipSize = 10;
+    public int MaxClipSize = 15;
 
     [Tooltip("Amount of ammo in a single clip. If this is empty, the player has to reload.")]
     public int ClipAmmoAmount = 0;
