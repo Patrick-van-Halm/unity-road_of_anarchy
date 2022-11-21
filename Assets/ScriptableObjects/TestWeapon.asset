@@ -42,12 +42,12 @@ MonoBehaviour:
       Data4: -9422597
     Path: event:/WeaponEmptySfx
   WeaponState: 0
-  DamageAmount: 20
+  DamageAmount: 15
   WeaponRange: 200
   AmmoAmount: 0
   MaxAmmo: 20
   MaxClipSize: 20
-  ClipAmmoAmount: 10
+  ClipAmmoAmount: 0
   ReloadTime: 2
   FireRateDelay: 0.2
   OverheatedTime: 1
