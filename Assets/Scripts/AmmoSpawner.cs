@@ -11,7 +11,7 @@ public class AmmoSpawner : NetworkBehaviour
     [SerializeField] GameObject _ammoBox;
     [SerializeField] Weapon _weapon;
 
-    private int _ammoAmount = 10;
+    private int _ammoAmount = 15;
     private EventInstance _ammoSound;
 
     private void Start()
