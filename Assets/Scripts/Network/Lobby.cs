@@ -137,6 +137,9 @@ public class Lobby : NetworkBehaviour
             lobbyCountdownSeconds--;
         }
 
+        // Make teams
+        TeamManager.Instance?.GenerateTeams(LobbyPlayers);
+
         // Change scene to random Game scene
         GameNetworkManager.Instance?.ServerChangeScene(GameScenes.Random());
 
@@ -240,5 +243,11 @@ public class Lobby : NetworkBehaviour
     public void Disconnect()
     {
         GameNetworkManager.Instance?.Disconnect();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void SetRolePreference(PlayerRole role, NetworkConnectionToClient sender = null)
+    {
+
     }
 }

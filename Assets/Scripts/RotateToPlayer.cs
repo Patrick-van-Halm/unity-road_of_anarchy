@@ -8,6 +8,7 @@ public class RotateToPlayer : MonoBehaviour
 
     void Update()
     {
+        if (!CamTransform) return;
         transform.rotation = Quaternion.Euler(0, CamTransform.eulerAngles.y, 0);
     }
 }

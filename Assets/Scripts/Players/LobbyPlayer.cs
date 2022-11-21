@@ -6,8 +6,16 @@ using UnityEngine.Events;
 
 public class LobbyPlayer : NetworkBehaviour
 {
+    public enum RolesPreference 
+    {
+        Both,
+        OnlyDriver,
+        OnlyGunner
+    }
+
     [SyncVar(hook = nameof(OnNameChanged))] [HideInInspector] public string Name;
     [SyncVar(hook = nameof(OnIsReadyChanged))] public bool IsReady;
+    [SyncVar] public RolesPreference RolePreference;
 
     [SerializeField] private GameSettings _gameSettings;
 
@@ -42,5 +50,11 @@ public class LobbyPlayer : NetworkBehaviour
     public void SetReady(bool ready)
     {
         IsReady = ready;
+    }
+
+    [Command]
+    public void SetRolePreference(RolesPreference role)
+    {
+        RolePreference = role;
     }
 }

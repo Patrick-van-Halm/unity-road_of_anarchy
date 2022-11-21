@@ -64,10 +64,12 @@ public class Team
     public Player GunnerPlayer => GunnerIdentity.GetComponent<Player>();
     public Spectator GunnerSpectator => GunnerIdentity.GetComponent<Spectator>();
     public NetworkIdentity GunnerIdentity;
+    public int GunnerClientId;
 
     public Vehicle Vehicle => DriverIdentity.GetComponent<Vehicle>();
     public Player DriverPlayer => DriverIdentity.GetComponent<Player>();
 
     public Spectator DriverSpectator => DriverIdentity.GetComponent<Spectator>();
     public NetworkIdentity DriverIdentity;
+    public int DriverClientId;
 }
