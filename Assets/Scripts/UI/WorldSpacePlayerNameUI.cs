@@ -18,6 +18,7 @@ public class WorldSpacePlayerNameUI : MonoBehaviour
 
     private void FadeUI()
     {
+        if (!NetworkClient.active) return;
         float distance = Vector3.Distance(transform.position, NetworkClient.connection.identity.transform.position);
         float fading = (maximumDistanceForFade - distance) / maximumDistanceForFade;
         _canvasGroup.alpha = Mathf.Clamp01(fading);

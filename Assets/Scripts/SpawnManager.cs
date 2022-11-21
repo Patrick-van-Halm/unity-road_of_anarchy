@@ -22,11 +22,7 @@ public class SpawnManager : NetworkBehaviour
     private List<Transform> _usedSpawns = new List<Transform>();
     private GameObject _currentCarObject;
     private GameObject _currentGunObject;
-    private Team _team;
     private bool _isGunnerAssigned;
-
-    private readonly List<Team> _allTeams = new List<Team>();
-    public List<Team> AllTeams { get { return _allTeams; } }
 
     private readonly List<Team> _eliminatedTeams = new List<Team>();
 
@@ -58,7 +54,7 @@ public class SpawnManager : NetworkBehaviour
 
     private void LastTeamStanding()
     {
-        List<Team> teamsAlive = _allTeams.Where(t => !_eliminatedTeams.Any(t2 => t2 == t)).ToList();
+        List<Team> teamsAlive = TeamManager.Instance.Teams.Where(t => !_eliminatedTeams.Any(t2 => t2 == t)).ToList();
         if (teamsAlive.Count == 1)
         {
             SpawnSpectators(teamsAlive[0]);
@@ -73,20 +69,20 @@ public class SpawnManager : NetworkBehaviour
         OnLastTeamStanding?.Invoke("Your team has killed the last remaining team. You win!");
     }
 
+    [Server]
     private void ReplacePlayerWithPrefab(NetworkConnectionToClient conn)
     {
+        Team _team = TeamManager.Instance?.Teams.FirstOrDefault(t => t.DriverClientId == conn.connectionId || t.GunnerClientId == conn.connectionId);
         GameObject currentPlayerObj = conn.identity.gameObject;
-        if (_isGunnerAssigned || _currentCarObject == null || _currentGunObject == null)
-        {
-            _team = new Team();
 
-            _isGunnerAssigned = false;
+        if(_team.DriverIdentity == null && _team.GunnerIdentity == null)
+        {
             Transform spawn = _spawns.Where(s => !_usedSpawns.Contains(s)).Random();
             _usedSpawns.Add(spawn);
 
             _currentCarObject = Instantiate(_carObject, spawn.position, Quaternion.identity);
+            NetworkServer.Spawn(_currentCarObject);
             _team.DriverIdentity = _currentCarObject.GetComponent<NetworkIdentity>();
-            NetworkServer.ReplacePlayerForConnection(conn, _currentCarObject);
 
             _currentGunObject = Instantiate(_gunObject);
             NetworkServer.Spawn(_currentGunObject);
@@ -99,26 +95,32 @@ public class SpawnManager : NetworkBehaviour
             _currentCarObject.GetComponent<Player>().Team = _team;
             _currentGunObject.GetComponent<Player>().Team = _team;
 
-            _allTeams.Add(_team);
             RaceManager.Instance?.AddVehicleToList(_currentCarObject);
+        }
+
+        if(_team.DriverClientId == conn.connectionId)
+        {
+            NetworkServer.ReplacePlayerForConnection(conn, _team.DriverIdentity.gameObject);
             RpcHideGunnerUI(conn);
         }
-        else
+        else if(_team.GunnerClientId == conn.connectionId)
         {
-            NetworkServer.ReplacePlayerForConnection(conn, _currentGunObject);
-            _isGunnerAssigned = true;
+            NetworkServer.ReplacePlayerForConnection(conn, _team.GunnerIdentity.gameObject);
             RpcDisableCarCollider(conn, _currentCarObject);
-            foreach(Team team in _allTeams)
-            {
-                if (team == _team) continue;
-                TargetCreateTeamWorldspacePlayerNameUI(team.DriverIdentity.connectionToClient, _team);
-                TargetCreateTeamWorldspacePlayerNameUI(team.GunnerIdentity.connectionToClient, _team);
-            }
         }
 
         Destroy(currentPlayerObj, .1f);
         RpcLinkToCar(conn, _currentCarObject, _currentGunObject);
-        TargetCreateTeamsWorldspacePlayerNameUI(conn, _allTeams);
+
+        if(TeamManager.Instance && TeamManager.Instance.Teams.All(t => t.DriverIdentity && t.DriverIdentity.connectionToClient != null && t.GunnerIdentity && t.GunnerIdentity.connectionToClient != null))
+        {
+            // Last member has been assigned
+            foreach(Team team in TeamManager.Instance.Teams)
+            {
+                TargetCreateTeamsWorldspacePlayerNameUI(team.DriverIdentity.connectionToClient, TeamManager.Instance.Teams.ToList());
+                TargetCreateTeamsWorldspacePlayerNameUI(team.GunnerIdentity.connectionToClient, TeamManager.Instance.Teams.ToList());
+            }
+        }
     }
 
     [TargetRpc]
