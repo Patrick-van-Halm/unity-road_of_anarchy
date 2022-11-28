@@ -89,6 +89,8 @@ public class WeaponManager : NetworkBehaviour
 
     private void PerformRaycast()
     {
+        if (!isLocalPlayer) return;
+
         // Raycast in the middle of the camera
         Ray ray = _gunnerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 

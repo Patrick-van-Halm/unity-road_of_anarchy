@@ -106,11 +106,11 @@ public class SpawnManager : NetworkBehaviour
         else if(_team.GunnerClientId == conn.connectionId)
         {
             NetworkServer.ReplacePlayerForConnection(conn, _team.GunnerIdentity.gameObject);
-            RpcDisableCarCollider(conn, _currentCarObject);
+            RpcDisableCarCollider(conn, _team.DriverIdentity.gameObject);
         }
 
         Destroy(currentPlayerObj, .1f);
-        RpcLinkToCar(conn, _currentCarObject, _currentGunObject);
+        RpcLinkToCar(conn, _team.DriverIdentity.gameObject, _team.GunnerIdentity.gameObject);
 
         if(TeamManager.Instance && TeamManager.Instance.Teams.All(t => t.DriverIdentity && t.DriverIdentity.connectionToClient != null && t.GunnerIdentity && t.GunnerIdentity.connectionToClient != null))
         {
@@ -153,7 +153,9 @@ public class SpawnManager : NetworkBehaviour
         car.GetComponent<Vehicle>().OnInWater.AddListener(gunner.GetComponent<WeaponManager>().WaterCooldown);
         car.GetComponentInChildren<NewKartScript>().PostFX = FindObjectOfType<PostFXScript>();
         car.tag = "Player";
+
         _hudComponent.SetPlayerNames(car.GetComponent<Player>(), gunner.GetComponent<Player>());
+        _hudComponent.CreateMinimap(car);
     }
 
     [TargetRpc]
