@@ -24,7 +24,7 @@ public class Player : NetworkBehaviour
         _hudComponent = FindObjectOfType<PlayerHUDComponent>();
 
         if (!isLocalPlayer) return;
-        SetUsername(_gameSettings.Username);
+        SetUsername(_gameSettings.HideOwnUsername ? "Player" : _gameSettings.Username);
     }
 
     [Command(requiresAuthority = true)]

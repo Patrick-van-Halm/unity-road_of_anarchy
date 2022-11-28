@@ -25,7 +25,8 @@ public class LobbyPlayer : NetworkBehaviour
     private void Start()
     {
         if (!isLocalPlayer) return;
-        SetUsername(_gameSettings.Username);
+       
+        SetUsername(_gameSettings.HideOwnUsername ? "Player" : _gameSettings.Username);
     }
 
     private void OnNameChanged(string oldUsername, string newUsername)
