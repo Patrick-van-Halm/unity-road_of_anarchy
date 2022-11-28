@@ -155,7 +155,7 @@ public class SpawnManager : NetworkBehaviour
         car.tag = "Player";
 
         _hudComponent.SetPlayerNames(car.GetComponent<Player>(), gunner.GetComponent<Player>());
-        _hudComponent.CreateMinimap(car);
+        //_hudComponent.CreateMinimap(car);
     }
 
     [TargetRpc]
