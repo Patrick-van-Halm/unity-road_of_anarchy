@@ -227,3 +227,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameElement: {fileID: 377669317313846665}
   player: {fileID: 0}
+  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}

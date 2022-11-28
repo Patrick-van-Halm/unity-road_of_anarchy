@@ -216,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TMPDriverName: {fileID: 0}
   TMPGunnerName: {fileID: 0}
+  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
 --- !u!1 &1922341702750664111
 GameObject:
   m_ObjectHideFlags: 0

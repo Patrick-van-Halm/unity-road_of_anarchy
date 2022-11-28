@@ -20,6 +20,10 @@ public class GameSettings : ScriptableObject
     [Header("Gunner settings")]
     public bool AutomaticReload;
 
+    [Header("Privacy settings")]
+    public bool HideOwnUsername;
+    public bool HideOtherUsernames;
+
     private string _jsonPath => Application.dataPath + "/" + name + ".txt";
 
     internal void Save()
@@ -30,6 +34,9 @@ public class GameSettings : ScriptableObject
 
     internal void Load()
     {
+#if !UNITY_EDITOR
+        Reset();
+#endif
         if (File.Exists(_jsonPath))
         {
             string settingsText = File.ReadAllText(_jsonPath);
@@ -37,4 +44,15 @@ public class GameSettings : ScriptableObject
         }
     }
 
+    private void Reset()
+    {
+        Username = "";
+        AudioVolume = .5f;
+        InvertX = false;
+        InvertY = false;
+        Sensitivity = .5f;
+        AutomaticReload = false;
+        HideOwnUsername = false;
+        HideOtherUsernames = false;
+    }
 }

@@ -23,6 +23,8 @@ public class PlayerHUDComponent : MonoBehaviour
     [SerializeField] private GameObject _crosshairUI;
     [SerializeField] private PlayerNameUI _playerNameUI;
 
+    [SerializeField] private GameSettings _gameSettings;
+
     private void Awake()
     {
         if (_healthBarPrefab is not null)
@@ -104,11 +106,17 @@ public class PlayerHUDComponent : MonoBehaviour
 
     internal void SetPlayerNames(Player driver, Player gunner)
     {
-        _playerNameUI.SetDriverName(driver.name);
-        _playerNameUI.SetGunnerName(gunner.name);
+        string driverName = driver.name;
+        string gunnerName = gunner.name;      
 
-        driver.OnNameChanged.AddListener(_playerNameUI.SetDriverName);
-        gunner.OnNameChanged.AddListener(_playerNameUI.SetGunnerName);
+        if (!driver.isLocalPlayer && _gameSettings.HideOtherUsernames) driverName = "Driver";
+        else driver.OnNameChanged.AddListener(_playerNameUI.SetDriverName);
+
+        if (!gunner.isLocalPlayer && _gameSettings.HideOtherUsernames) gunnerName = "Gunner";
+        else gunner.OnNameChanged.AddListener(_playerNameUI.SetGunnerName);
+
+        _playerNameUI.SetDriverName(driverName);
+        _playerNameUI.SetGunnerName(gunnerName);
     }
 
     public void CreateTeamPlayerNamesUI(Team team)
@@ -119,11 +127,17 @@ public class PlayerHUDComponent : MonoBehaviour
         Player gunner = team.GunnerPlayer;
         WorldSpacePlayerNameUI worldSpacePlayerNameUI = instance.GetComponent<WorldSpacePlayerNameUI>();
 
-        driver.OnNameChanged.AddListener(worldSpacePlayerNameUI.SetDriverName);
-        gunner.OnNameChanged.AddListener(worldSpacePlayerNameUI.SetGunnerName);
+        string driverName = driver.name;
+        string gunnerName = gunner.name;
 
-        worldSpacePlayerNameUI.SetDriverName(driver.name);
-        worldSpacePlayerNameUI.SetGunnerName(gunner.name);
+        if (NetworkClient.connection.identity.GetComponent<Player>() != driver && _gameSettings.HideOtherUsernames) driverName = "Driver";
+        else driver.OnNameChanged.AddListener(worldSpacePlayerNameUI.SetDriverName);
+
+        if (NetworkClient.connection.identity.GetComponent<Player>() != gunner && _gameSettings.HideOtherUsernames) gunnerName = "Gunner";
+        else gunner.OnNameChanged.AddListener(worldSpacePlayerNameUI.SetGunnerName);
+
+        worldSpacePlayerNameUI.SetDriverName(driverName);
+        worldSpacePlayerNameUI.SetGunnerName(gunnerName);
 
         GlueToPosition glue = instance.AddComponent<GlueToPosition>();
         glue.Target = driver.gameObject.transform;

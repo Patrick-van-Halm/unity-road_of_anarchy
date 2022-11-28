@@ -26748,6 +26748,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b5ceca8a31ee0c4481091555d1c0ce2, type: 3}
+--- !u!114 &449204974 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5990201977639843630, guid: 4b5ceca8a31ee0c4481091555d1c0ce2, type: 3}
+  m_PrefabInstance: {fileID: 449204973}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4823aad07ba36154e9a9dfd4c317dd61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &461101171
 GameObject:
   m_ObjectHideFlags: 0
@@ -70275,9 +70286,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 495432187}
     - target: {fileID: 2905406508800855038, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
+      propertyPath: _gameSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
+    - target: {fileID: 2905406508800855038, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
       propertyPath: _playerNameUI
       value: 
       objectReference: {fileID: 8301855940291557149}
+    - target: {fileID: 2905406508800855038, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
+      propertyPath: _heatBarPrefab
+      value: 
+      objectReference: {fileID: 8972612194474170478, guid: 43e95a8000de1604d9ebeae1cada529d, type: 3}
+    - target: {fileID: 2905406508800855038, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
+      propertyPath: _playerNamesPrefab
+      value: 
+      objectReference: {fileID: 8426475588991582426, guid: a6f52d19014246c4fb13407a690caaeb, type: 3}
     - target: {fileID: 2905406508800855039, guid: 5f0b14c695fde2a45830ea065815d205, type: 3}
       propertyPath: m_Name
       value: PlayerHud
@@ -129573,6 +129596,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3776758244456827424, guid: 44efd735965f40f4891f6690ad2b628d, type: 3}
+      propertyPath: OnCurrentSecondChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 449204974}
+    - target: {fileID: 3776758244456827424, guid: 44efd735965f40f4891f6690ad2b628d, type: 3}
+      propertyPath: OnCurrentSecondChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateCountdownUI
+      objectReference: {fileID: 0}
     - target: {fileID: 3776758244456827425, guid: 44efd735965f40f4891f6690ad2b628d, type: 3}
       propertyPath: m_RootOrder
       value: 10

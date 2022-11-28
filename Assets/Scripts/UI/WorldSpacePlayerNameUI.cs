@@ -11,6 +11,9 @@ public class WorldSpacePlayerNameUI : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private float maximumDistanceForFade;
 
+    [Header("Game Settings")]
+    [SerializeField] private GameSettings _gameSettings;
+
     private void Update()
     {
         FadeUI();
