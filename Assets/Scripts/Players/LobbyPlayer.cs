@@ -16,6 +16,7 @@ public class LobbyPlayer : NetworkBehaviour
     [SyncVar(hook = nameof(OnNameChanged))] [HideInInspector] public string Name;
     [SyncVar(hook = nameof(OnIsReadyChanged))] public bool IsReady;
     [SyncVar] public RolesPreference RolePreference;
+    [SyncVar] public Color? TeamColor;
 
     [SerializeField] private GameSettings _gameSettings;
 
@@ -57,5 +58,11 @@ public class LobbyPlayer : NetworkBehaviour
     public void SetRolePreference(RolesPreference role)
     {
         RolePreference = role;
+    }
+
+    [Command]
+    public void SetTeamPreference(Color? teamColor)
+    {
+        TeamColor = teamColor;
     }
 }

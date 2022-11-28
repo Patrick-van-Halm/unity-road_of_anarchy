@@ -22,6 +22,7 @@ public class PlayerHUDComponent : MonoBehaviour
     [SerializeField] private GameObject _ammoUI;
     [SerializeField] private GameObject _crosshairUI;
     [SerializeField] private PlayerNameUI _playerNameUI;
+    [SerializeField] private Vector3 _playerNameUIOffset;
 
     [SerializeField] private GameSettings _gameSettings;
 
@@ -141,7 +142,7 @@ public class PlayerHUDComponent : MonoBehaviour
 
         GlueToPosition glue = instance.AddComponent<GlueToPosition>();
         glue.Target = driver.gameObject.transform;
-        glue.LocalPosition = new Vector3(0, 1.317f, -0.636f);
+        glue.LocalPosition = _playerNameUIOffset;
 
         instance.GetComponent<RotateToPlayer>().CamTransform = NetworkClient.connection.identity.GetComponent<Player>().PlayerCam.transform;
     }

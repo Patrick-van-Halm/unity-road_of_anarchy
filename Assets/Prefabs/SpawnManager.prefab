@@ -228,7 +228,7 @@ MonoBehaviour:
   _carObject: {fileID: 7764002591859567613, guid: ff7401e803d15d347910ae923faf2191, type: 3}
   _gunObject: {fileID: 4066668061684268395, guid: af0a89e3487a50e4d84e341ef5a165dc, type: 3}
   _spectatorObject: {fileID: 8739143006898781836, guid: 8e9453b3ebdcedf43bf1aa22a0bc1574, type: 3}
-  _gunObjectOffset: {x: 0, y: 0.962, z: -0.315}
+  _gunObjectOffset: {x: 0, y: 1.65, z: -1.037}
   _spawns:
   - {fileID: 6862265333284985610}
   - {fileID: 5664202248683060925}
@@ -237,6 +237,9 @@ MonoBehaviour:
   - {fileID: 2283181839638980449}
   - {fileID: 5183088842856109732}
   _hudComponent: {fileID: 0}
+  OnLastTeamStanding:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6275967929236495701
 GameObject:
   m_ObjectHideFlags: 0
