@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1709584365680654970}
   - component: {fileID: 1709584365680654969}
-  - component: {fileID: 1709584365680654971}
   - component: {fileID: 1709584365680654972}
+  - component: {fileID: 8421362110088264973}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -47,28 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsPanel: {fileID: 0}
---- !u!114 &1709584365680654971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709584365680654968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aef2b2a7c29adbe4a8487248a8af7250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nameInput: {fileID: 0}
-  _volumeSlider: {fileID: 0}
-  _invertX: {fileID: 0}
-  _invertY: {fileID: 0}
-  _sensitivity: {fileID: 0}
-  _automaticReload: {fileID: 0}
-  _fov: {fileID: 0}
-  _hideYourUsername: {fileID: 0}
-  _hideOtherUsernames: {fileID: 0}
-  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
 --- !u!114 &1709584365680654972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,3 +59,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c7170fcf13b9f4390e9f0323c74717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8421362110088264973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709584365680654968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82491ac6f1658a448ad3d6da9e2e76e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameInput: {fileID: 0}
+  _volumeSlider: {fileID: 0}
+  _invertX: {fileID: 0}
+  _invertY: {fileID: 0}
+  _sensitivity: {fileID: 0}
+  _automaticReload: {fileID: 0}
+  _fov: {fileID: 0}
+  _hideYourUsername: {fileID: 0}
+  _hideOtherUsernames: {fileID: 0}
+  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
