@@ -11,6 +11,11 @@ public class CarRollingSfx : MonoBehaviour
         _eventInstance = RuntimeManager.CreateInstance("event:/RollingSfx");
     }
 
+    private void Update()
+    {
+        _eventInstance.set3DAttributes(transform.To3DAttributes());
+    }
+
     /// <summary>
     /// Starts the sound.
     /// </summary>
