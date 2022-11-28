@@ -22,6 +22,6 @@ public class AmmoUI : MonoBehaviour
     public void UpdateUI(int clipAmmoAmount, int ammoAmount)
     {
         _clipAmmoAmountText.text = clipAmmoAmount.ToString();
-        _ammoAmountText.text = "/" + ammoAmount.ToString();
+        _ammoAmountText.text = ammoAmount.ToString();
     }
 }
