@@ -38,7 +38,7 @@ public class TeamManager : NetworkBehaviour
             Color color = player.TeamColor.Value;
 
             // Get team member if no team member skip member so player will be included in random team assignment
-            LobbyPlayer player2 = lobbyPlayers.FirstOrDefault(p => p != player && p.TeamColor.Value == color);
+            LobbyPlayer player2 = lobbyPlayers.FirstOrDefault(p => p != player && p.TeamColor.HasValue && p.TeamColor.Value == color);
             if(player2 == null) continue;
 
             Team team = new Team();
