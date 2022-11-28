@@ -11,6 +11,11 @@ public class CarWheelsGroundedSfx : MonoBehaviour
         _eventInstance = RuntimeManager.CreateInstance("event:/WheelsGroundedSfx");
     }
 
+    private void Update()
+    {
+        _eventInstance.set3DAttributes(transform.To3DAttributes());
+    }
+
     /// <summary>
     /// Starts the sound.
     /// </summary>
