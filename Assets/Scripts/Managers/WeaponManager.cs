@@ -24,7 +24,6 @@ public class WeaponManager : NetworkBehaviour
     public Weapon Weapon;
     [SerializeField] private Transform _weaponMuzzlePosition;
     [SerializeField] private Transform _weaponObject;
-
     #endregion
 
     #region Gunner
@@ -37,6 +36,8 @@ public class WeaponManager : NetworkBehaviour
     public UnityEvent OnEnemyHit = new UnityEvent();
     public UnityEvent<float> OnHeatChanged = new UnityEvent<float>();
     #endregion
+
+    private SlowdownEffectHandler _slowdownEffectHandler;
 
     #region Unity Lifecycle methods
     private void Awake()
@@ -54,6 +55,11 @@ public class WeaponManager : NetworkBehaviour
         Weapon.ClipAmmoAmount = 0;
     }
     #endregion
+
+    public void SetSlowdownEffectHandler(SlowdownEffectHandler slowdownEffectHandler)
+    {
+        _slowdownEffectHandler = slowdownEffectHandler;
+    }
 
     #region Shooting
     public void TryFireWeapon()
@@ -99,6 +105,12 @@ public class WeaponManager : NetworkBehaviour
 
                 target.CmdApplyDamage(Weapon.DamageAmount);
                 OnEnemyHit.Invoke();
+
+                if (_slowdownEffectHandler.SlowdownBulletsActive)
+                {
+                    SlowdownBullet slowdownBullet = _slowdownEffectHandler.SlowdownBulletProperties;
+                    _slowdownEffectHandler.CmdApplySlowdownEffect(slowdownBullet.EffectDuration, slowdownBullet.AccelerationDecreaseAmount, slowdownBullet.TopSpeedDecreaseAmount);
+                }
             }
         }
 
