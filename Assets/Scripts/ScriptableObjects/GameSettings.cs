@@ -20,6 +20,9 @@ public class GameSettings : ScriptableObject
     [Header("Gunner settings")]
     public bool AutomaticReload;
 
+    [Header("Player settings")]
+    public float FOV;
+
     [Header("Privacy settings")]
     public bool HideOwnUsername;
     public bool HideOtherUsernames;
@@ -52,6 +55,7 @@ public class GameSettings : ScriptableObject
         InvertY = false;
         Sensitivity = .5f;
         AutomaticReload = false;
+        FOV = 50f;
         HideOwnUsername = false;
         HideOtherUsernames = false;
     }
