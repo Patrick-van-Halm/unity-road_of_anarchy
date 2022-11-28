@@ -27,6 +27,12 @@ public class Player : NetworkBehaviour
         SetUsername(_gameSettings.HideOwnUsername ? "Player" : _gameSettings.Username);
     }
 
+    private void Update()
+    {
+        if (!isLocalPlayer) return;
+        playerCam.fieldOfView = _gameSettings.FOV;
+    }
+
     [Command(requiresAuthority = true)]
     public void SetUsername(string name)
     {

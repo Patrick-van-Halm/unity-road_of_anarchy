@@ -13,6 +13,7 @@ public class GunnerCameraController : MonoBehaviour
     [SerializeField] private float _sensitivityMod;
 
     [SerializeField] private GunnerInput _gunnerInput;
+    [SerializeField] private KeyboardInput _keyboardInput;
 
     private float _xRotation;
     private float _yRotation;
@@ -35,6 +36,8 @@ public class GunnerCameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gunnerCamera.fieldOfView = _gameSettings.FOV;
+        if (_keyboardInput.SettingsOpen) return;
         float oldMouseX = 0;
         float oldMouseY = 0;
 
