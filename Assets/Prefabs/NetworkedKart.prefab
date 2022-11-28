@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 9072909455832602760}
   - component: {fileID: 2143204525097426477}
   - component: {fileID: 1765122025594908623}
+  - component: {fileID: 8728491382099920061}
   m_Layer: 7
   m_Name: NetworkedKart
   m_TagString: Vehicle
@@ -240,6 +241,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1.99}
   m_Center: {x: 0, y: 0.52, z: 0}
+--- !u!114 &8728491382099920061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764002591859567613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3cf91ea8bd2d8439d17917e0391196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  _newKartScript: {fileID: 2779060281466190564}
 --- !u!1 &8069556965233980830
 GameObject:
   m_ObjectHideFlags: 0
