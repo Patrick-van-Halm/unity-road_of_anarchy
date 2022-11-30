@@ -410,7 +410,7 @@ MonoBehaviour:
   _kartScript: {fileID: 2779060281466190564}
   _carInfo: {fileID: 4701668395991422304}
   _airTiltMultiplier: 25
-  _groundTiltMultiplier: 80
+  _groundTiltMultiplier: 1000
   _tiltMultiplier: 1000
   _carCrashSfx: {fileID: 6584865539013642730}
   _carFallingSfx: {fileID: 1552995771128023460}
