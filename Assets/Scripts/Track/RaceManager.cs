@@ -135,7 +135,7 @@ public class RaceManager : NetworkBehaviour
                     if (team.DriverIdentity.connectionToClient != null) TargetFinishRace(team.DriverIdentity.connectionToClient, vehicleIndex + 1);
                     if (team.GunnerIdentity.connectionToClient != null) TargetFinishRace(team.GunnerIdentity.connectionToClient, vehicleIndex + 1);
 
-                    FMOD.Studio.Bus bus = RuntimeManager.GetBus("bus:/Master");
+                    FMOD.Studio.Bus bus = RuntimeManager.GetBus("bus:/");
                     bus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 }
                 else
