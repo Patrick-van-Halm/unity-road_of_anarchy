@@ -30,6 +30,7 @@ public class TeamManager : NetworkBehaviour
         if (lobbyPlayers.Count() % 2 != 0) return;
 
         List<LobbyPlayer> assignedPlayers = new();
+        _teams = new();
 
         foreach(LobbyPlayer player in lobbyPlayers.Where(p => p.TeamColor.HasValue))
         {
