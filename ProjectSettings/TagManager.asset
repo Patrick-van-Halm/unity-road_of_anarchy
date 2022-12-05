@@ -12,6 +12,7 @@ TagManager:
   - RearTrigger
   - Terrain
   - Checkpoint
+  - Track
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - UI
   - Environment
   - Damageable
-  - 
-  - 
+  - MinimapOnly
+  - EnvironmentNoMinimap
   - 
   - 
   - 

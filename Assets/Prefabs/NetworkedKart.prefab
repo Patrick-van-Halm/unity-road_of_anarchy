@@ -713,6 +713,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1490077572972235951, guid: 12e531f58ef406e42b0768c26c37671d, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 759
+      objectReference: {fileID: 0}
     - target: {fileID: 1549397935778892683, guid: 12e531f58ef406e42b0768c26c37671d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.121

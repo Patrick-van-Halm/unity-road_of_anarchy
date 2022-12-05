@@ -117,7 +117,8 @@ public class RaceManager : NetworkBehaviour
             _vehiclePositionList[vehicleIndex].CurrentCheckpoint++;
 
             // Correct checkpoint event
-            TargetCorrectCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
+            TargetCorrectCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList[vehicleIndex].CurrentCheckpoint);
+            TargetCorrectCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Vehicle>().Team.GunnerIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentCheckpoint);
 
             // When lap is completed
             if (_checkpointsList.Count == _vehiclePositionList[vehicleIndex].CurrentCheckpoint && _checkpointsList.Count == _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.Count - _vehiclePositionList[vehicleIndex].CurrentLap * _checkpointsList.Count)
@@ -198,9 +199,10 @@ public class RaceManager : NetworkBehaviour
     }
 
     [TargetRpc]
-    private void TargetCorrectCheckpoint(NetworkConnection target)
+    private void TargetCorrectCheckpoint(NetworkConnection target, int checkpointIdx)
     {
         CorrectCheckpoint?.Invoke();
+        if(_checkpointsList.Count > checkpointIdx && checkpointIdx >= 0) _checkpointsList[checkpointIdx].OnCheckpointEntered?.Invoke();
     }
 
     [Command(requiresAuthority = false)]

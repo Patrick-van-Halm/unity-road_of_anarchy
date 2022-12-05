@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Checkpoint : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Checkpoint : MonoBehaviour
     public bool VehicleExitedCorrectly { get; private set; }
     public List<Checkpoint> ReverseCheckpointOnEnter = new List<Checkpoint>();
     private bool hasReversed = false;
+    public UnityEvent OnCheckpointEntered;
+
 
     private void OnTriggerExit(Collider other)
     {

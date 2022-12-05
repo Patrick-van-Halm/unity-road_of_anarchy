@@ -4,5 +4,8 @@
     "InvertX": false,
     "InvertY": false,
     "Sensitivity": 1.2550358772277833,
-    "AutomaticReload": true
+    "AutomaticReload": true,
+    "FOV": 43.262939453125,
+    "HideOwnUsername": false,
+    "HideOtherUsernames": false
 }
