@@ -9,11 +9,12 @@ using UnityEngine.UI;
 public class PlayerHUDComponent : MonoBehaviour
 {
     [SerializeField] private Transform _canvas;
+    [SerializeField] private Transform _playerHudParent;
     [SerializeField] private GameObject _healthBarPrefab;
-    [SerializeField] private GameObject _playerNamesPrefab;
     [SerializeField] private GameObject _heatBarPrefab;
     private HealthBar _healthBar;
     private HeatBar _heatBar;
+    [SerializeField] private GameObject _playerNamesPrefab;
     [SerializeField] private KillFeedUI _killFeed;
 
     [SerializeField] private GameObject _hitMarker;
@@ -34,7 +35,7 @@ public class PlayerHUDComponent : MonoBehaviour
     {
         if (_healthBarPrefab is not null)
         {
-            GameObject healthBarInstance = Instantiate(_healthBarPrefab);
+            GameObject healthBarInstance = Instantiate(_healthBarPrefab, _playerHudParent);
             _healthBar = healthBarInstance.GetComponent<HealthBar>();
         }
 
@@ -45,7 +46,7 @@ public class PlayerHUDComponent : MonoBehaviour
 
         if (_healthBarPrefab is not null)
         {
-            _heatBar = Instantiate(_heatBarPrefab).GetComponent<HeatBar>();
+            _heatBar = Instantiate(_heatBarPrefab, _playerHudParent).GetComponent<HeatBar>();
         }
     }
 
