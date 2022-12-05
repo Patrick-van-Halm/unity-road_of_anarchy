@@ -17,7 +17,6 @@ public class YouWinUI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(NetworkServer.connections.Count);
         if (NetworkServer.connections.Count == 1) _button.interactable = true;
     }
 

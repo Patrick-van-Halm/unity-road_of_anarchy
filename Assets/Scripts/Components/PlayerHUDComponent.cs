@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHUDComponent : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class PlayerHUDComponent : MonoBehaviour
     [SerializeField] private GameObject _winPrefab;
     [SerializeField] private GameObject _ammoUI;
     [SerializeField] private GameObject _crosshairUI;
+    [SerializeField] private RawImage _minimapTexture;
+    [SerializeField] private Vector3 _minimapCamOffset;
+    [SerializeField] private LayerMask _minimapLayers;
     [SerializeField] private PlayerNameUI _playerNameUI;
     [SerializeField] private Vector3 _playerNameUIOffset;
 
@@ -145,5 +149,26 @@ public class PlayerHUDComponent : MonoBehaviour
         glue.LocalPosition = _playerNameUIOffset;
 
         instance.GetComponent<RotateToPlayer>().CamTransform = NetworkClient.connection.identity.GetComponent<Player>().PlayerCam.transform;
+    }
+
+    public void CreateMinimap(GameObject car)
+    {
+        RenderTexture texture = new RenderTexture(512, 512, 16);
+        texture.Create();
+
+        GameObject minimapCamera = new GameObject("Minimap Camera");
+        Camera minimapCam = minimapCamera.AddComponent<Camera>();
+        minimapCam.transform.rotation = Quaternion.Euler(90, 0, 0);
+        minimapCam.transform.position = car.transform.position + _minimapCamOffset;
+
+        minimapCam.targetTexture = texture;
+        minimapCam.cullingMask = _minimapLayers;
+        minimapCam.Render();
+
+        _minimapTexture.texture = texture;
+
+        MinimapBehaviour minimap = minimapCamera.AddComponent<MinimapBehaviour>();
+        minimap.LockOn = car.transform;
+        minimap.offset = _minimapCamOffset;
     }
 }

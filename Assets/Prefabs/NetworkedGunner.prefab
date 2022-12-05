@@ -284,10 +284,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7377420834200783185}
     - target: {fileID: 427985929, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
-      propertyPath: _keyboardInput
-      value: 
-      objectReference: {fileID: 5179927725195734995}
-    - target: {fileID: 427985929, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -299,6 +295,10 @@ PrefabInstance:
       propertyPath: _minXRotation
       value: -20
       objectReference: {fileID: 0}
+    - target: {fileID: 427985929, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
+      propertyPath: _keyboardInput
+      value: 
+      objectReference: {fileID: 5179927725195734995}
     - target: {fileID: 427985929, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
       propertyPath: _sensitivityMod
       value: 20
@@ -338,6 +338,10 @@ PrefabInstance:
     - target: {fileID: 1394688497029536351, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394688497029536351, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 759
       objectReference: {fileID: 0}
     - target: {fileID: 1394688497110106998, guid: 1d4b29fb8a827914aa1c1c2e6de3397c, type: 3}
       propertyPath: m_Name

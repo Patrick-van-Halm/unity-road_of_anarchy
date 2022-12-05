@@ -55,6 +55,11 @@ MonoBehaviour:
   _winPrefab: {fileID: 8955499678734428232, guid: 6006d08bd0cd0ce40bf152c190877f08, type: 3}
   _ammoUI: {fileID: 0}
   _crosshairUI: {fileID: 0}
+  _minimapTexture: {fileID: 0}
+  _minimapCamOffset: {x: 0, y: 55, z: 0}
+  _minimapLayers:
+    serializedVersion: 2
+    m_Bits: 321
   _playerNameUI: {fileID: 0}
   _playerNameUIOffset: {x: 0, y: 2, z: -0.636}
   _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
