@@ -8,6 +8,7 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] private float _criticalHealthValue;
     [SerializeField] private Color _criticalHealthColor;
+    [SerializeField] private Slider _healthSlider;
     private TMP_Text _text;
 
     private void Awake()
@@ -20,6 +21,7 @@ public class HealthBar : MonoBehaviour
     public void SetHealthText(float newValue)
     {
         _text.text = newValue.ToString();
+        _healthSlider.value = newValue;
 
         if (newValue <= _criticalHealthValue)
             _text.color = _criticalHealthColor;
