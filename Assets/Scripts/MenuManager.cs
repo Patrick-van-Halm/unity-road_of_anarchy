@@ -21,6 +21,12 @@ public class MenuManager : MonoBehaviour
             Panel.SetActive(false);
     }
 
+    public void HideCursor()
+    {
+        Cursor.visible = false; 
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     public void QuitGame()
     {
         Application.Quit();
