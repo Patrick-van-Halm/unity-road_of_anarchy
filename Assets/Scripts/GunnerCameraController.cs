@@ -38,15 +38,15 @@ public class GunnerCameraController : MonoBehaviour
     {
         gunnerCamera.fieldOfView = _gameSettings.FOV;
         if (_keyboardInput.SettingsOpen) return;
-        float oldMouseX = 0;
-        float oldMouseY = 0;
+        Vector2 delta = _gunnerInput.LookInput;
+
 
         // Get the mouse delta. This is not in the range -1...1
         float mouseX = _gunnerInput.LookInput.x * (_gameSettings.Sensitivity * _sensitivityMod) * Time.deltaTime;
         float mouseY = _gunnerInput.LookInput.y * (_gameSettings.Sensitivity * _sensitivityMod) * Time.deltaTime;
 
         // Check mouse movement for rotation soundFX
-        if (mouseX != oldMouseX || mouseY != oldMouseY) audio.PlayIsMovingSFX();
+        if (delta.magnitude > 0) audio.PlayIsMovingSFX();
         else audio.StopIsMovingSFX();
 
         // Set rotation, if necessary invert mouse rotation
