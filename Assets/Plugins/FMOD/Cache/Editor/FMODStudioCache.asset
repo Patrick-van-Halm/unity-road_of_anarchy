@@ -1268,7 +1268,7 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638052363207911298
+  lastModified: 638055220387903464
   FileSizes:
   - Name: Desktop
     Value: 4552608
@@ -1675,7 +1675,7 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638052363207950986
+  lastModified: 638055185135692360
   FileSizes:
   - Name: Desktop
     Value: 2282
@@ -1728,7 +1728,7 @@ MonoBehaviour:
   - {fileID: -2117993696798589404}
   StringsBanks:
   - {fileID: -68658770677106551}
-  cacheTime: 638052363207970969
+  cacheTime: 638055220387903464
   cacheVersion: 131592
 --- !u!114 &272079236890011561
 MonoBehaviour:
@@ -2300,7 +2300,7 @@ MonoBehaviour:
   Path: Assets/FMODfiles/CarSpeedSFX/Build/Desktop/WeaponManager.bank
   Name: WeaponManager
   StudioPath: bank:/WeaponManager
-  lastModified: 638052363207970969
+  lastModified: 638055185139314984
   FileSizes:
   - Name: Desktop
     Value: 86720
