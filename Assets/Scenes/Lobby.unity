@@ -1182,7 +1182,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 892988055}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.70089734
+  m_Size: 0.4871795
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4669,7 +4669,7 @@ MonoBehaviour:
   LobbyPlayerPrefab: {fileID: 4373659787179813014, guid: 86d9fc2f665b032438d64d070f346588, type: 3}
   GameScenes:
   - Assets/Scenes/Map.unity
-  _minPlayersRequired: 2
+  _minPlayersRequired: 4
   _passiveCountdownSeconds: 60
   _lobbyStartCountdownSeconds: 5
   OnPlayerJoined:
