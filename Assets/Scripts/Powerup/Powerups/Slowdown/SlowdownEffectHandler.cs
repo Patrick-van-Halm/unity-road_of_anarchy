@@ -9,11 +9,6 @@ public class SlowdownEffectHandler : NetworkBehaviour
     public bool SlowdownBulletsActive { get; private set; } = false;
     public SlowdownBullet SlowdownBulletProperties { get; private set; }
 
-    private void Start()
-    {
-        NetworkClient.connection.identity.GetComponent<Player>().Team.GunnerPlayer.GetComponent<WeaponManager>().SetSlowdownEffectHandler(this);
-    }
-
     public void ActivateSlowdownBullets(SlowdownBullet slowdownBullet)
     {
         if (!SlowdownBulletsActive)

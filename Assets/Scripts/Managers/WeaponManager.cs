@@ -36,10 +36,13 @@ public class WeaponManager : NetworkBehaviour
     public UnityEvent OnEnemyHit = new UnityEvent();
     public UnityEvent<float> OnHeatChanged = new UnityEvent<float>();
     #endregion
-
+    
+    // Powerups
     private SlowdownEffectHandler _slowdownEffectHandler;
+    private ActivateGuidedMissile _activateGuidedMissile;
+    public bool FireMissile { get; set; }
 
-    #region Unity Lifecycle methods
+
     private void Awake()
     {
         _gunner = GetComponent<Gunner>();
@@ -53,24 +56,38 @@ public class WeaponManager : NetworkBehaviour
         InvokeRepeating(nameof(SubtractHeatValue), Weapon.CooldownTime, Weapon.CooldownTime);
         Weapon.AmmoAmount = 0;
         Weapon.ClipAmmoAmount = 0;
+        FireMissile = false;
     }
-    #endregion
 
     public void SetSlowdownEffectHandler(SlowdownEffectHandler slowdownEffectHandler)
     {
         _slowdownEffectHandler = slowdownEffectHandler;
     }
 
+    public void SetActivateGuidedMissile(ActivateGuidedMissile activateGuidedMissile)
+    {
+        _activateGuidedMissile = activateGuidedMissile;
+    }
+
     #region Shooting
     public void TryFireWeapon()
     {
         if (Weapon.WeaponState == WeaponState.ReadyToShoot && 
-        HasEnoughAmmoInClip() && HasWaitedForShotDelay())
+        (HasEnoughAmmoInClip() || FireMissile) 
+        && HasWaitedForShotDelay())
         {
             Weapon.WeaponState = WeaponState.Firing;
             PlaySoundEffectFMOD(Weapon.FireSoundRef, Vector3.zero);
-            if(_gunnerCamera) PerformRaycast();
-            
+
+            if (FireMissile)
+            {
+                _activateGuidedMissile.PlayerFiredMissile();
+                FireMissile = false;
+            }
+            else
+            {
+                if (_gunnerCamera) PerformRaycast();
+            }     
 
             // Calculate the time to wait before allowing the next shot
             _nextShot = Time.time + Weapon.FireRateDelay;

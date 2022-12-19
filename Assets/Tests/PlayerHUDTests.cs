@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 
 public class PlayerHUDTests
 {
-    private GameObject HitMarkerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/HitMarker.prefab");
+    private GameObject HitMarkerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/UI/HitMarker.prefab");
     private GameObject GameObject {get; set;}
     private GameObject hitmarker;
 

@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 public class EliminatedPopUpTests
 {
     private PlayerHUDComponent hudComponent;
-    private GameObject eliminatedUI = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/YouDied.prefab");
+    private GameObject eliminatedUI = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/UI/YouDied.prefab");
 
     [SetUp]
     public void Setup()

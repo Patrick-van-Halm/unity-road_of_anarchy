@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,6 +65,7 @@ public class Player : NetworkBehaviour
     }
 }
 
+[Serializable]
 public class Team
 {
     public Gunner Gunner => GunnerIdentity.GetComponent<Gunner>();

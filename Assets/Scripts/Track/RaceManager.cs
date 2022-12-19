@@ -367,4 +367,16 @@ public class RaceManager : NetworkBehaviour
     {
         return _vehiclePositionList.FindIndex(v => v.Vehicle == car) + 1;
     }
+
+    public Transform GetCarTransform(int position)
+    {
+        position--;
+
+        if (position >= 0 && position < _vehiclePositionList.Count)
+        {
+            return _vehiclePositionList[position].Vehicle.gameObject.transform;
+        }
+        
+        return null;
+    }
 }
