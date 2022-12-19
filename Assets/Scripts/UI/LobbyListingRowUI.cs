@@ -9,6 +9,7 @@ public class LobbyListingRowUI : MonoBehaviour
     public void Connect()
     {
         // Connect to lobby using the details
+        GameNetworkManager.Instance.CurrentLobbyDetails = Details;
         GameNetworkManager.Instance.networkAddress = Details.Ip;
         GameNetworkManager.Instance.Port = Details.Port;
         GameNetworkManager.Instance.StartClient();

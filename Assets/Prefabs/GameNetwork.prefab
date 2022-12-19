@@ -49,7 +49,7 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: 
+  offlineScene: Assets/Scenes/Menu.unity
   onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 3743531081184860784}
   networkAddress: localhost
@@ -65,7 +65,6 @@ MonoBehaviour:
   - {fileID: 7764002591859567613, guid: ff7401e803d15d347910ae923faf2191, type: 3}
   - {fileID: 6350598351882117889, guid: 2f39378dc7ef2db4a9265282b1654ced, type: 3}
   - {fileID: 8739143006898781836, guid: 8e9453b3ebdcedf43bf1aa22a0bc1574, type: 3}
-  FallbackScene: Assets/Scenes/Menu.unity
   OnClientConnectedToServer:
     m_PersistentCalls:
       m_Calls: []
@@ -92,7 +91,10 @@ MonoBehaviour:
   CurrentLobbyDetails:
     Ip: 
     Port: 0
+    Name: 
+    PlayerCount: 0
   OverwriteIP: 
+  _playerSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
 --- !u!114 &3743531081184860784
 MonoBehaviour:
   m_ObjectHideFlags: 0
