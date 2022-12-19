@@ -155,6 +155,8 @@ public class GameNetworkManager : NetworkManager
 
     public void RemoveLobbyFromRegistry()
     {
+        if (CurrentLobbyDetails == null) return;
+
         // Remove server from registry
         UnityWebRequest request = UnityWebRequest.Delete($"{DiscoveryServerAddress}/servers?ip={CurrentLobbyDetails.Ip}&port={CurrentLobbyDetails.Port}");
         StartCoroutine(request.ProcessRequest());
