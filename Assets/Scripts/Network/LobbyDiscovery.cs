@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Mirror;
 using System.Net;
 using System.Net.Sockets;
+using Newtonsoft.Json.Serialization;
 
 public class LobbyDiscovery : MonoBehaviour
 {
@@ -52,8 +53,11 @@ public class LobbyDiscovery : MonoBehaviour
 }
 
 [Serializable]
+[JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
 public class LobbyDetails
 {
     public string Ip;
     public ushort Port;
+    public string Name;
+    public ushort PlayerCount;
 }
