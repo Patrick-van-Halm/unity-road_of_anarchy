@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 public class WreckedCarTests
 {
-    private GameObject _buggyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Buggy.prefab");
+    private GameObject _buggyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Models/Buggy.prefab");
 
     private GameObject _car;
     private WreckedCar _wreckedCar;

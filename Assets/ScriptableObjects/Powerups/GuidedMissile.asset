@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d0eea4b1d4524141902d98c05823235, type: 3}
+  m_Name: GuidedMissile
+  m_EditorClassIdentifier: 
+  MinimumPosition: 1
+  PowerupName: GuidedMissile
+  TargetTeamMember: 1
+  _missilePrefab: {fileID: 7068951809018655699, guid: fc76087adafc3e042804ae9736d97ffb, type: 3}
+  _missileFireEffect: {fileID: 450044020708499364, guid: 93a162fc463d2d842a8c25e141618684, type: 3}
+  _missileExplosionEffect: {fileID: 1764654978243476, guid: b35cf940ce1a2dd4c982d8fc13264c0a, type: 3}
+  _missileSpeed: 5
+  _missileRotationSpeed: 25
+  _missileDamage: 30

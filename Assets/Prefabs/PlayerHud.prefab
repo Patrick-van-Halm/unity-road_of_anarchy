@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 0}
-  _healthBarPrefab: {fileID: 8972612194474170478, guid: 444853650aaca7047a45d571d248bc14, type: 3}
+  _playerHudParent: {fileID: 0}
+  _healthBarPrefab: {fileID: 4822021502057972586, guid: 246c46d1d8385e44b9814c8ed4b2c858, type: 3}
+  _heatBarPrefab: {fileID: 3555422346920237925, guid: efce1a63b341d2a4c9542d860fad4e6c, type: 3}
   _playerNamesPrefab: {fileID: 8426475588991582426, guid: a6f52d19014246c4fb13407a690caaeb, type: 3}
-  _heatBarPrefab: {fileID: 8972612194474170478, guid: 43e95a8000de1604d9ebeae1cada529d, type: 3}
   _killFeed: {fileID: 0}
   _hitMarker: {fileID: 6004456730461090964, guid: ca35bb8923d5bae4ebdfae225fd33b16, type: 3}
   _hitMarkerActiveTime: 0.2

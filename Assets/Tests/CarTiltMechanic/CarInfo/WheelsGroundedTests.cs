@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WheelsGroundedTests
 {
-    private GameObject _playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/RobbertsTestPlayer.prefab");
+    private GameObject _playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Models/RobbertsTestPlayer.prefab");
 
     private GameObject _playerGameObject;
     private CarInfo _carInfo;

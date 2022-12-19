@@ -11,7 +11,7 @@ public class KillFeedTests
     private GameObject _panel;
     private KillFeedUI _killFeedUI;
     private CanvasGroup _canvasGroup;
-    private GameObject _prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Panel - Kill Feed.prefab");
+    private GameObject _prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/UI/Panel - Kill Feed.prefab");
 
     // Gets called before every test
     [SetUp]

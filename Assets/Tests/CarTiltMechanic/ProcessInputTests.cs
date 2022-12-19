@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ProcessInputTests
 {
-    private GameObject _playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/RobbertsTestPlayer.prefab");
+    private GameObject _playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Models/RobbertsTestPlayer.prefab");
 
     private GameObject _playerGameObject;
     private KeyboardInput _playerInput;

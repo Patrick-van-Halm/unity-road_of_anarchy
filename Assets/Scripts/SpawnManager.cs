@@ -22,7 +22,6 @@ public class SpawnManager : NetworkBehaviour
     private List<Transform> _usedSpawns = new List<Transform>();
     private GameObject _currentCarObject;
     private GameObject _currentGunObject;
-    private bool _isGunnerAssigned;
 
     private readonly List<Team> _eliminatedTeams = new List<Team>();
 
@@ -81,19 +80,17 @@ public class SpawnManager : NetworkBehaviour
             _usedSpawns.Add(spawn);
 
             _currentCarObject = Instantiate(_carObject, spawn.position, Quaternion.identity);
-            NetworkServer.Spawn(_currentCarObject);
             _team.DriverIdentity = _currentCarObject.GetComponent<NetworkIdentity>();
 
             _currentGunObject = Instantiate(_gunObject);
-            NetworkServer.Spawn(_currentGunObject);
             _team.GunnerIdentity = _currentGunObject.GetComponent<NetworkIdentity>();
 
             GlueTo glueTo = _currentGunObject.GetComponent<GlueTo>();
             glueTo.Target = _currentCarObject.transform;
             glueTo.LocalPosition = _gunObjectOffset;
 
-            _currentCarObject.GetComponent<Player>().Team = _team;
-            _currentGunObject.GetComponent<Player>().Team = _team;
+            NetworkServer.Spawn(_currentCarObject);
+            NetworkServer.Spawn(_currentGunObject);
 
             RaceManager.Instance?.AddVehicleToList(_currentCarObject);
         }
@@ -119,6 +116,9 @@ public class SpawnManager : NetworkBehaviour
             {
                 TargetCreateTeamsWorldspacePlayerNameUI(team.DriverIdentity.connectionToClient, TeamManager.Instance.Teams.ToList());
                 TargetCreateTeamsWorldspacePlayerNameUI(team.GunnerIdentity.connectionToClient, TeamManager.Instance.Teams.ToList());
+
+                team.DriverPlayer.Team = team;
+                team.GunnerPlayer.Team = team;
             }
         }
     }
@@ -153,6 +153,8 @@ public class SpawnManager : NetworkBehaviour
         car.GetComponent<Vehicle>().OnInWater.AddListener(gunner.GetComponent<WeaponManager>().WaterCooldown);
         car.GetComponentInChildren<NewKartScript>().PostFX = FindObjectOfType<PostFXScript>();
         car.tag = "Player";
+
+        gunner.GetComponent<WeaponManager>().SetSlowdownEffectHandler(car.GetComponent<SlowdownEffectHandler>());
 
         _hudComponent.SetPlayerNames(car.GetComponent<Player>(), gunner.GetComponent<Player>());
         _hudComponent.CreateMinimap(car);

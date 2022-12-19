@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 
 public class CarTests
 {
-    private GameObject _prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Car.prefab");
+    private GameObject _prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Models/Car.prefab");
 
     private GameObject _gameObject;
     private Car _car;

@@ -10,7 +10,7 @@ public class TeamManager : NetworkBehaviour
     public static TeamManager Instance { get; private set; }
 
     public IReadOnlyList<Team> Teams => _teams;
-    private List<Team> _teams = new List<Team>();
+    [SyncVar] private List<Team> _teams = new List<Team>();
 
     private void Awake()
     {

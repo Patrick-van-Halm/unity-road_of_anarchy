@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 5179927725195734995}
   - component: {fileID: 1259275894880037116}
   - component: {fileID: 3115839205944094294}
+  - component: {fileID: 6946218555184045415}
   m_Layer: 0
   m_Name: NetworkedGunner
   m_TagString: Untagged
@@ -272,6 +273,21 @@ MonoBehaviour:
   _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}
   playerCam: {fileID: 3113492308122885328}
   IsReady: 0
+--- !u!114 &6946218555184045415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066668061684268395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1d74aab2d2db14ab0ac6666e496df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guidedMissileScriptableObject: {fileID: 11400000, guid: 112d06ca2ae05fb4f83c47d51ac9c8f0, type: 2}
+  _weaponManager: {fileID: 4266954992249484085}
+  _car: {fileID: 7764002591859567613, guid: ff7401e803d15d347910ae923faf2191, type: 3}
 --- !u!1001 &4066668062040360591
 PrefabInstance:
   m_ObjectHideFlags: 0
