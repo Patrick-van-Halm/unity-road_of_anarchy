@@ -6,8 +6,17 @@ using UnityEngine.Events;
 
 public class LobbyPlayer : NetworkBehaviour
 {
+    public enum RolesPreference 
+    {
+        Both,
+        OnlyDriver,
+        OnlyGunner
+    }
+
     [SyncVar(hook = nameof(OnNameChanged))] [HideInInspector] public string Name;
     [SyncVar(hook = nameof(OnIsReadyChanged))] public bool IsReady;
+    [SyncVar] public RolesPreference RolePreference;
+    [SyncVar] public Color? TeamColor;
 
     [SerializeField] private GameSettings _gameSettings;
 
@@ -17,7 +26,8 @@ public class LobbyPlayer : NetworkBehaviour
     private void Start()
     {
         if (!isLocalPlayer) return;
-        SetUsername(_gameSettings.Username);
+       
+        SetUsername(_gameSettings.HideOwnUsername ? "Player" : _gameSettings.Username);
     }
 
     private void OnNameChanged(string oldUsername, string newUsername)
@@ -42,5 +52,17 @@ public class LobbyPlayer : NetworkBehaviour
     public void SetReady(bool ready)
     {
         IsReady = ready;
+    }
+
+    [Command]
+    public void SetRolePreference(RolesPreference role)
+    {
+        RolePreference = role;
+    }
+
+    [Command]
+    public void SetTeamPreference(Color? teamColor)
+    {
+        TeamColor = teamColor;
     }
 }

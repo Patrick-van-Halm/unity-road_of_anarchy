@@ -10,7 +10,7 @@ public class CarTiltMechanic : MonoBehaviour
     [Header("Tilt settings")]
     [SerializeField] private float _airTiltMultiplier;
     [SerializeField] private float _groundTiltMultiplier;
-    [SerializeField] private float _tiltMultiplier = 1000;
+    [SerializeField] private float _tiltMultiplier = 100;
 
     [Header("SFX")]
     [SerializeField] private CarCrashSfx _carCrashSfx;
@@ -19,7 +19,7 @@ public class CarTiltMechanic : MonoBehaviour
     [SerializeField] private CarWheelsGroundedSfx _carWheelsGroundedSfx;
 
     private float _highestRawVolume = 0;
-    private readonly float _maxRawVolume = 100f;
+    private readonly float _maxRawVolume = 50f;
     private float _actualVolume = 0;
     private readonly float _maxActualVolume = 1f;
 

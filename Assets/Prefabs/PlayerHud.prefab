@@ -45,9 +45,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 0}
-  _healthBarPrefab: {fileID: 8972612194474170478, guid: 444853650aaca7047a45d571d248bc14, type: 3}
+  _playerHudParent: {fileID: 0}
+  _healthBarPrefab: {fileID: 4822021502057972586, guid: 246c46d1d8385e44b9814c8ed4b2c858, type: 3}
+  _heatBarPrefab: {fileID: 3555422346920237925, guid: efce1a63b341d2a4c9542d860fad4e6c, type: 3}
+  _playerNamesPrefab: {fileID: 8426475588991582426, guid: a6f52d19014246c4fb13407a690caaeb, type: 3}
   _killFeed: {fileID: 0}
   _hitMarker: {fileID: 6004456730461090964, guid: ca35bb8923d5bae4ebdfae225fd33b16, type: 3}
   _hitMarkerActiveTime: 0.2
   _eliminatedPrefab: {fileID: 8955499678734428232, guid: b88f00e9077d4ee4598c729be2af8fba, type: 3}
   _winPrefab: {fileID: 8955499678734428232, guid: 6006d08bd0cd0ce40bf152c190877f08, type: 3}
+  _ammoUI: {fileID: 0}
+  _crosshairUI: {fileID: 0}
+  _minimapTexture: {fileID: 0}
+  _minimapCamOffset: {x: 0, y: 55, z: 0}
+  _minimapLayers:
+    serializedVersion: 2
+    m_Bits: 321
+  _playerNameUI: {fileID: 0}
+  _playerNameUIOffset: {x: 0, y: 2, z: -0.636}
+  _gameSettings: {fileID: 11400000, guid: f9a7bed9027647c40a5e48d6dbdf4a9a, type: 2}

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Player))]
-public class PlayerAttributeComponent : NetworkBehaviour
+public class PlayerAttributeComponent : NetworkBehaviour, IDamageable
 {
     [SyncVar(hook = nameof(OnCurrentHealthChanged))] public float CurrentHealth;
     public float MaxHealth = 100f;
@@ -20,13 +20,13 @@ public class PlayerAttributeComponent : NetworkBehaviour
 
     // Calls the apply damage on the server
     [Command(requiresAuthority = false)]
-    public void CmdApplyDamage(float amount)
+    public void CmdApplyDamage(float amount, NetworkConnectionToClient connectionToClient = null)
     {
         ApplyDamage(amount);
     }
 
     // Subtracts a value from the CurrentHealth property as long as the damage is in range.
-    private void ApplyDamage(float amount)
+    public void ApplyDamage(float amount)
     {
         if (CurrentHealth < 1)
             return;

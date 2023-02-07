@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class CarRespawn : MonoBehaviour
     [SerializeField] private LayerMask _environmentLayers;
 
     private Rigidbody rb;
+    private bool onTrack = false;
 
     private void Start()
     {
@@ -16,10 +18,22 @@ public class CarRespawn : MonoBehaviour
 
     private void Update()
     {
-        if(Physics.Raycast(_parentObject.transform.position, -_parentObject.transform.up, out RaycastHit hit, 2f, _environmentLayers))
+        if(Physics.Raycast(_parentObject.transform.position, -_parentObject.transform.up, out RaycastHit hit, 2f))
         {
-            if (hit.collider.CompareTag("Terrain")) RespawnCar();
+            if (hit.collider.CompareTag("Track")) onTrack = true;
+            else if (onTrack) 
+            {
+                onTrack = false;
+                StartCoroutine(RespawnCarAfterSecondsOffTrack(5));
+            }
         }
+    }
+
+    private IEnumerator RespawnCarAfterSecondsOffTrack(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        if (onTrack) yield break;
+        RespawnCar();
     }
 
     private void RespawnCar()

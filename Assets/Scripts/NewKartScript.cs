@@ -10,7 +10,6 @@ public class NewKartScript : MonoBehaviour
     public class StatPowerup
     {
         public NewKartScript.Stats modifiers;
-        public string PowerUpID;
         public float ElapsedTime;
         public float MaxTime;
     }

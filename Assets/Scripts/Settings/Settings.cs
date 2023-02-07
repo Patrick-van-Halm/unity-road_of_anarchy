@@ -13,6 +13,9 @@ public class Settings : MonoBehaviour
     [SerializeField] private Toggle _invertY;
     [SerializeField] private Slider _sensitivity;
     [SerializeField] private Toggle _automaticReload;
+    [SerializeField] private Slider _fov;
+    [SerializeField] private Toggle _hideYourUsername;
+    [SerializeField] private Toggle _hideOtherUsernames;
 
     [Header("Settings")]
     [SerializeField] private GameSettings _gameSettings;
@@ -29,10 +32,13 @@ public class Settings : MonoBehaviour
 
         _nameInput.text = _gameSettings.Username;
         _volumeSlider.value = _gameSettings.AudioVolume;
+        _fov.value = _gameSettings.FOV;
         _invertX.isOn = _gameSettings.InvertX;
         _invertY.isOn = _gameSettings.InvertY;
         _sensitivity.value = _gameSettings.Sensitivity;
         _automaticReload.isOn = _gameSettings.AutomaticReload;
+        _hideYourUsername.isOn = _gameSettings.HideOwnUsername;
+        _hideOtherUsernames.isOn = _gameSettings.HideOtherUsernames;
 
         _audioSettings.ChangeMasterVolume(_gameSettings.AudioVolume);
     }
@@ -65,6 +71,21 @@ public class Settings : MonoBehaviour
     public void SetAutomaticReload(bool value)
     {
         _gameSettings.AutomaticReload = value;
+    }
+
+    public void SetFOV(float value)
+    {
+        _gameSettings.FOV = value;
+    }
+
+    public void SetHideOwnUsername(bool value)
+    {
+        _gameSettings.HideOwnUsername = value;
+    }
+
+    public void SetHideOtherUsernames(bool value)
+    {
+        _gameSettings.HideOtherUsernames = value;
     }
 
     public void Save()

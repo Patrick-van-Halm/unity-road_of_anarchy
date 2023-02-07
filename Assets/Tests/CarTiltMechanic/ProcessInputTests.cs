@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ProcessInputTests
 {
-    private GameObject _playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/RobbertsTestPlayer.prefab");
+    private GameObject _playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Models/RobbertsTestPlayer.prefab");
 
     private GameObject _playerGameObject;
     private KeyboardInput _playerInput;
@@ -16,6 +16,7 @@ public class ProcessInputTests
     {
         _playerGameObject = Object.Instantiate(_playerPrefab);
         _playerInput = _playerGameObject.GetComponent<KeyboardInput>();
+        _playerInput.InputAllowed();
         _carTiltMechanic = _playerGameObject.GetComponent<CarTiltMechanic>();
     }
 

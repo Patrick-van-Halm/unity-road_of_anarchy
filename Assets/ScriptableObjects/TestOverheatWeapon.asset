@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95eed83e50c8d514dac39a9566504b3e, type: 3}
+  m_Name: TestOverheatWeapon
+  m_EditorClassIdentifier: 
+  Name: DefaultWeapon
+  FireSoundRef:
+    Guid:
+      Data1: -2007049306
+      Data2: 1139281061
+      Data3: 474171825
+      Data4: -378347253
+    Path: event:/WeaponFireSfx
+  HitSoundRef:
+    Guid:
+      Data1: -2040716264
+      Data2: 1323551642
+      Data3: 358005129
+      Data4: 19230530
+    Path: event:/HitsoundSfx
+  OverheatSoundRef:
+    Guid:
+      Data1: 1205203213
+      Data2: 1336279091
+      Data3: -1390043770
+      Data4: -8239959
+    Path: event:/WeaponHeatSfx
+  NoAmmoSoundRef:
+    Guid:
+      Data1: -2064390887
+      Data2: 1328080987
+      Data3: -204970613
+      Data4: -9422597
+    Path: event:/WeaponEmptySfx
+  WeaponState: 0
+  DamageAmount: 10
+  WeaponRange: 200
+  AmmoAmount: 10000
+  MaxAmmo: 10000
+  MaxClipSize: 60
+  ClipAmmoAmount: 60
+  ReloadTime: 2
+  FireRateDelay: 0.25
+  OverheatedTime: 2
+  CooldownTime: 0.6
+  HeatMaxValue: 32
+  CurrentHeatValue: 0
+  HeatPerShotValue: 4
+  HeatReducingValue: 4

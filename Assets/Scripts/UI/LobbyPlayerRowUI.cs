@@ -7,6 +7,8 @@ public class LobbyPlayerRowUI : MonoBehaviour
     [SerializeField] private TMP_Text _nameElement;
     public LobbyPlayer player;
 
+    [SerializeField] GameSettings _gameSettings;
+
     private void Start()
     {
         // Set the name to red by default
@@ -28,6 +30,8 @@ public class LobbyPlayerRowUI : MonoBehaviour
 
     private void SetName(string name)
     {
+        if (_gameSettings.HideOtherUsernames && !player.isLocalPlayer) name = "Player";
+
         // Change the name
         _nameElement.text = name;
     }

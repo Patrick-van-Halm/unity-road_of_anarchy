@@ -13,25 +13,47 @@ MonoBehaviour:
   m_Name: TestWeapon
   m_EditorClassIdentifier: 
   Name: DefaultWeapon
-  _fireSoundRef:
+  FireSoundRef:
     Guid:
       Data1: -2007049306
       Data2: 1139281061
       Data3: 474171825
       Data4: -378347253
     Path: event:/WeaponFireSfx
-  _hitSoundRef:
+  HitSoundRef:
     Guid:
       Data1: -2040716264
       Data2: 1323551642
       Data3: 358005129
       Data4: 19230530
     Path: event:/HitsoundSfx
-  DamageAmount: 5
-  AmmoAmount: 10
+  OverheatSoundRef:
+    Guid:
+      Data1: 1205203213
+      Data2: 1336279091
+      Data3: -1390043770
+      Data4: -8239959
+    Path: event:/WeaponHeatSfx
+  NoAmmoSoundRef:
+    Guid:
+      Data1: -2064390887
+      Data2: 1328080987
+      Data3: -204970613
+      Data4: -9422597
+    Path: event:/WeaponEmptySfx
+  WeaponState: 0
+  DamageAmount: 15
+  WeaponRange: 200
+  AmmoAmount: 0
   MaxAmmo: 20
   MaxClipSize: 20
-  ClipAmmoAmount: 5000
-  WeaponRange: 200
-  ReloadTimeInSeconds: 2
-  FireRateDelayInSeconds: 0.5
+  ClipAmmoAmount: 0
+  ReloadTime: 2
+  FireRateDelay: 0.2
+  OverheatedTime: 1
+  CooldownTime: 0.8
+  HeatMaxValue: 40
+  CurrentHeatValue: 0
+  HeatPerShotValue: 20
+  HeatReducingValue: 8
+  HeatReducingValueInWater: 15

@@ -13,6 +13,7 @@ public class GunnerCameraController : MonoBehaviour
     [SerializeField] private float _sensitivityMod;
 
     [SerializeField] private GunnerInput _gunnerInput;
+    [SerializeField] private KeyboardInput _keyboardInput;
 
     private float _xRotation;
     private float _yRotation;
@@ -30,16 +31,23 @@ public class GunnerCameraController : MonoBehaviour
 
         // Set rotation values
         _lastRotate = gunnerCamera.transform.localRotation;
-
-        StartCoroutine(CheckRotationValues());
     }
 
     // Update is called once per frame
     void Update()
     {
+        gunnerCamera.fieldOfView = _gameSettings.FOV;
+        if (_keyboardInput.SettingsOpen) return;
+        Vector2 delta = _gunnerInput.LookInput;
+
+
         // Get the mouse delta. This is not in the range -1...1
         float mouseX = _gunnerInput.LookInput.x * (_gameSettings.Sensitivity * _sensitivityMod) * Time.deltaTime;
         float mouseY = _gunnerInput.LookInput.y * (_gameSettings.Sensitivity * _sensitivityMod) * Time.deltaTime;
+
+        // Check mouse movement for rotation soundFX
+        if (delta.magnitude > 0) audio.PlayIsMovingSFX();
+        else audio.StopIsMovingSFX();
 
         // Set rotation, if necessary invert mouse rotation
         if (_gameSettings.InvertX) _yRotation -= mouseX; // inverted x
@@ -52,21 +60,5 @@ public class GunnerCameraController : MonoBehaviour
 
         // Set camera rotation
         gunnerCamera.transform.localRotation = Quaternion.Euler(_xRotation, _yRotation, 0f);
-    }
-
-    IEnumerator CheckRotationValues()
-    {
-        while (true)
-        {
-            // Check rotation values to play audio
-            if (_lastRotate != gunnerCamera.transform.localRotation)
-            {
-                audio.PlayIsMovingSFX();
-                _lastRotate = gunnerCamera.transform.localRotation;
-            }
-            else audio.StopIsMovingSFX();
-
-            yield return new WaitForSeconds(0.2f);
-        }
     }
 }

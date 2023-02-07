@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
@@ -12,9 +13,6 @@ using UnityEngine.SceneManagement;
 
 public class GameNetworkManager : NetworkManager
 {
-    [Header("Scenes")]
-    [Scene] public string FallbackScene;
-
     [Header("Events")]
     public UnityEvent<NetworkConnectionToClient> OnClientConnectedToServer;
     public UnityEvent<NetworkConnectionToClient> OnServerAddPlayerToClient;
@@ -28,11 +26,11 @@ public class GameNetworkManager : NetworkManager
     public bool UseLan;
     public bool AcceptNewConnections;
 
-    [HideInInspector] public LobbyDetails CurrentLobbyDetails;
+    public LobbyDetails CurrentLobbyDetails;
     public string DiscoveryServerAddress => "http://84.26.114.127:5555";
     public string OverwriteIP = "";
 
-
+    [SerializeField] private GameSettings _playerSettings;
     public static GameNetworkManager Instance { get; private set; }
 
     public override void Awake()
@@ -80,7 +78,7 @@ public class GameNetworkManager : NetworkManager
     public override void OnClientDisconnect()
     {
         base.OnClientDisconnect();
-        SceneManager.LoadScene(FallbackScene);
+        if(!NetworkServer.active) CurrentLobbyDetails = null;
         OnClientDisconnected?.Invoke();
     }
 
@@ -122,18 +120,11 @@ public class GameNetworkManager : NetworkManager
         base.OnClientError(exception);
     }
 
-    public override void OnClientConnect()
-    {
-        base.OnClientConnect();
-        if (NetworkServer.active) return;
-        CurrentLobbyDetails = new LobbyDetails() { Ip = networkAddress, Port = Port};
-    }
-
     public void RegisterLobby()
     {
         if (UseLan)
         {
-            RegisterLobby(new LobbyDetails() { Ip = OverwriteIP == "" ? GetLocalIPAddress() : OverwriteIP, Port = Port });
+            RegisterLobby(new LobbyDetails() { Ip = OverwriteIP == "" ? GetLocalIPAddress() : OverwriteIP, Port = Port, Name = _playerSettings.Username, PlayerCount = 1 });
             return;
         }
 
@@ -145,7 +136,7 @@ public class GameNetworkManager : NetworkManager
     private void OnPublicIpReceived(UnityWebRequest data)
     {
         // When the external IP was received create a POST request for registering the lobby
-        LobbyDetails details = new LobbyDetails() { Ip = data.downloadHandler.text, Port = Port };
+        LobbyDetails details = new LobbyDetails() { Ip = data.downloadHandler.text, Port = Port, Name = _playerSettings.Username, PlayerCount = 1 };
         RegisterLobby(details);
     }
 
@@ -157,15 +148,19 @@ public class GameNetworkManager : NetworkManager
         WWWForm postData = new WWWForm();
         postData.AddField("ip", details.Ip);
         postData.AddField("port", details.Port);
+        postData.AddField("name", details.Name);
         UnityWebRequest request = UnityWebRequest.Post($"{DiscoveryServerAddress}/servers", postData);
         StartCoroutine(request.ProcessRequest());
     }
 
     public void RemoveLobbyFromRegistry()
     {
+        if (CurrentLobbyDetails == null) return;
+
         // Remove server from registry
         UnityWebRequest request = UnityWebRequest.Delete($"{DiscoveryServerAddress}/servers?ip={CurrentLobbyDetails.Ip}&port={CurrentLobbyDetails.Port}");
         StartCoroutine(request.ProcessRequest());
+        CurrentLobbyDetails = null;
     }
 
     // Gathered from stackoverflow https://stackoverflow.com/questions/6803073/get-local-ip-address

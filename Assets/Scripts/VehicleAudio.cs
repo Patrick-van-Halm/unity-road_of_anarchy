@@ -74,4 +74,8 @@ public class VehicleAudio : MonoBehaviour
         _isBraking = !_isBraking;
     }
 
+    private void OnDisable()
+    {
+        StopBrakeSFX();
+    }
 }

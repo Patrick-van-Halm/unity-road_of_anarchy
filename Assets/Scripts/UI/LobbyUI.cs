@@ -21,6 +21,23 @@ public class LobbyUI : MonoBehaviour
     private EventInstance _countdownAudioEvent;
     private EventInstance _readyAudioEvent;
 
+    private bool _driverOnly = true;
+    public Button DriverRoleButton;
+    private bool _gunnerOnly = true;
+    public Button GunnerRoleButton;
+
+    [Header("Active role button color")]
+    public ColorBlock ActiveRoleColors;
+    [Header("Inactive role button color")]
+    public ColorBlock InactiveRoleColors;
+
+    [Header("Team selector")]
+    public List<Color> TeamColors;
+    public Image TeamColorInner;
+    public Sprite RandomTeamIcon;
+    public Sprite TeamColorKnob;
+    private Color? _selectedTeamColor;
+
     private void Awake()
     {
         _countdownAudioEvent = RuntimeManager.CreateInstance("event:/CountdownSfx");
@@ -41,6 +58,10 @@ public class LobbyUI : MonoBehaviour
 
         // Start countdown audio event
         _countdownAudioEvent.start();
+
+        // Update the button colors
+        DriverRoleButton.colors = ActiveRoleColors;
+        GunnerRoleButton.colors = ActiveRoleColors;
     }
 
     private void UpdateCountdownAudioEventParameter(int value)
@@ -117,5 +138,62 @@ public class LobbyUI : MonoBehaviour
         if (Lobby.IsLobbyStarted) return;
 
         Lobby.Disconnect();
+    }
+
+    private void SetPreferenceRole()
+    {
+        if (_driverOnly && _gunnerOnly)
+            Lobby.LocalPlayer.SetRolePreference(LobbyPlayer.RolesPreference.Both);
+        else if (_gunnerOnly)
+            Lobby.LocalPlayer.SetRolePreference(LobbyPlayer.RolesPreference.OnlyGunner);
+        else if (_driverOnly)
+            Lobby.LocalPlayer.SetRolePreference(LobbyPlayer.RolesPreference.OnlyDriver);
+    }
+
+    public void SelectDriverRole()
+    {
+        if (!_gunnerOnly) return;
+        _driverOnly = !_driverOnly;
+        DriverRoleButton.colors = _driverOnly ? ActiveRoleColors : InactiveRoleColors;
+        SetPreferenceRole();
+    }
+
+    public void SelectGunnerRole()
+    {
+        if (!_driverOnly) return;
+        _gunnerOnly = !_gunnerOnly;
+        GunnerRoleButton.colors = _gunnerOnly ? ActiveRoleColors : InactiveRoleColors;
+        SetPreferenceRole();
+    }
+
+    public void ChangeTeamColor()
+    {
+        IReadOnlyList<LobbyPlayer> lobbyPlayers = Lobby.LobbyPlayers;
+        List<Color> availableTeamColors = new();
+        foreach(Color color in TeamColors) 
+        {
+            if(lobbyPlayers.Count(p => p.TeamColor.GetValueOrDefault() == color) < 2) availableTeamColors.Add(color);
+        }
+
+        if (!_selectedTeamColor.HasValue)
+        {
+            _selectedTeamColor = availableTeamColors[0];
+            TeamColorInner.sprite = TeamColorKnob;
+        }
+        else
+        {
+            int index = TeamColors.IndexOf(_selectedTeamColor.Value);
+            if (index + 1 >= availableTeamColors.Count)
+            {
+                index = -1;
+                _selectedTeamColor = null;
+                TeamColorInner.color = Color.white;
+                TeamColorInner.sprite = RandomTeamIcon;
+                return;
+            }
+            _selectedTeamColor = availableTeamColors[index + 1];
+        }
+        TeamColorInner.color = _selectedTeamColor.Value;
+        Lobby.LocalPlayer.SetTeamPreference(_selectedTeamColor);
     }
 }

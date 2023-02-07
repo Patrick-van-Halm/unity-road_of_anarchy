@@ -4,19 +4,18 @@ using UnityEngine;
 using UnityEngine.Events;
 using FMOD.Studio;
 using FMODUnity;
+using System;
 
 public class WeaponManager : NetworkBehaviour
 {
     #region Private fields
-    private AudioListener _listener;
-    private bool _canShoot;
-    private bool _isReloading;
     private float _nextShot;
     private Gunner _gunner;
+    private bool isInWater;
     #endregion
 
     #region Bullet
-    [Header("Bullets")]
+    [Header("Bullet")]
     [SerializeField] private GameObject _bullet;
     #endregion
 
@@ -33,50 +32,86 @@ public class WeaponManager : NetworkBehaviour
     [SerializeField] private LayerMask _hittableLayers;
     #endregion
 
+    #region Events
+    [Header("Events")]
+    public UnityEvent OnEnemyHit = new UnityEvent();
+    public UnityEvent<float> OnHeatChanged = new UnityEvent<float>();
+    #endregion
+    
+    // Powerups
+    private SlowdownEffectHandler _slowdownEffectHandler;
+    private ActivateGuidedMissile _activateGuidedMissile;
+    public bool FireMissile { get; set; }
+
+
     private void Awake()
     {
-        _canShoot = true;
-        _isReloading = false;
-        _listener = FindObjectOfType<AudioListener>();
         _gunner = GetComponent<Gunner>();
     }
 
     private void Start()
     {
-        OnEnemyHit.AddListener(FindObjectOfType<PlayerHUDComponent>().OnEnemyHit);
+        Weapon.WeaponState = WeaponState.ReadyToShoot;
 
+        OnEnemyHit.AddListener(FindObjectOfType<PlayerHUDComponent>().OnEnemyHit);
+        InvokeRepeating(nameof(SubtractHeatValue), Weapon.CooldownTime, Weapon.CooldownTime);
         Weapon.AmmoAmount = 0;
         Weapon.ClipAmmoAmount = 0;
+        FireMissile = false;
+    }
+
+    public void SetSlowdownEffectHandler(SlowdownEffectHandler slowdownEffectHandler)
+    {
+        _slowdownEffectHandler = slowdownEffectHandler;
+    }
+
+    public void SetActivateGuidedMissile(ActivateGuidedMissile activateGuidedMissile)
+    {
+        _activateGuidedMissile = activateGuidedMissile;
     }
 
     #region Shooting
-    public UnityEvent OnEnemyHit = new UnityEvent();
-
-
     public void TryFireWeapon()
     {
-        // If the weapon is allowed to shoot, and has enough ammo try shooting
-        if (_canShoot && HasEnoughAmmoInClip() && HasWaitedForShotDelay())
+        if (Weapon.WeaponState == WeaponState.ReadyToShoot && 
+        (HasEnoughAmmoInClip() || FireMissile) 
+        && HasWaitedForShotDelay())
         {
-            // Play FMOD fire effect
-            //PlaySoundEffect(Weapon.WeaponFireSound);
-            PlaySoundEffectFMOD(Weapon._fireSoundRef, Vector3.zero);
+            Weapon.WeaponState = WeaponState.Firing;
+            PlaySoundEffectFMOD(Weapon.FireSoundRef, Vector3.zero);
 
-            Weapon.ClipAmmoAmount--;
+            if (FireMissile)
+            {
+                _activateGuidedMissile.PlayerFiredMissile();
+                FireMissile = false;
+            }
+            else
+            {
+                if (_gunnerCamera) PerformRaycast();
+            }     
 
-            // Calculate the time to wait before allowing the next shot. Depends on _currentWeapon.FireRateDelayInSeconds
-            _nextShot = CalculateNextShotDelay();
+            // Calculate the time to wait before allowing the next shot
+            _nextShot = Time.time + Weapon.FireRateDelay;
 
-            // Raycast in the middle of the camera
-            Ray ray = _gunnerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            // Add to heatvalue
+            Weapon.CurrentHeatValue += Weapon.HeatPerShotValue;
+            OnHeatChanged?.Invoke(Weapon.CurrentHeatValue);
 
-            // Shoot
-            PerformRaycast(ray);
+            // Check if the current shot has overheated the gun. If it does, then start cooldown
+            CheckGunOverheat();
+
+            if (Weapon.WeaponState != WeaponState.Overheated) Weapon.WeaponState = WeaponState.ReadyToShoot;
+            //CmdSetBulletDirection(bulletDirection);
         }
     }
 
-    private void PerformRaycast(Ray ray)
+    private void PerformRaycast()
     {
+        if (!isLocalPlayer) return;
+
+        // Raycast in the middle of the camera
+        Ray ray = _gunnerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
         // Stores the location of the point where the target is hit
         Vector3 targetPoint = ray.GetPoint(Weapon.WeaponRange);
 
@@ -86,23 +121,31 @@ public class WeaponManager : NetworkBehaviour
             if (IsHittable(hit) is IDamageable target)
             {
                 Debug.Log("Target is enemy");
-
-                // Store the hit location as Vector3
-                targetPoint = hit.point;
+                PlaySoundEffectFMOD(Weapon.HitSoundRef, hit.point);
 
                 target.CmdApplyDamage(Weapon.DamageAmount);
-
-                //PlaySoundEffect(Weapon.HitSound);
-                PlaySoundEffectFMOD(Weapon._hitSoundRef, hit.point);
-
                 OnEnemyHit.Invoke();
+
+                if (_slowdownEffectHandler.SlowdownBulletsActive)
+                {
+                    SlowdownBullet slowdownBullet = _slowdownEffectHandler.SlowdownBulletProperties;
+                    _slowdownEffectHandler.CmdApplySlowdownEffect(slowdownBullet.EffectDuration, slowdownBullet.AccelerationDecreaseAmount, slowdownBullet.TopSpeedDecreaseAmount);
+                }
             }
         }
 
         // Calculate the direction in which the weapon needs to fire
-        InstantiateBullet(CalculateFireDirection(targetPoint));
+        Weapon.ClipAmmoAmount--;
+        CmdInstatiateBullet(CalculateFireDirection(targetPoint));
+    }
 
-        //CmdSetBulletDirection(bulletDirection);
+    private void CheckGunOverheat()
+    {
+        if (HasExceededOverheatLimit())
+        {
+            PlaySoundEffectFMOD(Weapon.OverheatSoundRef, Vector3.zero);
+            StartCoroutine(nameof(CoroWaitForCooldown), Weapon.OverheatedTime);
+        }
     }
 
     private IDamageable IsHittable(RaycastHit hit)
@@ -135,20 +178,21 @@ public class WeaponManager : NetworkBehaviour
 
     #endregion
 
-    #region Bullets
+    #region Bullets and Projectiles
     private void InstantiateBullet(Vector3 bulletDirection)
     {
         // Instantiate bullet
         GameObject currentBullet = Instantiate(_bullet, _weaponMuzzlePosition.transform.position, Quaternion.identity);
 
         // Rotate bullet to shoot direction
-        currentBullet.transform.forward = bulletDirection.normalized;   
+        currentBullet.transform.forward = bulletDirection.normalized;
     }
     #endregion
 
     #region Sound
-    public void PlaySoundEffectFMOD(EventReference soundReference, Vector3 location)
+    private void PlaySoundEffectFMOD(EventReference soundReference, Vector3 location)
     {
+        if (soundReference.IsNull) return;
         EventInstance soundInstance = RuntimeManager.CreateInstance(soundReference);
 
         // No location was passed in
@@ -168,14 +212,26 @@ public class WeaponManager : NetworkBehaviour
     #endregion
 
     #region Weapon Handling
-    private float CalculateNextShotDelay()
-    {
-        return Time.time + Weapon.FireRateDelayInSeconds;
-    }
-
     private bool HasEnoughAmmoInClip()
     {
         return Weapon.ClipAmmoAmount > 0;
+    }
+
+    private void SubtractHeatValue()
+    {
+        // Dont reduce heat when weapon is firing
+        // If the weapon is overheated, dont reduce value (CoroWaitForCooldown will reset)
+        if (Weapon.WeaponState == WeaponState.Overheated || Weapon.WeaponState == WeaponState.Firing || Weapon.CurrentHeatValue == 0f)
+            return;
+    
+        Weapon.CurrentHeatValue -= isInWater ? Weapon.HeatReducingValueInWater : Weapon.HeatReducingValue;
+        if(Weapon.CurrentHeatValue < 0) Weapon.CurrentHeatValue = 0;
+        OnHeatChanged?.Invoke(Weapon.CurrentHeatValue);
+    }
+
+    private bool HasExceededOverheatLimit()
+    {
+        return Weapon.CurrentHeatValue >= Weapon.HeatMaxValue;
     }
 
     private bool HasWaitedForShotDelay()
@@ -198,14 +254,13 @@ public class WeaponManager : NetworkBehaviour
     public void ReloadWeapon()
     {
         // Only allow reload if player has enough ammo, and not already reloading
-        if (HasEnoughAmmoToReload() && !HasFullClip() && !_isReloading)
-            StartCoroutine(nameof(CoroReloadDelay), Weapon.ReloadTimeInSeconds);
+        if (HasEnoughAmmoToReload() && Weapon.WeaponState != WeaponState.Reloading)
+            StartCoroutine(nameof(CoroReloadDelay), Weapon.ReloadTime);
     }
 
     private IEnumerator CoroReloadDelay(float delayTime)
     {
-        _canShoot = false;
-        _isReloading = true;
+        Weapon.WeaponState = WeaponState.Reloading;
 
         yield return new WaitForSeconds(delayTime);
 
@@ -228,8 +283,24 @@ public class WeaponManager : NetworkBehaviour
         //Weapon.ClipAmmoAmount = Weapon.MaxClipSize;
         //Weapon.AmmoAmount -= Weapon.MaxClipSize;
 
-        _isReloading = false;
-        _canShoot = true;
+        Weapon.WeaponState = WeaponState.ReadyToShoot;
+    }
+
+    private IEnumerator CoroWaitForCooldown(float delayTime)
+    {
+        Weapon.WeaponState = WeaponState.Overheated;
+
+        yield return new WaitForSeconds(delayTime);
+
+        Weapon.CurrentHeatValue = 0f;
+        OnHeatChanged?.Invoke(Weapon.CurrentHeatValue);
+
+        Weapon.WeaponState = WeaponState.ReadyToShoot;
+    }
+
+    public void WaterCooldown(bool inWater)
+    {
+        isInWater = inWater;
     }
     #endregion
 }

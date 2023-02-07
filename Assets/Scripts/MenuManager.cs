@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public GameObject SettingsPanel;
+
     public void GoToScene(string SceneName)
     {
         SceneManager.LoadScene(SceneName);
@@ -17,6 +19,12 @@ public class MenuManager : MonoBehaviour
             Panel.SetActive(true); return;
         }
             Panel.SetActive(false);
+    }
+
+    public void HideCursor()
+    {
+        Cursor.visible = false; 
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void QuitGame()

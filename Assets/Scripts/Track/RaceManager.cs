@@ -1,3 +1,4 @@
+using FMODUnity;
 using Mirror;
 using System;
 using System.Collections;
@@ -116,7 +117,8 @@ public class RaceManager : NetworkBehaviour
             _vehiclePositionList[vehicleIndex].CurrentCheckpoint++;
 
             // Correct checkpoint event
-            TargetCorrectCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient);
+            TargetCorrectCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<NetworkIdentity>().connectionToClient, _vehiclePositionList[vehicleIndex].CurrentCheckpoint);
+            TargetCorrectCheckpoint(_vehiclePositionList[vehicleIndex].Vehicle.GetComponent<Vehicle>().Team.GunnerIdentity.connectionToClient, _vehiclePositionList[vehicleIndex].CurrentCheckpoint);
 
             // When lap is completed
             if (_checkpointsList.Count == _vehiclePositionList[vehicleIndex].CurrentCheckpoint && _checkpointsList.Count == _vehiclePositionList[vehicleIndex].CheckpointsDrivenThrough.Count - _vehiclePositionList[vehicleIndex].CurrentLap * _checkpointsList.Count)
@@ -133,6 +135,9 @@ public class RaceManager : NetworkBehaviour
                     // Finished race
                     if (team.DriverIdentity.connectionToClient != null) TargetFinishRace(team.DriverIdentity.connectionToClient, vehicleIndex + 1);
                     if (team.GunnerIdentity.connectionToClient != null) TargetFinishRace(team.GunnerIdentity.connectionToClient, vehicleIndex + 1);
+
+                    FMOD.Studio.Bus bus = RuntimeManager.GetBus("bus:/");
+                    bus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 }
                 else
                 {
@@ -194,9 +199,10 @@ public class RaceManager : NetworkBehaviour
     }
 
     [TargetRpc]
-    private void TargetCorrectCheckpoint(NetworkConnection target)
+    private void TargetCorrectCheckpoint(NetworkConnection target, int checkpointIdx)
     {
         CorrectCheckpoint?.Invoke();
+        if(_checkpointsList.Count > checkpointIdx && checkpointIdx >= 0) _checkpointsList[checkpointIdx].OnCheckpointEntered?.Invoke();
     }
 
     [Command(requiresAuthority = false)]
@@ -355,5 +361,22 @@ public class RaceManager : NetworkBehaviour
     private void TargetFinishRace(NetworkConnection target, int position)
     {
         FinishRace?.Invoke(position, "You finished the match. Your team's position: ");
+    }
+
+    public int GetCarPosition(GameObject car)
+    {
+        return _vehiclePositionList.FindIndex(v => v.Vehicle == car) + 1;
+    }
+
+    public Transform GetCarTransform(int position)
+    {
+        position--;
+
+        if (position >= 0 && position < _vehiclePositionList.Count)
+        {
+            return _vehiclePositionList[position].Vehicle.gameObject.transform;
+        }
+        
+        return null;
     }
 }
